@@ -1,0 +1,6 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLE.html
+
+CREATE TABLE name ( column_definition [, ...] [ , table_constraint [, ...] ] ) [ TABLESPACE tablespace ] [ PARTITION BY partition_clause ]
+
+# WHERE column_definition
+colname data_type [ DEFAULT default_expression ] [ NOT NULL ]
