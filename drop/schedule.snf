@@ -1,0 +1,3 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_SCHEDULER.html
+
+BEGIN DBMS_SCHEDULER.DROP_SCHEDULE(SCHEDULE_NAME => name, FORCE => FALSE); END;

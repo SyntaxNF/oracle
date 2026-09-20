@@ -1,0 +1,3 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-DATABASE-LINK.html
+
+CREATE DATABASE LINK name CONNECT TO remote_user IDENTIFIED BY password USING connect_string

@@ -1,0 +1,3 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TABLE.html
+
+ALTER TABLE name ADD ( colname data_type [ DEFAULT default_expression ] [ NOT NULL ] )

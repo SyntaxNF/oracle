@@ -1,0 +1,3 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_MVIEW.html
+
+BEGIN DBMS_MVIEW.REFRESH(LIST => name, METHOD => 'C', ATOMIC_REFRESH => TRUE); END;
