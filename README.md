@@ -1,6 +1,6 @@
 # Oracle SNF
 
-本仓库维护 `Oracle Database 19c` 对象操作语句的 `SNF`（Syntax Normal Form）定义。定义既用于阅读，也作为规范 SQL 的生成输入，因此需要准确表达分支、可选项、重复结构和语法节点的语义。本仓库聚焦 Studio 支持的受控操作，不覆盖 Oracle 的全部 SQL 语句。
+本仓库维护 `Oracle Database 19c` 对象操作语句的 `SNF`（Syntax Normal Form）定义。定义既用于阅读，也作为规范 SQL 的生成输入，因此需要准确表达分支、可选项、重复结构和语法节点的语义。定义以 Oracle SQL/PLSQL 语法为边界，独立于消费方的菜单和功能。当前语法覆盖仍在完善；不得为了 Studio 的某个操作而复制、裁剪定义或写死应用策略。
 
 ## 版本基线
 
@@ -54,7 +54,7 @@ colname data_type [ DEFAULT default_expression ] [ NOT NULL ]
 ## 书写与生成规则
 
 - SQL 关键字及 PL/SQL 命名参数使用大写，语义占位符使用小写；文件名使用小写和连字符。
-- 每个文件对应一个受控操作。相互独立且最多出现一次的子句分别写为可选项；只有真正允许重复的结构才使用 `...`。
+- 每个文件对应一种 SQL 语句或 PL/SQL 过程调用族，同一句法的变体使用 CASE。相互独立且最多出现一次的子句分别写为可选项；只有真正允许重复的结构才使用 `...`。
 - `ONEOFIS` 的单个候选不能换行；候选需要跨行时使用 `PARTOFIS`。
 - PL/SQL 定义包含完整单元内容，不附加 SQL*Plus 使用的 `/`。
 - SNF 表达规范语句，不收录仅被解析器容忍、但不适合作为标准生成结果的写法。
@@ -106,3 +106,7 @@ colname data_type [ DEFAULT default_expression ] [ NOT NULL ]
 ## Studio 集成
 
 Studio 的 Oracle Registry 决定哪些操作可执行；SNF Pages 只提供语法定义。占位符由 SNF Editor 填写，Oracle Runner 负责标识符引用、目标锁定、参数、权限和语句边界校验。`create/`、`alter/`、`drop/`、`auth/`、`other/` 由 `snf/oracle` 包构建为独立的 Oracle SNF Pages。
+
+### 语法与应用边界
+
+同一 SQL 语句的变体使用 CASE；创建和替换复用 CREATE 定义。Scheduler 调用按过程定义，不能按任务/程序菜单复制。Studio 在操作注册表中映射定义路径和 CASE，负责默认值、允许范围、目标锁定、权限及执行流程；不得修改加载后的语法树来改变语句。

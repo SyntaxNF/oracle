@@ -1,0 +1,25 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-USER.html
+
+# CASE DEFAULT_ROLE
+ALTER USER name DEFAULT ROLE { role [, ...] | ALL [ EXCEPT role [, ...] ] | NONE }
+
+# CASE DEFAULTS
+ALTER USER name [ DEFAULT TABLESPACE tablespace ] [ QUOTA quota_value size_unit ON tablespace ] [ PROFILE profile ]
+
+# CASE LOCK
+ALTER USER name ACCOUNT LOCK
+
+# CASE PASSWORD
+ALTER USER name IDENTIFIED BY password
+
+# CASE UNLOCK
+ALTER USER name ACCOUNT UNLOCK
+
+# PARTOFIS size_unit
+K
+
+M
+
+G
+
+T

@@ -1,3 +1,0 @@
-# https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_SCHEDULER.html
-
-BEGIN DBMS_SCHEDULER.CREATE_PROGRAM(PROGRAM_NAME => name, PROGRAM_TYPE => program_type, PROGRAM_ACTION => program_action, NUMBER_OF_ARGUMENTS => 0, ENABLED => FALSE); END;
