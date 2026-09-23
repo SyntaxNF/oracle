@@ -1,0 +1,10 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TRIGGER.html
+
+# CASE COMPILE
+ALTER TRIGGER name COMPILE
+
+# CASE DISABLE
+ALTER TRIGGER name DISABLE
+
+# CASE ENABLE
+ALTER TRIGGER name ENABLE

@@ -1,3 +1,0 @@
-# https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_SCHEDULER.html
-
-BEGIN DBMS_SCHEDULER.SET_ATTRIBUTE(NAME => name, ATTRIBUTE => 'REPEAT_INTERVAL', VALUE => repeat_interval); END;
