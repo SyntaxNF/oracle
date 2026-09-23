@@ -1,0 +1,7 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TYPE.html
+
+# CASE COMPILE
+ALTER TYPE name COMPILE
+
+# CASE COMPILE_BODY
+ALTER TYPE name COMPILE BODY

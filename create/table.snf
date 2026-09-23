@@ -1,6 +1,16 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLE.html
 
+# CASE NORMAL
 CREATE TABLE name ( column_definition [, ...] [ , table_constraint [, ...] ] ) [ TABLESPACE tablespace ] [ PARTITION BY partition_clause ]
 
 # WHERE column_definition
 colname data_type [ DEFAULT default_expression ] [ NOT NULL ]
+
+# CASE TEMPORARY
+CREATE GLOBAL TEMPORARY TABLE name ( column_definition [, ...] [ , table_constraint [, ...] ] ) ON COMMIT { DELETE | PRESERVE } ROWS
+
+# CASE EXTERNAL
+CREATE TABLE name ( column_definition [, ...] [ , table_constraint [, ...] ] ) ORGANIZATION EXTERNAL ( TYPE access_driver DEFAULT DIRECTORY directory ACCESS PARAMETERS ( access_parameters ) LOCATION ( file_name ) ) REJECT LIMIT reject_limit
+
+# CASE INDEX_ORGANIZED
+CREATE TABLE name ( column_definition [, ...] [ , table_constraint [, ...] ] ) ORGANIZATION INDEX

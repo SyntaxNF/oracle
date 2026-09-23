@@ -1,0 +1,19 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TABLESPACE.html
+
+# CASE ADD_DATAFILE
+ALTER TABLESPACE name ADD DATAFILE file_name SIZE size_value size_unit
+
+# CASE READ_ONLY
+ALTER TABLESPACE name READ ONLY
+
+# CASE READ_WRITE
+ALTER TABLESPACE name READ WRITE
+
+# PARTOFIS size_unit
+K
+
+M
+
+G
+
+T

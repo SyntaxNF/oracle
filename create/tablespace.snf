@@ -1,3 +1,12 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLESPACE.html
 
-CREATE TABLESPACE name DATAFILE file_name SIZE size_mb M
+CREATE TABLESPACE name DATAFILE file_name SIZE size_value size_unit
+
+# PARTOFIS size_unit
+K
+
+M
+
+G
+
+T

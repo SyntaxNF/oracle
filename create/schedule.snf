@@ -1,3 +1,0 @@
-# https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_SCHEDULER.html
-
-BEGIN DBMS_SCHEDULER.CREATE_SCHEDULE(SCHEDULE_NAME => name, REPEAT_INTERVAL => repeat_interval); END;

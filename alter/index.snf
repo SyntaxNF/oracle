@@ -1,0 +1,13 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-INDEX.html
+
+# CASE INVISIBLE
+ALTER INDEX name INVISIBLE
+
+# CASE REBUILD
+ALTER INDEX name REBUILD [ TABLESPACE tablespace ]
+
+# CASE RENAME
+ALTER INDEX name RENAME TO new_name
+
+# CASE VISIBLE
+ALTER INDEX name VISIBLE

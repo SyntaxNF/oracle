@@ -1,3 +1,0 @@
-# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-PACKAGE-BODY.html
-
-CREATE OR REPLACE PACKAGE BODY name object_definition
