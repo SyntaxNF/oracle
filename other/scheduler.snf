@@ -1,7 +1,7 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_SCHEDULER.html
 
 # CASE CREATE_JOB
-BEGIN DBMS_SCHEDULER.CREATE_JOB(JOB_NAME => name, JOB_TYPE => job_type, JOB_ACTION => job_action, REPEAT_INTERVAL => repeat_interval, ENABLED => enabled, AUTO_DROP => auto_drop); END;
+BEGIN DBMS_SCHEDULER.CREATE_JOB(JOB_NAME => name, JOB_TYPE => job_type, JOB_ACTION => job_action, REPEAT_INTERVAL => repeat_interval, [ NUMBER_OF_ARGUMENTS => number_of_arguments, ] ENABLED => enabled, AUTO_DROP => auto_drop); END;
 
 # CASE CREATE_PROGRAM
 BEGIN DBMS_SCHEDULER.CREATE_PROGRAM(PROGRAM_NAME => name, PROGRAM_TYPE => program_type, PROGRAM_ACTION => program_action, NUMBER_OF_ARGUMENTS => number_of_arguments, ENABLED => enabled); END;
@@ -17,6 +17,18 @@ BEGIN DBMS_SCHEDULER.ENABLE(NAME => name); END;
 
 # CASE SET_ATTRIBUTE
 BEGIN DBMS_SCHEDULER.SET_ATTRIBUTE(NAME => name, ATTRIBUTE => attribute, VALUE => attribute_value); END;
+
+# CASE DEFINE_PROGRAM_ARGUMENT
+BEGIN DBMS_SCHEDULER.DEFINE_PROGRAM_ARGUMENT(PROGRAM_NAME => name, ARGUMENT_POSITION => argument_position, ARGUMENT_NAME => argument_name, ARGUMENT_TYPE => argument_type [, DEFAULT_VALUE => default_value ], OUT_ARGUMENT => out_argument); END;
+
+# CASE DROP_PROGRAM_ARGUMENT
+BEGIN DBMS_SCHEDULER.DROP_PROGRAM_ARGUMENT(PROGRAM_NAME => name, ARGUMENT_POSITION => argument_position); END;
+
+# CASE SET_JOB_ARGUMENT_VALUE
+BEGIN DBMS_SCHEDULER.SET_JOB_ARGUMENT_VALUE(JOB_NAME => name, ARGUMENT_POSITION => argument_position, ARGUMENT_VALUE => argument_value); END;
+
+# CASE RESET_JOB_ARGUMENT_VALUE
+BEGIN DBMS_SCHEDULER.RESET_JOB_ARGUMENT_VALUE(JOB_NAME => name, ARGUMENT_POSITION => argument_position); END;
 
 # CASE DROP_JOB
 BEGIN DBMS_SCHEDULER.DROP_JOB(JOB_NAME => name, FORCE => force); END;
@@ -38,6 +50,11 @@ TRUE
 FALSE
 
 # PARTOFIS force
+TRUE
+
+FALSE
+
+# PARTOFIS out_argument
 TRUE
 
 FALSE
