@@ -1,0 +1,6 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-RESTORE-POINT.html
+
+CREATE [ CLEAN ] RESTORE POINT name
+    [ FOR PLUGGABLE DATABASE pluggable_database ]
+    [ AS OF { TIMESTAMP | SCN } value_expression ]
+    [ PRESERVE | GUARANTEE FLASHBACK DATABASE ]

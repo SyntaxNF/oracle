@@ -1,0 +1,4 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-CONTEXT.html
+
+CREATE [ OR REPLACE ] CONTEXT name USING package
+    [ INITIALIZED { EXTERNALLY | GLOBALLY } | ACCESSED GLOBALLY ]

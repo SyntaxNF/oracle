@@ -1,0 +1,7 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-SYNONYM.html
+
+# CASE COMPILE
+ALTER [ PUBLIC ] SYNONYM name COMPILE
+
+# CASE EDITIONING
+ALTER [ PUBLIC ] SYNONYM name { EDITIONABLE | NONEDITIONABLE }

@@ -1,0 +1,16 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/LOCK-TABLE.html
+
+LOCK TABLE lock_target [, ...] IN lock_mode MODE [ NOWAIT | WAIT seconds ]
+
+# WHERE lock_target
+table [ PARTITION ( partition ) | SUBPARTITION ( subpartition ) |
+    PARTITION FOR ( partition_key_value [, ...] ) |
+    SUBPARTITION FOR ( subpartition_key_value [, ...] ) | @ database_link ]
+
+# ONEOFIS lock_mode
+ROW SHARE
+ROW EXCLUSIVE
+SHARE UPDATE
+SHARE
+SHARE ROW EXCLUSIVE
+EXCLUSIVE

@@ -1,10 +1,27 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/REVOKE.html
 
 # CASE OBJECT
-REVOKE privilege ON name FROM grantee
+REVOKE { privilege | ALL [ PRIVILEGES ] } [, ...] ON object_target FROM grantee [, ...]
+    [ CASCADE CONSTRAINTS | FORCE ] [ CONTAINER = { CURRENT | ALL } ]
 
 # CASE SYSTEM
-REVOKE privilege FROM grantee
+REVOKE { privilege | role | ALL PRIVILEGES } [, ...] FROM grantee [, ...]
+    [ CONTAINER = { CURRENT | ALL } ]
 
 # CASE ROLE
-REVOKE role FROM grantee
+REVOKE role [, ...] FROM grantee [, ...] [ CONTAINER = { CURRENT | ALL } ]
+
+# CASE PROGRAM
+REVOKE { role [, ...] | ALL } FROM program_target [, ...]
+
+# WHERE program_target
+{ FUNCTION function | PROCEDURE procedure | PACKAGE package }
+
+# ONEOFIS object_target
+name
+USER user [, ...]
+DIRECTORY name
+EDITION name
+MINING MODEL name
+JAVA { SOURCE | RESOURCE } name
+SQL TRANSLATION PROFILE name

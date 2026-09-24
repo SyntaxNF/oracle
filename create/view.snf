@@ -1,3 +1,15 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-VIEW.html
 
-CREATE [ OR REPLACE ] VIEW name AS query_statement
+CREATE [ OR REPLACE ] [ FORCE | NOFORCE ]
+    [ EDITIONING | EDITIONABLE [ EDITIONING ] | NONEDITIONABLE ] VIEW name
+    [ ( view_column_definition [, ...] ) ]
+    [ DEFAULT COLLATION collate ]
+    [ BEQUEATH { CURRENT_USER | DEFINER } ]
+    AS query_statement
+    [ WITH { READ ONLY | CHECK OPTION } [ CONSTRAINT constraint ] ]
+
+# STATEMENT query_statement
+SELECT
+
+# WHERE view_column_definition
+col_alias [ VISIBLE | INVISIBLE ]
