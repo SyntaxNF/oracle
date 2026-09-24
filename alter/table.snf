@@ -109,6 +109,18 @@ ALTER TABLE name MODIFY ( { colname { VISIBLE | INVISIBLE } } [, ...] )
 # CASE ROW_MOVEMENT
 ALTER TABLE name { ENABLE | DISABLE } ROW MOVEMENT
 
+# CASE PHYSICAL_ATTRIBUTES
+ALTER TABLE name [ PCTFREE pctfree ] [ INITRANS initrans ]
+
+# CASE LOGGING
+ALTER TABLE name { LOGGING | NOLOGGING }
+
+# CASE COMPRESSION
+ALTER TABLE name { NOCOMPRESS | COMPRESS [ BASIC | FOR { OLTP | QUERY { LOW | HIGH } | ARCHIVE { LOW | HIGH } } ] | ROW STORE COMPRESS [ BASIC | ADVANCED ] }
+
+# CASE PARALLEL
+ALTER TABLE name { NOPARALLEL | PARALLEL [ degree ] }
+
 # WHERE constraint_definition
 { UNIQUE ( colname [, ...] ) | PRIMARY KEY ( colname [, ...] ) |
   FOREIGN KEY ( colname [, ...] ) REFERENCES referenced_table [ ( referenced_colname [, ...] ) ]
