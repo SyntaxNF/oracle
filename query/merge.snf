@@ -1,0 +1,27 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/MERGE.html
+
+MERGE INTO table [ target_alias ]
+    USING { source_table | ( query_statement ) } [ source_alias ]
+    ON ( boolean_expression )
+    { update_clause [ insert_clause ] | insert_clause }
+    [ error_logging_clause ]
+
+# WHERE update_clause
+WHEN MATCHED THEN UPDATE SET column_assignment [, ...]
+    [ WHERE boolean_expression ]
+    [ DELETE WHERE boolean_expression ]
+
+# WHERE insert_clause
+WHEN NOT MATCHED THEN INSERT [ ( colname [, ...] ) ]
+    VALUES ( { value_expression | DEFAULT } [, ...] )
+    [ WHERE boolean_expression ]
+
+# WHERE error_logging_clause
+LOG ERRORS [ INTO error_table ] [ ( tag_expression ) ]
+    [ REJECT LIMIT { reject_limit | UNLIMITED } ]
+
+# STATEMENT query_statement
+SELECT
+
+# WHERE column_assignment
+colname = { value_expression | DEFAULT }

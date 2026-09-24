@@ -1,0 +1,4 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/PURGE.html
+
+PURGE { TABLE table | INDEX index | TABLESPACE tablespace [ USER user ] |
+    TABLESPACE SET tablespace_set [ USER user ] | RECYCLEBIN | DBA_RECYCLEBIN }

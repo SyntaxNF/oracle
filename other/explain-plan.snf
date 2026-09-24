@@ -1,0 +1,14 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/EXPLAIN-PLAN.html
+
+EXPLAIN PLAN [ SET STATEMENT_ID = 'statement_id' ]
+    [ INTO plan_table [ @ database_link ] ] FOR sql_statement
+
+# STATEMENT sql_statement
+SELECT
+INSERT
+UPDATE
+DELETE
+MERGE
+CREATE TABLE
+CREATE INDEX
+ALTER INDEX

@@ -11,7 +11,9 @@
 - `create/`：创建数据库对象。
 - `alter/`：修改数据库对象及其状态。
 - `drop/`：删除数据库对象。
-- `auth/`：授权与撤销授权。
+- `query/`：查询、插入、更新、删除和合并。
+- `transaction/`：事务、保存点和锁定。
+- `auth/`：授权、撤销授权和角色设置。
 - `other/`：注释、刷新和截断等操作。
 
 ## SNF 语法
@@ -105,8 +107,12 @@ colname data_type [ DEFAULT default_expression ] [ NOT NULL ]
 
 ## Studio 集成
 
-Studio 的 Oracle Registry 决定哪些操作可执行；SNF Pages 只提供语法定义。占位符由 SNF Editor 填写，Oracle Runner 负责标识符引用、目标锁定、参数、权限和语句边界校验。`create/`、`alter/`、`drop/`、`auth/`、`other/` 由 `snf/oracle` 包构建为独立的 Oracle SNF Pages。
+Studio 的 Oracle Registry 决定哪些操作可执行；SNF Pages 只提供语法定义。占位符由 SNF Editor 填写，Oracle Runner 负责标识符引用、目标锁定、参数、权限和语句边界校验。`create/`、`alter/`、`drop/`、`query/`、`transaction/`、`auth/`、`other/` 由 `snf/oracle` 包构建为独立的 Oracle SNF Pages。
 
 ### 语法与应用边界
 
 同一 SQL 语句的变体使用 CASE；创建和替换复用 CREATE 定义。Scheduler 调用按过程定义，不能按任务/程序菜单复制。Studio 在操作注册表中映射定义路径和 CASE，负责默认值、允许范围、目标锁定、权限及执行流程；不得修改加载后的语法树来改变语句。
+
+## 覆盖状态
+
+语句入口覆盖、本轮修正和剩余缺口见 [SQL 定义覆盖检查](docs/coverage.md)。文件存在不代表全部语法组合已经验证。

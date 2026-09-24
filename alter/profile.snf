@@ -1,3 +1,29 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-PROFILE.html
 
-ALTER PROFILE name LIMIT FAILED_LOGIN_ATTEMPTS failed_login_attempts PASSWORD_LIFE_TIME password_life_time
+ALTER PROFILE name LIMIT
+    [ SESSIONS_PER_USER { sessions_per_user | UNLIMITED | DEFAULT } ]
+    [ CPU_PER_SESSION { cpu_per_session | UNLIMITED | DEFAULT } ]
+    [ CPU_PER_CALL { cpu_per_call | UNLIMITED | DEFAULT } ]
+    [ CONNECT_TIME { connect_time | UNLIMITED | DEFAULT } ]
+    [ IDLE_TIME { idle_time | UNLIMITED | DEFAULT } ]
+    [ LOGICAL_READS_PER_SESSION { logical_reads_per_session | UNLIMITED | DEFAULT } ]
+    [ LOGICAL_READS_PER_CALL { logical_reads_per_call | UNLIMITED | DEFAULT } ]
+    [ COMPOSITE_LIMIT { composite_limit | UNLIMITED | DEFAULT } ]
+    [ PRIVATE_SGA { size_value [ size_unit ] | UNLIMITED | DEFAULT } ]
+    [ FAILED_LOGIN_ATTEMPTS { failed_login_attempts | UNLIMITED | DEFAULT } ]
+    [ PASSWORD_LIFE_TIME { password_life_time | UNLIMITED | DEFAULT } ]
+    [ PASSWORD_REUSE_TIME { password_reuse_time | UNLIMITED | DEFAULT } ]
+    [ PASSWORD_REUSE_MAX { password_reuse_max | UNLIMITED | DEFAULT } ]
+    [ PASSWORD_LOCK_TIME { password_lock_time | UNLIMITED | DEFAULT } ]
+    [ PASSWORD_GRACE_TIME { password_grace_time | UNLIMITED | DEFAULT } ]
+    [ INACTIVE_ACCOUNT_TIME { inactive_account_time | UNLIMITED | DEFAULT } ]
+    [ PASSWORD_VERIFY_FUNCTION { function | NULL | DEFAULT } ]
+    [ CONTAINER = { CURRENT | ALL } ]
+
+# ONEOFIS size_unit
+K
+M
+G
+T
+P
+E

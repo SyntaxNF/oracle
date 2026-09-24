@@ -1,3 +1,11 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-SEQUENCE.html
 
-ALTER SEQUENCE name [ INCREMENT BY increment_value ] [ { CACHE cache_value | NOCACHE } ] [ { CYCLE | NOCYCLE } ] [ { ORDER | NOORDER } ]
+# CASE OPTIONS
+ALTER SEQUENCE name [ INCREMENT BY increment_value ]
+    [ MAXVALUE max_value | NOMAXVALUE ] [ MINVALUE min_value | NOMINVALUE ]
+    [ CACHE cache_value | NOCACHE ] [ CYCLE | NOCYCLE ] [ ORDER | NOORDER ]
+    [ KEEP | NOKEEP ] [ SCALE [ EXTEND | NOEXTEND ] | NOSCALE ]
+    [ SHARD [ EXTEND | NOEXTEND ] | NOSHARD ] [ SESSION | GLOBAL ]
+
+# CASE RESTART
+ALTER SEQUENCE name RESTART [ START WITH start_value ]

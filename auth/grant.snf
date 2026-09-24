@@ -1,10 +1,32 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/GRANT.html
 
 # CASE OBJECT
-GRANT privilege ON name TO grantee [ WITH GRANT OPTION ]
+GRANT object_privilege [, ...] ON object_target TO grantee [, ...]
+    [ WITH HIERARCHY OPTION ] [ WITH GRANT OPTION ]
+    [ CONTAINER = { CURRENT | ALL } ]
 
 # CASE SYSTEM
-GRANT privilege TO grantee [ WITH ADMIN OPTION ]
+GRANT { privilege | role | ALL PRIVILEGES } [, ...] TO grantee [, ...]
+    [ WITH { ADMIN | DELEGATE } OPTION ] [ CONTAINER = { CURRENT | ALL } ]
 
 # CASE ROLE
-GRANT role TO grantee [ WITH ADMIN OPTION ]
+GRANT role [, ...] TO grantee [, ...]
+    [ WITH { ADMIN | DELEGATE } OPTION ] [ CONTAINER = { CURRENT | ALL } ]
+
+# CASE PROGRAM
+GRANT role [, ...] TO program_target [, ...]
+
+# WHERE object_privilege
+{ privilege | ALL [ PRIVILEGES ] } [ ( colname [, ...] ) ]
+
+# WHERE program_target
+{ FUNCTION function | PROCEDURE procedure | PACKAGE package }
+
+# ONEOFIS object_target
+name
+USER user [, ...]
+DIRECTORY name
+EDITION name
+MINING MODEL name
+JAVA { SOURCE | RESOURCE } name
+SQL TRANSLATION PROFILE name

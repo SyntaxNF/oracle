@@ -1,0 +1,3 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-SPFILE.html
+
+CREATE SPFILE [ = 'file_name' ] FROM { PFILE [ = 'parameter_file_name' ] [ AS COPY ] | MEMORY }

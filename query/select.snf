@@ -1,0 +1,89 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/SELECT.html
+
+# CASE SELECT
+[ WITH with_query_definition [, ...] ]
+SELECT [ DISTINCT | UNIQUE | ALL ]
+    { * | select_expression [, ...] }
+    FROM from_expression [, ...]
+    [ WHERE boolean_expression ]
+    [ hierarchical_query_clause ]
+    [ GROUP BY group_by_expression [, ...] ]
+    [ HAVING boolean_expression ]
+    [ model_clause ]
+    [ { UNION [ ALL ] | INTERSECT | MINUS } query_statement ]
+    [ ORDER [ SIBLINGS ] BY order_by_expression [, ...] ]
+    [ row_limiting_clause | for_update_clause ]
+
+# CASE PARENTHESIZED
+( query_statement )
+    [ ORDER BY order_by_expression [, ...] ]
+    [ row_limiting_clause | for_update_clause ]
+
+# WHERE select_expression
+{ table . * | col_expression [ [ AS ] col_alias ] }
+
+# WHERE with_query_definition
+with_name [ ( colname [, ...] ) ] AS ( query_statement )
+    [ SEARCH { DEPTH | BREADTH } FIRST BY order_by_expression [, ...] SET search_colname ]
+    [ CYCLE colname [, ...] SET cycle_colname TO cycle_value DEFAULT noncycle_value ]
+
+# PARTOFIS from_expression
+table [ partition_extension_clause | @ database_link ]
+    [ flashback_query_clause ] [ table_alias ]
+
+[ LATERAL ] ( query_statement ) [ table_alias ]
+
+TABLE ( collection_expression ) [ table_alias ]
+
+( from_expression )
+
+from_expression [ INNER ] JOIN from_expression
+    { ON boolean_expression | USING ( colname [, ...] ) }
+
+from_expression { LEFT | RIGHT | FULL } [ OUTER ] JOIN from_expression
+    { ON boolean_expression | USING ( colname [, ...] ) }
+
+from_expression NATURAL [ INNER | { LEFT | RIGHT | FULL } [ OUTER ] ] JOIN from_expression
+
+from_expression CROSS JOIN from_expression
+
+from_expression { CROSS | OUTER } APPLY { ( query_statement ) | TABLE ( collection_expression ) } [ table_alias ]
+
+# ONEOFIS partition_extension_clause
+PARTITION ( partition )
+PARTITION FOR ( partition_key_value [, ...] )
+SUBPARTITION ( subpartition )
+SUBPARTITION FOR ( subpartition_key_value [, ...] )
+
+# ONEOFIS flashback_query_clause
+AS OF { SCN | TIMESTAMP } value_expression
+AS OF PERIOD FOR valid_time_colname value_expression
+VERSIONS BETWEEN { SCN | TIMESTAMP } { value_expression | MINVALUE } AND { value_expression | MAXVALUE }
+VERSIONS PERIOD FOR valid_time_colname BETWEEN { value_expression | MINVALUE } AND { value_expression | MAXVALUE }
+
+# WHERE hierarchical_query_clause
+[ START WITH start_expression ] CONNECT BY [ NOCYCLE ] boolean_expression
+
+# ONEOFIS group_by_expression
+col_expression
+( col_expression [, ...] )
+ROLLUP ( { col_expression | ( col_expression [, ...] ) } [, ...] )
+CUBE ( { col_expression | ( col_expression [, ...] ) } [, ...] )
+GROUPING SETS ( { ( ) | group_by_expression } [, ...] )
+
+# WHERE order_by_expression
+col_expression [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
+
+# PARTOFIS row_limiting_clause
+OFFSET offset { ROW | ROWS } [ fetch_clause ]
+
+fetch_clause
+
+# WHERE fetch_clause
+FETCH { FIRST | NEXT } [ row_count | percent PERCENT ] { ROW | ROWS } { ONLY | WITH TIES }
+
+# WHERE for_update_clause
+FOR UPDATE [ OF colname [, ...] ] [ NOWAIT | WAIT seconds | SKIP LOCKED ]
+
+# STATEMENT query_statement
+SELECT

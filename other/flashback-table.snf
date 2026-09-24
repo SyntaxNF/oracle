@@ -1,0 +1,9 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/FLASHBACK-TABLE.html
+
+# CASE POINT_IN_TIME
+FLASHBACK TABLE table [, ...]
+    TO { SCN value_expression | TIMESTAMP value_expression | RESTORE POINT restore_point }
+    [ { ENABLE | DISABLE } TRIGGERS ]
+
+# CASE BEFORE_DROP
+FLASHBACK TABLE table TO BEFORE DROP [ RENAME TO new_table ]

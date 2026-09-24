@@ -1,0 +1,29 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DELETE.html
+
+DELETE [ FROM ] { dml_target | ONLY ( dml_target ) } [ table_alias ]
+    [ WHERE boolean_expression | WHERE CURRENT OF cursor ]
+    [ returning_clause ]
+    [ error_logging_clause ]
+
+# PARTOFIS dml_target
+table [ partition_extension_clause | @ database_link ]
+
+( query_statement [ WITH { READ ONLY | CHECK OPTION [ CONSTRAINT constraint ] } ] )
+
+TABLE ( collection_expression )
+
+# ONEOFIS partition_extension_clause
+PARTITION ( partition )
+PARTITION FOR ( partition_key_value [, ...] )
+SUBPARTITION ( subpartition )
+SUBPARTITION FOR ( subpartition_key_value [, ...] )
+
+# WHERE returning_clause
+{ RETURN | RETURNING } value_expression [, ...] INTO bind_variable [, ...]
+
+# WHERE error_logging_clause
+LOG ERRORS [ INTO error_table ] [ ( tag_expression ) ]
+    [ REJECT LIMIT { reject_limit | UNLIMITED } ]
+
+# STATEMENT query_statement
+SELECT
