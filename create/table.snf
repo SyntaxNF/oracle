@@ -1,16 +1,83 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLE.html
 
 # CASE NORMAL
-CREATE TABLE name ( column_definition [, ...] [ , table_constraint [, ...] ] ) [ TABLESPACE tablespace ] [ PARTITION BY partition_clause ]
-
-# WHERE column_definition
-colname data_type [ DEFAULT default_expression ] [ NOT NULL ]
+CREATE TABLE name ( { column_definition | table_constraint } [, ...] )
+    [ TABLESPACE tablespace ] [ PARTITION BY partition_clause ]
 
 # CASE TEMPORARY
-CREATE GLOBAL TEMPORARY TABLE name ( column_definition [, ...] [ , table_constraint [, ...] ] ) ON COMMIT { DELETE | PRESERVE } ROWS
+CREATE GLOBAL TEMPORARY TABLE name ( { column_definition | table_constraint } [, ...] )
+    [ ON COMMIT { DELETE | PRESERVE } ROWS ] [ TABLESPACE tablespace ]
+
+# CASE PRIVATE_TEMPORARY
+CREATE PRIVATE TEMPORARY TABLE name ( column_definition [, ...] )
+    [ ON COMMIT { DROP | PRESERVE } DEFINITION ]
 
 # CASE EXTERNAL
-CREATE TABLE name ( column_definition [, ...] [ , table_constraint [, ...] ] ) ORGANIZATION EXTERNAL ( TYPE access_driver DEFAULT DIRECTORY directory ACCESS PARAMETERS ( access_parameters ) LOCATION ( file_name ) ) REJECT LIMIT reject_limit
+CREATE TABLE name ( { column_definition | table_constraint } [, ...] )
+    ORGANIZATION EXTERNAL (
+        [ TYPE access_driver ]
+        DEFAULT DIRECTORY directory
+        [ ACCESS PARAMETERS ( access_parameters ) ]
+        [ LOCATION ( location_definition [, ...] ) ]
+    )
+    [ REJECT LIMIT { reject_limit | UNLIMITED } ]
 
 # CASE INDEX_ORGANIZED
-CREATE TABLE name ( column_definition [, ...] [ , table_constraint [, ...] ] ) ORGANIZATION INDEX
+CREATE TABLE name ( { column_definition | table_constraint } [, ...] )
+    ORGANIZATION INDEX [ TABLESPACE tablespace ]
+    [ PCTTHRESHOLD pctthreshold ] [ INCLUDING colname ]
+    [ OVERFLOW [ TABLESPACE overflow_tablespace ] ]
+
+# CASE AS_QUERY
+CREATE [ GLOBAL TEMPORARY ] TABLE name
+    [ ( query_column_definition [, ...] ) ]
+    [ ON COMMIT { DELETE | PRESERVE } ROWS ]
+    [ TABLESPACE tablespace ]
+    AS query_statement
+
+# PARTOFIS column_definition
+colname data_type [ COLLATE collate ] [ VISIBLE | INVISIBLE ]
+    [ DEFAULT [ ON NULL ] default_expression | identity_clause ]
+    [ inline_constraint [...] ]
+
+colname [ data_type ] [ VISIBLE | INVISIBLE ]
+    [ GENERATED ALWAYS ] AS ( col_expression ) [ VIRTUAL ]
+    [ inline_constraint [...] ]
+
+# WHERE identity_clause
+GENERATED [ ALWAYS | BY DEFAULT [ ON NULL ] ] AS IDENTITY [ ( identity_options ) ]
+
+# WHERE identity_options
+[ START WITH start_value ] [ INCREMENT BY increment_value ]
+    [ MAXVALUE max_value | NOMAXVALUE ] [ MINVALUE min_value | NOMINVALUE ]
+    [ CYCLE | NOCYCLE ] [ CACHE cache_value | NOCACHE ] [ ORDER | NOORDER ]
+
+# WHERE inline_constraint
+[ CONSTRAINT constraint ]
+    { [ NOT ] NULL | UNIQUE | PRIMARY KEY | references_clause | CHECK ( boolean_expression ) }
+    constraint_options
+
+# WHERE table_constraint
+[ CONSTRAINT constraint ]
+    { UNIQUE ( colname [, ...] ) | PRIMARY KEY ( colname [, ...] ) |
+      FOREIGN KEY ( colname [, ...] ) references_clause | CHECK ( boolean_expression ) }
+    constraint_options
+
+# WHERE references_clause
+REFERENCES referenced_table [ ( referenced_colname [, ...] ) ]
+    [ ON DELETE { CASCADE | SET NULL } ]
+
+# WHERE constraint_options
+[ [ NOT ] DEFERRABLE ] [ INITIALLY { IMMEDIATE | DEFERRED } ]
+    [ RELY | NORELY ] [ USING INDEX index ]
+    [ ENABLE | DISABLE ] [ VALIDATE | NOVALIDATE ]
+    [ EXCEPTIONS INTO exceptions_table ]
+
+# STATEMENT query_statement
+SELECT
+
+# WHERE query_column_definition
+colname [ DEFAULT default_expression ] [ inline_constraint [...] ]
+
+# WHERE location_definition
+[ directory : ] 'file_name'

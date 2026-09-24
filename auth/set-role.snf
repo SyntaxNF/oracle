@@ -1,0 +1,6 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/SET-ROLE.html
+
+SET ROLE { role_definition [, ...] | ALL [ EXCEPT role [, ...] ] | NONE }
+
+# WHERE role_definition
+role [ IDENTIFIED BY password ]

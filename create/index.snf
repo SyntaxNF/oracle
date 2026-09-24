@@ -1,3 +1,18 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-INDEX.html
 
-CREATE [ UNIQUE ] INDEX name ON table ( index_expression ) [ TABLESPACE tablespace ]
+# CASE TABLE
+CREATE [ UNIQUE | BITMAP ] INDEX name ON table [ table_alias ]
+    ( index_column_expression [, ...] )
+    [ TABLESPACE tablespace ] [ LOGGING | NOLOGGING ]
+    [ ONLINE ] [ COMPRESS [ prefix_length ] | NOCOMPRESS ]
+    [ SORT | NOSORT ] [ REVERSE ] [ VISIBLE | INVISIBLE ]
+    [ INDEXING { FULL | PARTIAL } ] [ NOPARALLEL | PARALLEL [ degree ] ]
+    [ USABLE | UNUSABLE ] [ { DEFERRED | IMMEDIATE } INVALIDATION ]
+
+# CASE CLUSTER
+CREATE INDEX name ON CLUSTER cluster
+    [ TABLESPACE tablespace ] [ LOGGING | NOLOGGING ]
+    [ NOPARALLEL | PARALLEL [ degree ] ]
+
+# WHERE index_column_expression
+index_expression [ ASC | DESC ]

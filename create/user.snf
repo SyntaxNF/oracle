@@ -1,3 +1,23 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-USER.html
 
-CREATE USER name IDENTIFIED BY password [ DEFAULT TABLESPACE tablespace ] [ PROFILE profile ]
+CREATE USER name
+    { IDENTIFIED { BY password | EXTERNALLY [ AS 'external_name' ] | GLOBALLY [ AS 'directory_name' ] } |
+      NO AUTHENTICATION }
+    [ DEFAULT COLLATION collate ]
+    [ DEFAULT TABLESPACE tablespace ]
+    [ TEMPORARY TABLESPACE temporary_tablespace ]
+    [ LOCAL TEMPORARY TABLESPACE local_temporary_tablespace ]
+    [ quota_clause [...] ]
+    [ PROFILE profile ] [ PASSWORD EXPIRE ] [ ACCOUNT { LOCK | UNLOCK } ]
+    [ ENABLE EDITIONS ] [ CONTAINER = { CURRENT | ALL } ]
+
+# WHERE quota_clause
+QUOTA { size_value [ size_unit ] | UNLIMITED } ON quota_tablespace
+
+# ONEOFIS size_unit
+K
+M
+G
+T
+P
+E

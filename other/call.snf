@@ -1,0 +1,4 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CALL.html
+
+CALL routine_expression
+    [ INTO bind_variable [ [ INDICATOR ] indicator_variable ] ]

@@ -1,0 +1,52 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/INSERT.html
+
+# CASE VALUES
+INSERT INTO dml_target [ table_alias ] [ ( colname [, ...] ) ]
+    VALUES ( { value_expression | DEFAULT } [, ...] )
+    [ returning_clause ]
+    [ error_logging_clause ]
+
+# CASE QUERY
+INSERT INTO dml_target [ table_alias ] [ ( colname [, ...] ) ]
+    query_statement
+    [ error_logging_clause ]
+
+# CASE ALL
+INSERT ALL insert_into_clause [...] query_statement
+
+# CASE CONDITIONAL
+INSERT [ ALL | FIRST ]
+    conditional_insert_clause [...]
+    [ ELSE insert_into_clause [...] ]
+    query_statement
+
+# WHERE insert_into_clause
+INTO dml_target [ table_alias ] [ ( colname [, ...] ) ]
+    [ VALUES ( { value_expression | DEFAULT } [, ...] ) ]
+    [ error_logging_clause ]
+
+# WHERE conditional_insert_clause
+WHEN boolean_expression THEN insert_into_clause [...]
+
+# PARTOFIS dml_target
+table [ partition_extension_clause | @ database_link ]
+
+( query_statement [ WITH { READ ONLY | CHECK OPTION [ CONSTRAINT constraint ] } ] )
+
+TABLE ( collection_expression )
+
+# ONEOFIS partition_extension_clause
+PARTITION ( partition )
+PARTITION FOR ( partition_key_value [, ...] )
+SUBPARTITION ( subpartition )
+SUBPARTITION FOR ( subpartition_key_value [, ...] )
+
+# WHERE returning_clause
+{ RETURN | RETURNING } value_expression [, ...] INTO bind_variable [, ...]
+
+# WHERE error_logging_clause
+LOG ERRORS [ INTO error_table ] [ ( tag_expression ) ]
+    [ REJECT LIMIT { reject_limit | UNLIMITED } ]
+
+# STATEMENT query_statement
+SELECT

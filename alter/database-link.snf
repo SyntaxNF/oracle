@@ -1,0 +1,10 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-DATABASE-LINK.html
+
+# CASE CONNECT
+ALTER [ SHARED ] [ PUBLIC ] DATABASE LINK name
+    CONNECT TO remote_user IDENTIFIED BY password
+    [ AUTHENTICATED BY authentication_user IDENTIFIED BY authentication_password ]
+
+# CASE AUTHENTICATION
+ALTER [ SHARED ] [ PUBLIC ] DATABASE LINK name
+    AUTHENTICATED BY authentication_user IDENTIFIED BY authentication_password

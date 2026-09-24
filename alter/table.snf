@@ -1,16 +1,16 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TABLE.html
 
 # CASE COLUMN_ADD
-ALTER TABLE name ADD ( colname data_type [ DEFAULT default_expression ] [ NOT NULL ] )
+ALTER TABLE name ADD ( column_definition [, ...] )
 
 # CASE COLUMN_DEFAULT
 ALTER TABLE name MODIFY ( colname DEFAULT default_expression )
 
 # CASE COLUMN_IDENTITY
-ALTER TABLE name MODIFY ( colname GENERATED { ALWAYS | BY DEFAULT [ ON NULL ] } AS IDENTITY ( identity_options ) )
+ALTER TABLE name MODIFY ( colname GENERATED { ALWAYS | BY DEFAULT [ ON NULL ] } AS IDENTITY [ ( identity_options ) ] )
 
 # CASE COLUMN_MODIFY
-ALTER TABLE name MODIFY ( colname data_type [ DEFAULT default_expression ] )
+ALTER TABLE name MODIFY ( column_modification [, ...] )
 
 # CASE COLUMN_NOT_NULL
 ALTER TABLE name MODIFY ( colname NOT NULL )
@@ -89,3 +89,42 @@ ALTER TABLE name TRUNCATE PARTITION partition [ UPDATE GLOBAL INDEXES ]
 
 # CASE TRUNCATE_SUBPARTITION
 ALTER TABLE name TRUNCATE SUBPARTITION subpartition [ UPDATE GLOBAL INDEXES ]
+
+# CASE SET_UNUSED
+ALTER TABLE name SET UNUSED { COLUMN colname | ( colname [, ...] ) }
+    [ CASCADE CONSTRAINTS ] [ INVALIDATE ] [ ONLINE ]
+
+# CASE DROP_UNUSED
+ALTER TABLE name DROP UNUSED COLUMNS [ CHECKPOINT checkpoint_rows ]
+
+# CASE DROP_COLUMNS
+ALTER TABLE name DROP ( colname [, ...] ) [ CASCADE CONSTRAINTS ]
+
+# CASE COLUMN_DROP_IDENTITY
+ALTER TABLE name MODIFY ( colname DROP IDENTITY )
+
+# CASE COLUMN_VISIBILITY
+ALTER TABLE name MODIFY ( { colname { VISIBLE | INVISIBLE } } [, ...] )
+
+# CASE ROW_MOVEMENT
+ALTER TABLE name { ENABLE | DISABLE } ROW MOVEMENT
+
+# WHERE constraint_definition
+{ UNIQUE ( colname [, ...] ) | PRIMARY KEY ( colname [, ...] ) |
+  FOREIGN KEY ( colname [, ...] ) REFERENCES referenced_table [ ( referenced_colname [, ...] ) ]
+      [ ON DELETE { CASCADE | SET NULL } ] |
+  CHECK ( boolean_expression ) }
+    [ [ NOT ] DEFERRABLE ] [ INITIALLY { IMMEDIATE | DEFERRED } ]
+    [ RELY | NORELY ] [ USING INDEX index ]
+    [ ENABLE | DISABLE ] [ VALIDATE | NOVALIDATE ]
+
+# WHERE identity_options
+[ START WITH { start_value | LIMIT VALUE } ] [ INCREMENT BY increment_value ]
+    [ MAXVALUE max_value | NOMAXVALUE ] [ MINVALUE min_value | NOMINVALUE ]
+    [ CYCLE | NOCYCLE ] [ CACHE cache_value | NOCACHE ] [ ORDER | NOORDER ]
+
+# WHERE column_definition
+colname data_type [ DEFAULT [ ON NULL ] default_expression ] [ NOT NULL ]
+
+# WHERE column_modification
+colname data_type [ DEFAULT [ ON NULL ] default_expression ]

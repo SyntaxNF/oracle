@@ -1,3 +1,5 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-ROLE.html
 
-ALTER ROLE name IDENTIFIED BY password
+ALTER ROLE name
+    { NOT IDENTIFIED | IDENTIFIED { BY password | USING package | EXTERNALLY | GLOBALLY [ AS 'directory_group' ] } }
+    [ CONTAINER = { CURRENT | ALL } ]
