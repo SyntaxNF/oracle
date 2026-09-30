@@ -1,10 +1,10 @@
 # SQL 定义覆盖检查
 
-基线：[Oracle Database 19c SQL Language Reference](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/toc.htm)。检查日期：2026-09-24。
+基线：[Oracle Database 19c SQL Language Reference](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/toc.htm)。检查日期：2026-09-24；文件计数与 DBMS_STATS 基线复核：2026-09-30。
 
 ## 结论
 
-**尚未全量覆盖 Oracle 19c。** 本轮由 63 个定义文件扩展到 91 个，补充通用查询、DML、事务、会话及常用对象语法。文件数量包含 PL/SQL 包调用，不能等同于官方 SQL 命令数量。
+**尚未全量覆盖 Oracle 19c。** 当前共有 92 个 `.snf` 定义文件，包含通用查询、DML、事务、会话、常用对象语法及统计信息采集调用。文件数量包含 PL/SQL 包调用，不能等同于官方 SQL 命令数量。
 
 ## 本轮补充
 
@@ -14,6 +14,7 @@
 - 对象：新增 context、restore point、schema、PFILE/SPFILE 的创建及相关删除，补 ALTER SYNONYM/DATABASE LINK。
 - 扩展 CREATE TABLE 的约束、identity、虚拟列、私有临时表和 CTAS；ALTER TABLE 增加多列、unused、identity 删除、可见性、行移动。
 - 扩展索引、视图、序列、用户、角色、profile、数据库链接、同义词、授权/撤权和 DROP 选项。
+- 统计信息：`other/statistics.snf` 包含 `DBMS_STATS.GATHER_TABLE_STATS`、`GATHER_INDEX_STATS` 的表、表分区、索引和索引分区四种基础调用；已按 [Oracle 19c DBMS_STATS 文档](https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_STATS.html) 核对当前参数，尚未覆盖过程的完整可选参数和其他统计信息操作。
 - Studio 包的 Pages 构建目录加入 query/transaction；消费方权限与操作注册表仍独立维护。
 
 ## 已存在定义中的剩余缺口
@@ -99,3 +100,5 @@
 ## 验证范围
 
 本轮只进行官方语法图文本对照和静态检查；未运行解析测试、类型检查、构建或数据库执行验证，未生成 .snf.json。SNF 不执行数据库操作。
+
+2026-09-30 复核：按仓库文件清单确认 92 个 `.snf` 文件；核对统计信息定义的四个 CASE、19c 文档引用及 `OWNNAME`、`TABNAME`、`INDNAME`、`PARTNAME`、`FORCE` 参数。`INDEX_PARTITION` 的 `INDNAME` 占位符由 `table` 更正为 `index`，表示分区所属索引；名称参数由调用方提供适当的字符值。该复核仅为静态与文档对照，未运行解析测试、类型检查、构建或 Oracle 执行验证。
