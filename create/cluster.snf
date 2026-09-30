@@ -1,0 +1,38 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-CLUSTER.html
+
+CREATE CLUSTER name
+    ( column_definition [, ...] )
+    [ SHARING = { METADATA | NONE } ]
+    [ physical_attribute [...] ]
+    [ SIZE size_value [ K | M | G | T | P | E ] ]
+    [ TABLESPACE tablespace ]
+    [ INDEX | [ SINGLE TABLE ] HASHKEYS hashkeys [ HASH IS hash_expression ] ]
+    [ NOPARALLEL | PARALLEL [ degree ] ]
+    [ NOROWDEPENDENCIES | ROWDEPENDENCIES ]
+    [ CACHE | NOCACHE ]
+    [ PARTITION BY RANGE ( colname [, ...] ) ( partition_definition [, ...] ) ]
+
+# WHERE column_definition
+colname data_type [ COLLATE collation ] [ SORT ]
+
+# ONEOFIS physical_attribute
+PCTFREE pctfree
+PCTUSED pctused
+INITRANS initrans
+STORAGE ( storage_option [...] )
+
+# ONEOFIS storage_option
+INITIAL size_value [ K | M | G | T | P | E ]
+NEXT size_value [ K | M | G | T | P | E ]
+MINEXTENTS min_extents
+MAXEXTENTS { max_extents | UNLIMITED }
+PCTINCREASE pctincrease
+FREELISTS freelists
+FREELIST GROUPS freelist_groups
+BUFFER_POOL { KEEP | RECYCLE | DEFAULT }
+FLASH_CACHE { KEEP | NONE | DEFAULT }
+CELL_FLASH_CACHE { KEEP | NONE | DEFAULT }
+
+# WHERE partition_definition
+PARTITION [ partition ] VALUES LESS THAN ( { bound_value | MAXVALUE } [, ...] )
+    [ TABLESPACE tablespace ] [ physical_attribute [...] ]

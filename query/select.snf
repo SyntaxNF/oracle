@@ -1,8 +1,20 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/SELECT.html
 
 # CASE SELECT
+query_block
+    [ set_query_clause [...] ]
+    [ ORDER [ SIBLINGS ] BY order_by_expression [, ...] ]
+    [ row_limiting_clause | for_update_clause ]
+
+# CASE PARENTHESIZED
+( query_statement )
+    [ set_query_clause [...] ]
+    [ ORDER BY order_by_expression [, ...] ]
+    [ row_limiting_clause | for_update_clause ]
+
+# WHERE query_block
 [ WITH with_query_definition [, ...] ]
-SELECT [ DISTINCT | UNIQUE | ALL ]
+SELECT [ hint_clause ] [ DISTINCT | UNIQUE | ALL ]
     { * | select_expression [, ...] }
     FROM from_expression [, ...]
     [ WHERE boolean_expression ]
@@ -10,30 +22,50 @@ SELECT [ DISTINCT | UNIQUE | ALL ]
     [ GROUP BY group_by_expression [, ...] ]
     [ HAVING boolean_expression ]
     [ model_clause ]
-    [ { UNION [ ALL ] | INTERSECT | MINUS } query_statement ]
-    [ ORDER [ SIBLINGS ] BY order_by_expression [, ...] ]
-    [ row_limiting_clause | for_update_clause ]
 
-# CASE PARENTHESIZED
-( query_statement )
-    [ ORDER BY order_by_expression [, ...] ]
-    [ row_limiting_clause | for_update_clause ]
+# WHERE set_query_clause
+{ UNION [ ALL ] | INTERSECT | MINUS } { query_block | ( query_statement ) }
+
+# WHERE hint_clause
+/*+ hint [...] */
 
 # WHERE select_expression
 { table . * | col_expression [ [ AS ] col_alias ] }
 
-# WHERE with_query_definition
+# PARTOFIS with_query_definition
 with_name [ ( colname [, ...] ) ] AS ( query_statement )
-    [ SEARCH { DEPTH | BREADTH } FIRST BY order_by_expression [, ...] SET search_colname ]
-    [ CYCLE colname [, ...] SET cycle_colname TO cycle_value DEFAULT noncycle_value ]
+
+with_name ( colname [, ...] ) AS (
+    anchor_query_statement UNION ALL recursive_query_statement
+)
+    [ search_clause ]
+    [ cycle_clause ]
+
+# WHERE search_clause
+SEARCH { DEPTH | BREADTH } FIRST BY search_column_expression [, ...] SET search_colname
+
+# WHERE search_column_expression
+colname [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
+
+# WHERE cycle_clause
+CYCLE colname [, ...] SET cycle_colname TO cycle_value DEFAULT noncycle_value
 
 # PARTOFIS from_expression
-table [ partition_extension_clause | @ database_link ]
-    [ flashback_query_clause ] [ table_alias ]
+LATERAL ( query_statement [ subquery_restriction_clause ] ) [ table_alias ]
 
-[ LATERAL ] ( query_statement ) [ table_alias ]
+table_expression
+    [ flashback_query_clause ]
+    [ pivot_clause | unpivot_clause | row_pattern_clause ]
+    [ table_alias ]
 
-TABLE ( collection_expression ) [ table_alias ]
+ONLY ( table_expression )
+    [ flashback_query_clause ]
+    [ pivot_clause | unpivot_clause | row_pattern_clause ]
+    [ table_alias ]
+
+CONTAINERS ( table ) [ table_alias ]
+
+SHARDS ( table ) [ table_alias ]
 
 ( from_expression )
 
@@ -49,6 +81,19 @@ from_expression CROSS JOIN from_expression
 
 from_expression { CROSS | OUTER } APPLY { ( query_statement ) | TABLE ( collection_expression ) } [ table_alias ]
 
+# PARTOFIS table_expression
+table [ partition_extension_clause | @ database_link ] [ sample_clause ]
+
+( query_statement [ subquery_restriction_clause ] )
+
+TABLE ( collection_expression ) [ (+) ]
+
+# WHERE sample_clause
+SAMPLE [ BLOCK ] ( sample_percent ) [ SEED ( seed_value ) ]
+
+# WHERE subquery_restriction_clause
+WITH { READ ONLY | CHECK OPTION [ CONSTRAINT constraint ] }
+
 # ONEOFIS partition_extension_clause
 PARTITION ( partition )
 PARTITION FOR ( partition_key_value [, ...] )
@@ -61,8 +106,43 @@ AS OF PERIOD FOR valid_time_colname value_expression
 VERSIONS BETWEEN { SCN | TIMESTAMP } { value_expression | MINVALUE } AND { value_expression | MAXVALUE }
 VERSIONS PERIOD FOR valid_time_colname BETWEEN { value_expression | MINVALUE } AND { value_expression | MAXVALUE }
 
-# WHERE hierarchical_query_clause
-[ START WITH start_expression ] CONNECT BY [ NOCYCLE ] boolean_expression
+# PARTOFIS pivot_clause
+PIVOT (
+    pivot_aggregate_expression [, ...]
+    FOR pivot_column_definition
+    IN ( pivot_value_definition [, ...] )
+)
+
+PIVOT XML (
+    pivot_aggregate_expression [, ...]
+    FOR pivot_column_definition
+    IN ( { pivot_value_definition [, ...] | query_statement | ANY [, ...] } )
+)
+
+# WHERE pivot_aggregate_expression
+aggregate_function ( value_expression ) [ [ AS ] col_alias ]
+
+# WHERE pivot_column_definition
+{ colname | ( colname [, ...] ) }
+
+# WHERE pivot_value_definition
+{ value_expression | ( value_expression [, ...] ) } [ [ AS ] col_alias ]
+
+# WHERE unpivot_clause
+UNPIVOT [ { INCLUDE | EXCLUDE } NULLS ] (
+    { colname | ( colname [, ...] ) }
+    FOR pivot_column_definition
+    IN ( unpivot_column_definition [, ...] )
+)
+
+# WHERE unpivot_column_definition
+{ colname | ( colname [, ...] ) }
+    [ AS { literal_value | ( literal_value [, ...] ) } ]
+
+# PARTOFIS hierarchical_query_clause
+CONNECT BY [ NOCYCLE ] boolean_expression [ START WITH start_expression ]
+
+START WITH start_expression CONNECT BY [ NOCYCLE ] boolean_expression
 
 # ONEOFIS group_by_expression
 col_expression
@@ -70,6 +150,118 @@ col_expression
 ROLLUP ( { col_expression | ( col_expression [, ...] ) } [, ...] )
 CUBE ( { col_expression | ( col_expression [, ...] ) } [, ...] )
 GROUPING SETS ( { ( ) | group_by_expression } [, ...] )
+
+# WHERE model_clause
+MODEL
+    cell_reference_options
+    [ RETURN { UPDATED | ALL } ROWS ]
+    [ reference_model_definition [...] ]
+    [ MAIN main_model ]
+    model_column_clauses
+    cell_reference_options
+    model_rules_clause
+
+# WHERE cell_reference_options
+[ { IGNORE | KEEP } NAV ]
+[ UNIQUE { DIMENSION | SINGLE REFERENCE } ]
+
+# WHERE reference_model_definition
+REFERENCE reference_model ON ( query_statement )
+    model_dimension_measures_clauses
+    cell_reference_options
+
+# WHERE model_column_clauses
+[ PARTITION BY ( model_column_definition [, ...] ) ]
+model_dimension_measures_clauses
+
+# WHERE model_dimension_measures_clauses
+DIMENSION BY ( model_column_definition [, ...] )
+MEASURES ( model_column_definition [, ...] )
+
+# WHERE model_column_definition
+{ colname [ col_alias ] | value_expression col_alias }
+
+# WHERE model_rules_clause
+[ RULES
+    [ UPDATE | UPSERT [ ALL ] ]
+    model_rule_order_options
+]
+( model_rule_definition [, ...] )
+
+# WHERE model_rule_order_options
+{ AUTOMATIC ORDER
+| [ SEQUENTIAL ORDER ] [ ITERATE ( iteration_count ) [ UNTIL ( boolean_expression ) ] ] }
+
+# WHERE model_rule_definition
+[ UPDATE | UPSERT [ ALL ] ]
+cell_assignment [ ORDER BY order_by_expression [, ...] ] = value_expression
+
+# WHERE cell_assignment
+measure_colname \[ { cell_dimension_expression [, ...] | multi_column_for_clause } \]
+
+# WHERE cell_dimension_expression
+{ boolean_expression | value_expression | single_column_for_clause }
+
+# PARTOFIS single_column_for_clause
+FOR dimension_colname IN ( { literal_value [, ...] | query_statement } )
+
+FOR dimension_colname [ LIKE pattern_value ]
+    FROM from_value TO to_value { INCREMENT | DECREMENT } step_value
+
+# WHERE multi_column_for_clause
+FOR ( dimension_colname [, ...] ) IN ( { model_value_tuple [, ...] | query_statement } )
+
+# WHERE model_value_tuple
+( literal_value [, ...] )
+
+# WHERE row_pattern_clause
+MATCH_RECOGNIZE (
+    [ PARTITION BY col_expression [, ...] ]
+    [ ORDER BY order_by_expression [, ...] ]
+    [ MEASURES row_pattern_measure_definition [, ...] ]
+    [ ONE ROW PER MATCH | ALL ROWS PER MATCH ]
+    [ row_pattern_skip_clause ]
+    PATTERN ( row_pattern_expression )
+    [ SUBSET row_pattern_subset_definition [, ...] ]
+    DEFINE row_pattern_definition [, ...]
+)
+
+# WHERE row_pattern_measure_definition
+pattern_measure_expression AS col_alias
+
+# WHERE row_pattern_skip_clause
+AFTER MATCH SKIP { TO NEXT ROW | PAST LAST ROW | TO [ FIRST | LAST ] pattern_variable }
+
+# WHERE row_pattern_expression
+row_pattern_term [ \| ... ]
+
+# WHERE row_pattern_term
+row_pattern_factor [...]
+
+# WHERE row_pattern_factor
+row_pattern_primary [ row_pattern_quantifier ]
+
+# ONEOFIS row_pattern_primary
+pattern_variable
+$
+^
+( [ row_pattern_expression ] )
+\{- row_pattern_expression -\}
+PERMUTE ( row_pattern_expression [, ...] )
+
+# ONEOFIS row_pattern_quantifier
+* [ ? ]
++ [ ? ]
+? [ ? ]
+\{ minimum_count , [ maximum_count ] \} [ ? ]
+\{ , maximum_count \} [ ? ]
+\{ exact_count \}
+
+# WHERE row_pattern_subset_definition
+union_pattern_variable = ( pattern_variable [, ...] )
+
+# WHERE row_pattern_definition
+pattern_variable AS pattern_boolean_expression
 
 # WHERE order_by_expression
 col_expression [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
@@ -86,4 +278,10 @@ FETCH { FIRST | NEXT } [ row_count | percent PERCENT ] { ROW | ROWS } { ONLY | W
 FOR UPDATE [ OF colname [, ...] ] [ NOWAIT | WAIT seconds | SKIP LOCKED ]
 
 # STATEMENT query_statement
+SELECT
+
+# STATEMENT anchor_query_statement
+SELECT
+
+# STATEMENT recursive_query_statement
 SELECT

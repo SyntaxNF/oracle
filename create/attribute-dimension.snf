@@ -1,0 +1,59 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-ATTRIBUTE-DIMENSION.html
+
+CREATE [ OR REPLACE ] [ FORCE | NOFORCE ] ATTRIBUTE DIMENSION name
+    [ SHARING = { METADATA | NONE } ]
+    [ classification_clause ]
+    [ DIMENSION TYPE { STANDARD | TIME } ]
+    USING table [ [ AS ] table_alias ]
+    ATTRIBUTES ( attribute_definition [, ...] )
+    [ level_definition [...] ]
+    [ all_member_clause ]
+
+# WHERE attribute_definition
+[ table_alias . ] colname [ [ AS ] attribute ]
+    [ classification_clause ]
+
+# WHERE level_definition
+LEVEL level [ NOT NULL | SKIP WHEN NULL ]
+    [ classification_clause ]
+    [ LEVEL TYPE level_type_value ]
+    KEY { attribute | ( attribute [, ...] ) }
+    [ ALTERNATE KEY { attribute | ( attribute [, ...] ) } ]
+    [ MEMBER NAME member_name_expression ]
+    [ MEMBER CAPTION member_caption_expression ]
+    [ MEMBER DESCRIPTION member_description_expression ]
+    [ ORDER BY attribute_order_expression [, ...] ]
+    [ DETERMINES ( attribute [, ...] ) ]
+
+# ONEOFIS level_type_value
+STANDARD
+YEARS
+HALF_YEARS
+QUARTERS
+MONTHS
+WEEKS
+DAYS
+HOURS
+MINUTES
+SECONDS
+
+# WHERE attribute_order_expression
+[ MIN | MAX ] attribute [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
+
+# PARTOFIS all_member_clause
+ALL MEMBER NAME member_name_expression
+    [ MEMBER CAPTION member_caption_expression ]
+
+ALL MEMBER CAPTION member_caption_expression
+    [ MEMBER DESCRIPTION member_description_expression ]
+
+ALL MEMBER DESCRIPTION member_description_expression
+
+# WHERE classification_clause
+[ CAPTION caption_value ]
+    [ DESCRIPTION description_value ]
+    [ user_classification_clause [...] ]
+
+# WHERE user_classification_clause
+CLASSIFICATION classification
+    [ VALUE classification_value ] [ LANGUAGE language_value ]

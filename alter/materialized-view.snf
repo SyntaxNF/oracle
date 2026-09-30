@@ -1,7 +1,128 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-MATERIALIZED-VIEW.html
 
 # CASE REFRESH
-ALTER MATERIALIZED VIEW name REFRESH { COMPLETE | FORCE | FAST } ON { DEMAND | COMMIT }
+ALTER MATERIALIZED VIEW name REFRESH refresh_specification
+    [ evaluation_edition_clause ]
+    [ { ENABLE | DISABLE } ON QUERY COMPUTATION ]
+    [ query_rewrite_clause | COMPILE | CONSIDER FRESH ]
 
 # CASE COMPILE
 ALTER MATERIALIZED VIEW name COMPILE
+
+# CASE CONSIDER_FRESH
+ALTER MATERIALIZED VIEW name CONSIDER FRESH
+
+# CASE QUERY_REWRITE
+ALTER MATERIALIZED VIEW name query_rewrite_clause
+
+# CASE QUERY_COMPUTATION
+ALTER MATERIALIZED VIEW name { ENABLE | DISABLE } ON QUERY COMPUTATION
+    [ query_rewrite_clause | COMPILE | CONSIDER FRESH ]
+
+# CASE EVALUATION_EDITION
+ALTER MATERIALIZED VIEW name evaluation_edition_clause
+    [ { ENABLE | DISABLE } ON QUERY COMPUTATION ]
+    [ query_rewrite_clause | COMPILE | CONSIDER FRESH ]
+
+# CASE PHYSICAL_ATTRIBUTES
+ALTER MATERIALIZED VIEW name physical_attributes
+
+# CASE COMPRESSION
+ALTER MATERIALIZED VIEW name table_compression
+
+# CASE LOGGING
+ALTER MATERIALIZED VIEW name { LOGGING | NOLOGGING }
+
+# CASE PARALLEL
+ALTER MATERIALIZED VIEW name parallel_clause
+
+# CASE CACHE
+ALTER MATERIALIZED VIEW name { CACHE | NOCACHE }
+
+# CASE USING_INDEX
+ALTER MATERIALIZED VIEW name USING INDEX index_attribute [...]
+
+# CASE ALLOCATE_EXTENT
+ALTER MATERIALIZED VIEW name ALLOCATE EXTENT
+    [ ( [ SIZE size_value ] [ DATAFILE 'file_name' ] [ INSTANCE instance_number ] ) ]
+
+# CASE DEALLOCATE_UNUSED
+ALTER MATERIALIZED VIEW name DEALLOCATE UNUSED [ KEEP size_value ]
+
+# CASE SHRINK
+ALTER MATERIALIZED VIEW name SHRINK SPACE [ COMPACT ] [ CASCADE ]
+
+# PARTOFIS refresh_specification
+{ FAST | COMPLETE | FORCE }
+    [ refresh_timing ] [ WITH PRIMARY KEY ] [ rollback_segment_clause ]
+    [ USING { ENFORCED | TRUSTED } CONSTRAINTS ]
+
+refresh_timing [ WITH PRIMARY KEY ] [ rollback_segment_clause ]
+    [ USING { ENFORCED | TRUSTED } CONSTRAINTS ]
+
+WITH PRIMARY KEY [ rollback_segment_clause ]
+    [ USING { ENFORCED | TRUSTED } CONSTRAINTS ]
+
+rollback_segment_clause [ USING { ENFORCED | TRUSTED } CONSTRAINTS ]
+
+USING { ENFORCED | TRUSTED } CONSTRAINTS
+
+# PARTOFIS refresh_timing
+ON COMMIT
+
+ON DEMAND [ START WITH datetime_expression ] [ NEXT next_datetime_expression ]
+
+START WITH datetime_expression [ NEXT next_datetime_expression ]
+
+NEXT next_datetime_expression
+
+# WHERE rollback_segment_clause
+USING { DEFAULT MASTER ROLLBACK SEGMENT | MASTER ROLLBACK SEGMENT rollback_segment }
+
+# WHERE evaluation_edition_clause
+EVALUATE USING { CURRENT EDITION | EDITION edition | NULL EDITION }
+
+# WHERE query_rewrite_clause
+{ ENABLE | DISABLE } QUERY REWRITE
+[ UNUSABLE BEFORE { CURRENT EDITION | EDITION edition } ]
+[ UNUSABLE BEGINNING WITH { CURRENT EDITION | EDITION edition | NULL EDITION } ]
+
+# PARTOFIS table_compression
+NOCOMPRESS
+
+COMPRESS
+
+ROW STORE COMPRESS [ BASIC | ADVANCED ]
+
+COLUMN STORE COMPRESS [ FOR { QUERY | ARCHIVE } [ LOW | HIGH ] ]
+    [ [ NO ] ROW LEVEL LOCKING ]
+
+# WHERE physical_attributes
+physical_attribute [...]
+
+# ONEOFIS physical_attribute
+PCTFREE pct_free
+PCTUSED pct_used
+INITRANS init_trans
+STORAGE ( storage_option [...] )
+
+# ONEOFIS storage_option
+NEXT size_value
+MINEXTENTS min_extents
+MAXEXTENTS { max_extents | UNLIMITED }
+MAXSIZE { size_value | UNLIMITED }
+PCTINCREASE pct_increase
+FREELISTS freelists
+BUFFER_POOL { KEEP | RECYCLE | DEFAULT }
+FLASH_CACHE { KEEP | NONE | DEFAULT }
+CELL_FLASH_CACHE { KEEP | NONE | DEFAULT }
+
+# WHERE size_value
+size [ K | M | G | T | P | E ]
+
+# WHERE parallel_clause
+{ NOPARALLEL | PARALLEL [ degree ] }
+
+# ONEOFIS index_attribute
+INITRANS init_trans
+STORAGE ( storage_option [...] )

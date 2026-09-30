@@ -1,0 +1,49 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TABLESPACE-SET.html
+
+# CASE ATTRIBUTES
+ALTER TABLESPACE SET name tablespace_action
+
+# CASE RENAME
+ALTER TABLESPACE SET name RENAME TO new_name
+
+# PARTOFIS tablespace_action
+RESIZE size_clause
+
+COALESCE
+
+{ BEGIN | END } BACKUP
+
+LOGGING
+
+NOLOGGING
+
+[ NO ] FORCE LOGGING
+
+ONLINE
+
+OFFLINE [ NORMAL | TEMPORARY | IMMEDIATE ]
+
+READ { ONLY | WRITE }
+
+autoextend_clause
+
+RENAME DATAFILE 'file_name' [, ...] TO 'replacement_file_name' [, ...]
+
+DATAFILE { ONLINE | OFFLINE }
+
+ENCRYPTION OFFLINE [ USING encryption_algorithm_value ] { ENCRYPT | DECRYPT }
+
+ENCRYPTION ONLINE { [ USING encryption_algorithm_value ] { ENCRYPT | REKEY } | DECRYPT }
+    [ FILE_NAME_CONVERT = ( file_name_pair [, ...] ) [ KEEP ] ]
+
+ENCRYPTION FINISH { ENCRYPT | REKEY | DECRYPT }
+    [ FILE_NAME_CONVERT = ( file_name_pair [, ...] ) [ KEEP ] ]
+
+# WHERE file_name_pair
+'filename_pattern', 'replacement_filename_pattern'
+
+# WHERE size_clause
+size_value [ K | M | G | T | P | E ]
+
+# WHERE autoextend_clause
+AUTOEXTEND { OFF | ON [ NEXT size_clause ] [ MAXSIZE { UNLIMITED | size_clause } ] }

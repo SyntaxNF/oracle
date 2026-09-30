@@ -1,0 +1,36 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLESPACE-SET.html
+
+CREATE TABLESPACE SET name [ IN SHARDSPACE shardspace ]
+    [ USING TEMPLATE ( tablespace_template_definition ) ]
+
+# PARTOFIS tablespace_template_definition
+DATAFILE datafile_template_definition [ tablespace_attribute [...] ]
+
+tablespace_attribute [...]
+
+# PARTOFIS datafile_template_definition
+SIZE size_clause [ autoextend_clause ]
+
+autoextend_clause
+
+# ONEOFIS tablespace_attribute
+BLOCKSIZE block_size_value [ K ]
+LOGGING
+NOLOGGING
+FORCE LOGGING
+ONLINE
+OFFLINE
+ENCRYPTION [ USING encryption_algorithm_value ] DEFAULT STORAGE ( ENCRYPT )
+extent_management_clause
+SEGMENT SPACE MANAGEMENT AUTO
+FLASHBACK { ON | OFF }
+[ ENABLE | REMOVE | SUSPEND ] LOST WRITE PROTECTION
+
+# WHERE extent_management_clause
+EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE | UNIFORM [ SIZE size_clause ] ]
+
+# WHERE size_clause
+size_value [ K | M | G | T | P | E ]
+
+# WHERE autoextend_clause
+AUTOEXTEND { OFF | ON [ NEXT size_clause ] [ MAXSIZE { UNLIMITED | size_clause } ] }

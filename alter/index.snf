@@ -1,12 +1,19 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-INDEX.html
 
-# CASE INVISIBLE
-ALTER INDEX name INVISIBLE
-
 # CASE REBUILD
-ALTER INDEX name REBUILD [ TABLESPACE tablespace ] [ PCTFREE pctfree ] [ INITRANS initrans ]
-    [ LOGGING | NOLOGGING ] [ COMPRESS [ prefix_length ] | NOCOMPRESS ]
-    [ ONLINE ] [ PARALLEL [ degree ] | NOPARALLEL ]
+ALTER INDEX name REBUILD [ REVERSE | NOREVERSE ]
+    rebuild_options
+
+# CASE REBUILD_PARTITION
+ALTER INDEX name REBUILD PARTITION partition
+    rebuild_options
+
+# CASE REBUILD_SUBPARTITION
+ALTER INDEX name REBUILD SUBPARTITION subpartition
+    [ TABLESPACE tablespace ]
+    [ index_compression ]
+    [ ONLINE ]
+    [ parallel_clause ]
 
 # CASE RENAME
 ALTER INDEX name RENAME TO new_name
@@ -14,20 +21,170 @@ ALTER INDEX name RENAME TO new_name
 # CASE VISIBLE
 ALTER INDEX name VISIBLE
 
+# CASE INVISIBLE
+ALTER INDEX name INVISIBLE
+
 # CASE PHYSICAL_ATTRIBUTES
-ALTER INDEX name INITRANS initrans
+ALTER INDEX name alter_physical_attribute [...]
 
 # CASE LOGGING
 ALTER INDEX name { LOGGING | NOLOGGING }
 
 # CASE PARALLEL
-ALTER INDEX name { NOPARALLEL | PARALLEL [ degree ] }
+ALTER INDEX name parallel_clause
 
-# CASE REBUILD_PARTITION
-ALTER INDEX name REBUILD PARTITION partition [ TABLESPACE tablespace ]
-    [ PCTFREE pctfree ] [ INITRANS initrans ] [ LOGGING | NOLOGGING ]
-    [ COMPRESS [ prefix_length ] | NOCOMPRESS ] [ ONLINE ] [ PARALLEL [ degree ] | NOPARALLEL ]
+# CASE INDEXING
+ALTER INDEX name INDEXING { FULL | PARTIAL }
 
-# CASE REBUILD_SUBPARTITION
-ALTER INDEX name REBUILD SUBPARTITION subpartition [ TABLESPACE tablespace ]
-    [ ONLINE ] [ PARALLEL [ degree ] | NOPARALLEL ]
+# CASE ALLOCATE
+ALTER INDEX name allocate_extent_clause
+
+# CASE DEALLOCATE
+ALTER INDEX name deallocate_unused_clause
+
+# CASE SHRINK
+ALTER INDEX name SHRINK SPACE [ COMPACT ] [ CASCADE ]
+
+# CASE UNUSABLE
+ALTER INDEX name UNUSABLE [ ONLINE ]
+    [ { DEFERRED | IMMEDIATE } INVALIDATION ]
+
+# CASE COALESCE
+ALTER INDEX name COALESCE [ CLEANUP ] [ ONLY ] [ parallel_clause ]
+
+# CASE MONITORING
+ALTER INDEX name { MONITORING | NOMONITORING } USAGE
+
+# CASE BLOCK_REFERENCES
+ALTER INDEX name UPDATE BLOCK REFERENCES
+
+# CASE COMPILE
+ALTER INDEX name COMPILE
+
+# CASE ENABLE_DISABLE
+ALTER INDEX name { ENABLE | DISABLE }
+
+# CASE DOMAIN_PARAMETERS
+ALTER INDEX name PARAMETERS ( 'odci_parameters' )
+
+# CASE DEFAULT_ATTRIBUTES
+ALTER INDEX name MODIFY DEFAULT ATTRIBUTES [ FOR PARTITION partition ]
+    default_attribute [...]
+
+# CASE ADD_PARTITION
+ALTER INDEX name ADD PARTITION [ partition ]
+    [ TABLESPACE tablespace ] [ index_compression ] [ parallel_clause ]
+
+# CASE COALESCE_PARTITION
+ALTER INDEX name COALESCE PARTITION [ parallel_clause ]
+
+# CASE DROP_PARTITION
+ALTER INDEX name DROP PARTITION partition
+
+# CASE RENAME_PARTITION
+ALTER INDEX name RENAME PARTITION partition TO new_partition
+
+# CASE RENAME_SUBPARTITION
+ALTER INDEX name RENAME SUBPARTITION subpartition TO new_subpartition
+
+# CASE SPLIT_PARTITION
+ALTER INDEX name SPLIT PARTITION partition AT ( literal [, ...] )
+    [ INTO ( split_index_partition , split_index_partition ) ]
+    [ parallel_clause ]
+
+# CASE MODIFY_PARTITION
+ALTER INDEX name MODIFY PARTITION partition partition_action
+
+# CASE MODIFY_SUBPARTITION
+ALTER INDEX name MODIFY SUBPARTITION subpartition
+    { UNUSABLE | allocate_extent_clause | deallocate_unused_clause }
+
+# WHERE rebuild_options
+[ TABLESPACE tablespace ]
+physical_attributes
+[ LOGGING | NOLOGGING ]
+[ index_compression ]
+[ ONLINE ]
+[ INDEXING { FULL | PARTIAL } ]
+[ parallel_clause ]
+[ PARAMETERS ( 'index_parameters' ) ]
+
+# ONEOFIS physical_attribute
+PCTFREE pctfree
+INITRANS initrans
+storage_clause
+
+# ONEOFIS default_attribute
+physical_attribute
+TABLESPACE { tablespace | DEFAULT }
+{ LOGGING | NOLOGGING }
+
+# PARTOFIS partition_action
+partition_attribute [...]
+
+PARAMETERS ( 'odci_parameters' )
+
+COALESCE [ CLEANUP ] [ parallel_clause ]
+
+UPDATE BLOCK REFERENCES
+
+UNUSABLE
+
+# ONEOFIS partition_attribute
+alter_physical_attribute
+{ LOGGING | NOLOGGING }
+index_compression
+allocate_extent_clause
+deallocate_unused_clause
+
+# WHERE split_index_partition
+PARTITION [ partition ]
+    segment_attributes
+    [ index_compression ]
+
+# WHERE allocate_extent_clause
+ALLOCATE EXTENT [ (
+    [ SIZE size_value ]
+    [ DATAFILE 'datafile' ]
+    [ INSTANCE instance_number ]
+) ]
+
+# WHERE deallocate_unused_clause
+DEALLOCATE UNUSED [ KEEP size_value ]
+
+# WHERE index_compression
+{ COMPRESS [ prefix_length ] | COMPRESS ADVANCED [ LOW | HIGH ] | NOCOMPRESS }
+
+# WHERE parallel_clause
+{ NOPARALLEL | PARALLEL [ degree ] }
+
+# WHERE physical_attributes
+[ PCTFREE pctfree ]
+[ INITRANS initrans ]
+[ storage_clause ]
+
+# WHERE segment_attributes
+physical_attributes
+[ TABLESPACE { tablespace | DEFAULT } ]
+[ LOGGING | NOLOGGING ]
+
+# WHERE storage_clause
+STORAGE ( storage_option [...] )
+
+# ONEOFIS storage_option
+NEXT size_value
+MINEXTENTS min_extents
+MAXEXTENTS { max_extents | UNLIMITED }
+MAXSIZE { size_value | UNLIMITED }
+PCTINCREASE pct_increase
+FREELISTS freelists
+BUFFER_POOL { KEEP | RECYCLE | DEFAULT }
+FLASH_CACHE { KEEP | NONE | DEFAULT }
+CELL_FLASH_CACHE { KEEP | NONE | DEFAULT }
+
+# WHERE size_value
+size [ K | M | G | T | P | E ]
+
+# ONEOFIS alter_physical_attribute
+INITRANS initrans
+storage_clause

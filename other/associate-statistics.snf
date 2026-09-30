@@ -1,0 +1,29 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ASSOCIATE-STATISTICS.html
+
+# CASE COLUMNS
+ASSOCIATE STATISTICS WITH COLUMNS column_reference [, ...]
+    USING { statistics_type | NULL }
+
+# CASE FUNCTIONS_PACKAGES_TYPES
+ASSOCIATE STATISTICS WITH
+    { FUNCTIONS function [, ...] | PACKAGES package [, ...] | TYPES type [, ...] }
+    { USING statistics_type | default_cost_clause [ , default_selectivity_clause ]
+    | default_selectivity_clause [ , default_cost_clause ] }
+
+# CASE INDEXES
+ASSOCIATE STATISTICS WITH INDEXES index [, ...]
+    { USING { statistics_type | NULL } | default_cost_clause }
+
+# CASE INDEXTYPES
+ASSOCIATE STATISTICS WITH INDEXTYPES indextype [, ...]
+    { USING statistics_type | default_cost_clause }
+    [ WITH { SYSTEM | USER } MANAGED STORAGE TABLES ]
+
+# WHERE column_reference
+[ schema . ] table . colname
+
+# WHERE default_cost_clause
+DEFAULT COST ( cpu_cost , io_cost , network_cost )
+
+# WHERE default_selectivity_clause
+DEFAULT SELECTIVITY selectivity_percent

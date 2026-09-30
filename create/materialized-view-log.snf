@@ -1,3 +1,57 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-MATERIALIZED-VIEW-LOG.html
 
-CREATE MATERIALIZED VIEW LOG ON name WITH { PRIMARY KEY | ROWID } [ , SEQUENCE ] { INCLUDING | EXCLUDING } NEW VALUES
+CREATE MATERIALIZED VIEW LOG ON name
+    [ SHARING = { METADATA | NONE } ]
+    [ log_attribute [...] ] [ parallel_clause ]
+    [ WITH log_record_item [, ...] [ { INCLUDING | EXCLUDING } NEW VALUES ] ]
+    [ purge_clause ] [ for_refresh_clause ]
+
+# ONEOFIS log_attribute
+physical_attributes
+TABLESPACE tablespace
+{ LOGGING | NOLOGGING }
+{ CACHE | NOCACHE }
+
+# PARTOFIS log_record_item
+{ OBJECT ID | PRIMARY KEY | ROWID | SEQUENCE | COMMIT SCN } [ ( colname [, ...] ) ]
+
+( colname [, ...] )
+
+# PARTOFIS purge_clause
+PURGE IMMEDIATE [ SYNCHRONOUS | ASYNCHRONOUS ]
+
+PURGE START WITH datetime_expression
+    [ NEXT next_datetime_expression | REPEAT INTERVAL interval_expression ]
+
+PURGE { NEXT next_datetime_expression | REPEAT INTERVAL interval_expression }
+
+# WHERE for_refresh_clause
+{ FOR SYNCHRONOUS REFRESH USING staging_log_name | FOR FAST REFRESH }
+
+# WHERE physical_attributes
+physical_attribute [...]
+
+# ONEOFIS physical_attribute
+PCTFREE pct_free
+PCTUSED pct_used
+INITRANS init_trans
+STORAGE ( storage_option [...] )
+
+# ONEOFIS storage_option
+INITIAL size_value
+NEXT size_value
+MINEXTENTS min_extents
+MAXEXTENTS { max_extents | UNLIMITED }
+MAXSIZE { size_value | UNLIMITED }
+PCTINCREASE pct_increase
+FREELISTS freelists
+FREELIST GROUPS freelist_groups
+BUFFER_POOL { KEEP | RECYCLE | DEFAULT }
+FLASH_CACHE { KEEP | NONE | DEFAULT }
+CELL_FLASH_CACHE { KEEP | NONE | DEFAULT }
+
+# WHERE size_value
+size [ K | M | G | T | P | E ]
+
+# WHERE parallel_clause
+{ NOPARALLEL | PARALLEL [ degree ] }

@@ -1,3 +1,145 @@
-# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TYPE.html
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/lnpls/CREATE-TYPE-statement.html
 
-CREATE [ OR REPLACE ] TYPE name object_definition
+# CASE OBJECT
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name
+    [ FORCE ] [ OID 'object_identifier' ]
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    [ AUTHID { CURRENT_USER | DEFINER } ]
+    [ accessible_by_clause ]
+    { IS | AS } OBJECT (
+        attribute_definition [, ...]
+        [ , method_specification [, ...] ]
+    )
+    [ [ NOT ] FINAL ] [ [ NOT ] INSTANTIABLE ] [ [ NOT ] PERSISTABLE ] ;
+
+# CASE SUBTYPE
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name
+    [ FORCE ] [ OID 'object_identifier' ]
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    [ AUTHID { CURRENT_USER | DEFINER } ]
+    [ accessible_by_clause ]
+    UNDER supertype (
+        { attribute_definition | method_specification } [, ...]
+    )
+    [ [ NOT ] FINAL ] [ [ NOT ] INSTANTIABLE ] ;
+
+# CASE NESTED_TABLE
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name
+    [ FORCE ] [ OID 'object_identifier' ]
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    [ AUTHID { CURRENT_USER | DEFINER } ]
+    [ accessible_by_clause ]
+    { IS | AS } TABLE OF collection_element_definition ;
+
+# CASE VARRAY
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name
+    [ FORCE ] [ OID 'object_identifier' ]
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    [ AUTHID { CURRENT_USER | DEFINER } ]
+    [ accessible_by_clause ]
+    { IS | AS } { VARRAY | VARYING ARRAY | ARRAY } ( size_value )
+    OF collection_element_definition ;
+
+# CASE INCOMPLETE
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name ;
+
+# WHERE collection_element_definition
+{ data_type [ NOT NULL ] | ( data_type [ NOT NULL ] ) [ [ NOT ] PERSISTABLE ] }
+
+# PARTOFIS method_specification
+[ [ NOT ] OVERRIDING ] [ [ NOT ] FINAL ] [ [ NOT ] INSTANTIABLE ]
+{ MEMBER | STATIC } PROCEDURE procedure
+    [ ( parameter_definition [, ...] ) ]
+    [ { IS | AS } call_specification ]
+
+[ [ NOT ] OVERRIDING ] [ [ NOT ] FINAL ] [ [ NOT ] INSTANTIABLE ]
+{ MEMBER | STATIC } FUNCTION function_name
+    [ ( parameter_definition [, ...] ) ] RETURN parameter_type
+    [ DETERMINISTIC ] [ { IS | AS } call_specification ]
+
+MAP MEMBER FUNCTION function_name RETURN map_scalar_type
+    [ { IS | AS } call_specification ]
+
+ORDER MEMBER FUNCTION function_name ( parameter [ IN ] object_type )
+    RETURN order_numeric_type
+    [ { IS | AS } call_specification ]
+
+CONSTRUCTOR FUNCTION type_name
+    [ ( parameter_definition [, ...] ) ] RETURN SELF AS RESULT
+    [ { IS | AS } call_specification ]
+
+PRAGMA RESTRICT_REFERENCES ( { subprogram | DEFAULT } , purity_option [, ...] )
+
+# WHERE attribute_definition
+attribute data_type
+
+# WHERE purity_option
+{ RNDS | WNDS | RNPS | WNPS | TRUST }
+
+# WHERE parameter_definition
+parameter { [ IN ] parameter_type [ { := | DEFAULT } value_expression ] | { OUT | IN OUT } [ NOCOPY ] parameter_type }
+
+# WHERE input_parameter_definition
+parameter [ IN ] parameter_type [ { := | DEFAULT } value_expression ]
+
+# WHERE actual_parameter
+[ parameter => ] value_expression
+
+# WHERE accessible_by_clause
+ACCESSIBLE BY ( accessor_definition [, ...] )
+
+# WHERE accessor_definition
+[ FUNCTION | PROCEDURE | PACKAGE | TRIGGER | TYPE ] accessor
+
+# WHERE parallel_enable_clause
+PARALLEL_ENABLE
+    [ ( PARTITION parameter BY
+        { ANY | { HASH | RANGE } ( colname [, ...] ) [ streaming_clause ] | VALUE ( colname ) }
+    ) ]
+
+# WHERE streaming_clause
+{ ORDER | CLUSTER } value_expression BY ( colname [, ...] )
+
+# WHERE result_cache_clause
+RESULT_CACHE [ RELIES_ON ( relation [, ...] ) ]
+
+# PARTOFIS call_specification
+LANGUAGE JAVA NAME 'java_signature'
+
+LANGUAGE C c_call_definition
+
+EXTERNAL c_call_definition
+
+
+# WHERE c_call_definition
+{ LIBRARY library [ NAME external_name ] | NAME external_name LIBRARY library }
+    [ AGENT IN ( parameter [, ...] ) ]
+    [ WITH CONTEXT ]
+    [ PARAMETERS ( external_parameter_definition [, ...] ) ]
+
+# WHERE external_parameter_definition
+{ CONTEXT
+| SELF [ TDO | external_property ]
+| { parameter | RETURN } [ external_property ] [ BY REFERENCE ] [ external_data_type ] }
+
+# WHERE external_property
+{ INDICATOR [ STRUCT | TDO ] | LENGTH | DURATION | MAXLEN | CHARSETID | CHARSETFORM }
+
+# WHERE plsql_data_type
+{ data_type | anchored_name % TYPE | row_source % ROWTYPE }
+
+# WHERE row_type
+{ record_type | row_source % ROWTYPE }
+
+# WHERE parameter_type
+{ data_type | anchored_name % TYPE | row_source % ROWTYPE }
+
+# WHERE index_data_type
+{ PLS_INTEGER | BINARY_INTEGER | VARCHAR2 ( size_value ) | index_subtype }
+
+# WHERE order_numeric_type
+{ NUMBER | numeric_subtype }

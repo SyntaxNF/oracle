@@ -1,0 +1,43 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-CONTROLFILE.html
+
+# CASE RESETLOGS
+CREATE CONTROLFILE [ REUSE ] [ SET ] DATABASE database
+    [ LOGFILE reset_logfile_definition [, ...] ] RESETLOGS
+    [ DATAFILE control_datafile_definition [, ...] ]
+    [ controlfile_option [...] ]
+    [ CHARACTER SET character_set ]
+
+# CASE NORESETLOGS
+CREATE CONTROLFILE [ REUSE ] DATABASE database
+    [ LOGFILE logfile_definition [, ...] ] NORESETLOGS
+    [ DATAFILE control_datafile_definition [, ...] ]
+    [ controlfile_option [...] ]
+    [ CHARACTER SET character_set ]
+
+# WHERE reset_logfile_definition
+[ GROUP group_number ] [ 'file_name' | ( 'file_name' [, ...] ) ]
+    SIZE size_clause [ BLOCKSIZE block_size_value ] [ REUSE ]
+
+# WHERE control_datafile_definition
+'file_name' [ SIZE size_clause ] [ REUSE ]
+
+# ONEOFIS controlfile_option
+MAXLOGFILES max_logfiles_value
+MAXLOGMEMBERS max_logmembers_value
+MAXLOGHISTORY max_loghistory_value
+MAXDATAFILES max_datafiles_value
+MAXINSTANCES max_instances_value
+ARCHIVELOG
+NOARCHIVELOG
+FORCE LOGGING
+SET STANDBY NOLOGGING FOR { DATA AVAILABILITY | LOAD PERFORMANCE }
+
+# WHERE logfile_definition
+[ GROUP group_number ] redo_file_definition
+
+# WHERE redo_file_definition
+[ 'file_name' | ( 'file_name' [, ...] ) ]
+    [ SIZE size_clause ] [ BLOCKSIZE block_size_value ] [ REUSE ]
+
+# WHERE size_clause
+size_value [ K | M | G | T | P | E ]

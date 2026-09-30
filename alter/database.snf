@@ -1,0 +1,203 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-DATABASE.html
+
+# CASE STARTUP
+ALTER DATABASE [ name ] startup_clause
+
+# CASE RECOVERY
+ALTER DATABASE [ name ] recovery_clause
+
+# CASE FILES
+ALTER DATABASE [ name ] database_file_action
+
+# CASE LOGFILES
+ALTER DATABASE [ name ] logfile_action
+
+# CASE CONTROLFILE
+ALTER DATABASE [ name ] controlfile_action
+
+# CASE STANDBY
+ALTER DATABASE [ name ] standby_action
+
+# CASE DEFAULT_SETTINGS
+ALTER DATABASE [ name ] default_setting_action
+
+# CASE INSTANCE
+ALTER DATABASE [ name ] { ENABLE | DISABLE } INSTANCE 'instance_name'
+
+# CASE GUARD
+ALTER DATABASE [ name ] GUARD { ALL | STANDBY | NONE }
+
+# CASE PREPARE_MIRROR_COPY
+ALTER DATABASE [ name ] PREPARE MIRROR COPY mirror_copy
+    WITH { UNPROTECTED | MIRROR | HIGH } REDUNDANCY
+
+# CASE DROP_MIRROR_COPY
+ALTER DATABASE [ name ] DROP MIRROR COPY mirror_copy
+
+# CASE LOST_WRITE_PROTECTION
+ALTER DATABASE [ name ] [ ENABLE | REMOVE | SUSPEND ] LOST WRITE PROTECTION
+
+# PARTOFIS startup_clause
+MOUNT [ { STANDBY | CLONE } DATABASE ]
+
+OPEN [ READ WRITE ] [ RESETLOGS | NORESETLOGS ] [ UPGRADE | DOWNGRADE ]
+
+OPEN READ ONLY
+
+# PARTOFIS recovery_clause
+RECOVER [ AUTOMATIC ] [ FROM 'location' ] recovery_target
+    [ TEST ] [ ALLOW corruption_count CORRUPTION ] [ NOPARALLEL | PARALLEL [ degree ] ]
+
+RECOVER [ AUTOMATIC ] [ FROM 'location' ] CONTINUE [ DEFAULT ]
+
+RECOVER [ AUTOMATIC ] [ FROM 'location' ] CANCEL
+
+RECOVER MANAGED STANDBY DATABASE
+    [ managed_recovery_option [...] | FINISH | CANCEL ]
+
+RECOVER TO LOGICAL STANDBY { database | KEEP IDENTITY }
+
+{ BEGIN | END } BACKUP
+
+# PARTOFIS recovery_target
+[ STANDBY ] DATABASE
+    [ UNTIL { CANCEL | TIME recovery_time_value | CHANGE scn_value | CONSISTENT } ]
+    [ USING BACKUP CONTROLFILE ]
+
+TABLESPACE tablespace [, ...]
+
+DATAFILE file_reference [, ...]
+
+LOGFILE 'file_name'
+
+# ONEOFIS managed_recovery_option
+USING ARCHIVED LOGFILE
+DISCONNECT [ FROM SESSION ]
+NODELAY
+UNTIL CHANGE scn_value
+UNTIL CONSISTENT
+USING INSTANCES { ALL | instance_count }
+NOPARALLEL
+PARALLEL [ degree ]
+
+# PARTOFIS logfile_action
+ARCHIVELOG [ MANUAL ]
+
+NOARCHIVELOG
+
+[ NO ] FORCE LOGGING
+
+SET STANDBY NOLOGGING FOR { DATA AVAILABILITY | LOAD PERFORMANCE }
+
+CLEAR [ UNARCHIVED ] LOGFILE logfile_reference [, ...] [ UNRECOVERABLE DATAFILE ]
+
+ADD [ STANDBY ] LOGFILE [ INSTANCE 'instance_name' | THREAD thread_number ]
+    logfile_definition [, ...]
+
+ADD [ STANDBY ] LOGFILE MEMBER logfile_member_definition [, ...] TO logfile_reference [, ...]
+
+DROP [ STANDBY ] LOGFILE { logfile_reference [, ...] | MEMBER 'file_name' [, ...] }
+
+SWITCH ALL LOGFILES TO BLOCKSIZE block_size_value
+
+supplemental_logging_clause
+
+# WHERE logfile_member_definition
+'file_name' [ REUSE ]
+
+# WHERE logfile_definition
+[ GROUP group_number ]
+    [ 'file_name' | ( 'file_name' [, ...] ) ]
+    [ SIZE size_clause ] [ BLOCKSIZE block_size_value ] [ REUSE ]
+
+# ONEOFIS logfile_reference
+GROUP group_number
+( 'file_name' [, ...] )
+'file_name'
+
+# PARTOFIS controlfile_action
+CREATE { [ LOGICAL | PHYSICAL ] STANDBY | FAR SYNC INSTANCE }
+    CONTROLFILE AS 'file_name' [ REUSE ]
+
+BACKUP CONTROLFILE TO 'file_name' [ REUSE ]
+
+BACKUP CONTROLFILE TO TRACE [ AS 'file_name' [ REUSE ] ] [ RESETLOGS | NORESETLOGS ]
+
+# PARTOFIS standby_action
+ACTIVATE [ PHYSICAL | LOGICAL ] STANDBY DATABASE [ FINISH APPLY ] [ NOPARALLEL | PARALLEL [ degree ] ]
+
+SET STANDBY DATABASE TO MAXIMIZE { PROTECTION | AVAILABILITY | PERFORMANCE }
+    [ NOPARALLEL | PARALLEL [ degree ] ]
+
+CONVERT TO { PHYSICAL | SNAPSHOT } STANDBY [ NOPARALLEL | PARALLEL [ degree ] ]
+
+SWITCHOVER TO target_database [ VERIFY | FORCE ]
+
+START LOGICAL STANDBY APPLY [ IMMEDIATE ] [ NODELAY ]
+    [ NEW PRIMARY database_link | INITIAL [ scn_value ] | SKIP FAILED TRANSACTION | FINISH ]
+    [ NOPARALLEL | PARALLEL [ degree ] ]
+
+{ STOP | ABORT } LOGICAL STANDBY APPLY [ NOPARALLEL | PARALLEL [ degree ] ]
+
+# ONEOFIS default_setting_action
+DEFAULT EDITION = edition
+SET DEFAULT { BIGFILE | SMALLFILE } TABLESPACE
+DEFAULT TABLESPACE tablespace
+DEFAULT [ LOCAL ] TEMPORARY TABLESPACE { tablespace | tablespace_group }
+RENAME GLOBAL_NAME TO new_name
+ENABLE BLOCK CHANGE TRACKING [ USING FILE 'file_name' [ REUSE ] ]
+DISABLE BLOCK CHANGE TRACKING
+[ NO ] FORCE FULL DATABASE CACHING
+CONTAINERS DEFAULT TARGET = { ( container ) | NONE }
+FLASHBACK { ON | OFF }
+LOCAL UNDO { ON | OFF }
+SET TIME_ZONE = time_zone_value
+
+# PARTOFIS database_file_action
+RENAME FILE 'file_name' [, ...] TO 'replacement_file_name' [, ...]
+
+CREATE DATAFILE file_reference [, ...] [ AS { datafile_definition [, ...] | NEW } ]
+
+DATAFILE file_reference [, ...] datafile_action
+
+TEMPFILE file_reference [, ...] tempfile_action
+
+MOVE DATAFILE file_reference [ TO 'replacement_file_name' ] [ REUSE ] [ KEEP ]
+
+# WHERE file_reference
+{ 'file_name' | file_number }
+
+# ONEOFIS datafile_action
+ONLINE
+OFFLINE [ FOR DROP ]
+RESIZE size_clause
+autoextend_clause
+END BACKUP
+ENCRYPT
+DECRYPT
+
+# ONEOFIS tempfile_action
+RESIZE size_clause
+autoextend_clause
+DROP [ INCLUDING DATAFILES ]
+ONLINE
+OFFLINE
+
+# WHERE datafile_definition
+[ 'file_name' ] [ SIZE size_clause ] [ REUSE ] [ autoextend_clause ]
+
+# WHERE size_clause
+size_value [ K | M | G | T | P | E ]
+
+# WHERE autoextend_clause
+AUTOEXTEND { OFF | ON [ NEXT size_clause ] [ MAXSIZE { UNLIMITED | size_clause } ] }
+
+# WHERE supplemental_logging_clause
+{ ADD | DROP } SUPPLEMENTAL LOG DATA
+    [ ( supplemental_key_value [, ...] ) COLUMNS | FOR PROCEDURAL REPLICATION | SUBSET DATABASE REPLICATION ]
+
+# ONEOFIS supplemental_key_value
+ALL
+PRIMARY KEY
+UNIQUE
+FOREIGN KEY

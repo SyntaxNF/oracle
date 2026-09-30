@@ -1,0 +1,55 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-MATERIALIZED-ZONEMAP.html
+
+# CASE ON_TABLE
+CREATE MATERIALIZED ZONEMAP name
+    [ TABLESPACE tablespace ] [ SCALE scale_value ]
+    [ PCTFREE pctfree_value ] [ PCTUSED pctused_value ] [ CACHE | NOCACHE ]
+    [ zonemap_refresh_clause ]
+    [ { ENABLE | DISABLE } PRUNING ]
+    ON table ( colname [, ...] )
+
+# CASE AS_QUERY
+CREATE MATERIALIZED ZONEMAP name
+    [ TABLESPACE tablespace ] [ SCALE scale_value ]
+    [ PCTFREE pctfree_value ] [ PCTUSED pctused_value ] [ CACHE | NOCACHE ]
+    [ zonemap_refresh_clause ]
+    [ { ENABLE | DISABLE } PRUNING ]
+    AS zonemap_query_statement
+
+# WHERE zonemap_query_statement
+SELECT SYS_OP_ZONE_ID ( [ fact_alias . ] ROWID ) [ [ AS ] zone_id_alias ],
+    zonemap_aggregate_pair [, ...]
+    FROM fact_table [ fact_alias ]
+    [ dimension_join_clause [...] ]
+    GROUP BY SYS_OP_ZONE_ID ( [ fact_alias . ] ROWID )
+
+# WHERE zonemap_aggregate_pair
+MIN ( zonemap_column ) [ [ AS ] min_alias ], MAX ( zonemap_column ) [ [ AS ] max_alias ]
+
+# WHERE zonemap_column
+[ table_alias . ] colname
+
+# WHERE dimension_join_clause
+LEFT [ OUTER ] JOIN dimension_table [ dimension_alias ]
+    ON equijoin_expression
+
+# WHERE equijoin_expression
+equijoin_comparison [ additional_equijoin_clause [...] ]
+
+# WHERE equijoin_comparison
+fact_alias . fact_colname = dimension_alias . dimension_colname
+
+# WHERE additional_equijoin_clause
+AND equijoin_comparison
+
+# PARTOFIS zonemap_refresh_clause
+REFRESH { FAST | COMPLETE | FORCE } [ ON refresh_mode_value ]
+
+REFRESH ON refresh_mode_value
+
+# ONEOFIS refresh_mode_value
+DEMAND
+COMMIT
+LOAD
+DATA MOVEMENT
+LOAD DATA MOVEMENT

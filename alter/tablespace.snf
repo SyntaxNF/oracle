@@ -1,7 +1,19 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TABLESPACE.html
 
 # CASE ADD_DATAFILE
-ALTER TABLESPACE name ADD DATAFILE file_name SIZE size_value size_unit
+ALTER TABLESPACE name ADD DATAFILE [ datafile_specification [, ...] ]
+
+# CASE ADD_TEMPFILE
+ALTER TABLESPACE name ADD TEMPFILE [ datafile_specification [, ...] ]
+
+# CASE DROP_FILE
+ALTER TABLESPACE name DROP { DATAFILE | TEMPFILE } { 'file_name' | file_number }
+
+# CASE RENAME_DATAFILE
+ALTER TABLESPACE name RENAME DATAFILE 'file_name' [, ...] TO 'new_file_name' [, ...]
+
+# CASE FILE_STATE
+ALTER TABLESPACE name { DATAFILE | TEMPFILE } { ONLINE | OFFLINE }
 
 # CASE READ_ONLY
 ALTER TABLESPACE name READ ONLY
@@ -9,11 +21,96 @@ ALTER TABLESPACE name READ ONLY
 # CASE READ_WRITE
 ALTER TABLESPACE name READ WRITE
 
-# PARTOFIS size_unit
-K
+# CASE ONLINE
+ALTER TABLESPACE name ONLINE
 
-M
+# CASE OFFLINE
+ALTER TABLESPACE name OFFLINE [ NORMAL | TEMPORARY | IMMEDIATE ]
 
-G
+# CASE CONTENTS
+ALTER TABLESPACE name { PERMANENT | TEMPORARY }
 
-T
+# CASE RENAME
+ALTER TABLESPACE name RENAME TO new_name
+
+# CASE BACKUP
+ALTER TABLESPACE name { BEGIN | END } BACKUP
+
+# CASE LOGGING
+ALTER TABLESPACE name { LOGGING | NOLOGGING | [ NO ] FORCE LOGGING }
+
+# CASE DEFAULT_PARAMETERS
+ALTER TABLESPACE name DEFAULT default_parameter [...]
+
+# CASE MINIMUM_EXTENT
+ALTER TABLESPACE name MINIMUM EXTENT size_value
+
+# CASE RESIZE
+ALTER TABLESPACE name RESIZE size_value
+
+# CASE AUTOEXTEND
+ALTER TABLESPACE name autoextend_clause
+
+# CASE COALESCE
+ALTER TABLESPACE name COALESCE
+
+# CASE SHRINK
+ALTER TABLESPACE name SHRINK SPACE [ KEEP size_value ]
+
+# CASE SHRINK_TEMPFILE
+ALTER TABLESPACE name SHRINK TEMPFILE { 'file_name' | file_number } [ KEEP size_value ]
+
+# CASE GROUP
+ALTER TABLESPACE name TABLESPACE GROUP { tablespace_group | '' }
+
+# CASE FLASHBACK
+ALTER TABLESPACE name FLASHBACK { ON | OFF }
+
+# CASE RETENTION
+ALTER TABLESPACE name RETENTION { GUARANTEE | NOGUARANTEE }
+
+# CASE ENCRYPTION_OFFLINE
+ALTER TABLESPACE name ENCRYPTION OFFLINE { [ USING 'encrypt_algorithm' ] ENCRYPT | DECRYPT }
+
+# CASE ENCRYPTION_ONLINE
+ALTER TABLESPACE name ENCRYPTION ONLINE
+    { [ USING 'encrypt_algorithm' ] { ENCRYPT | REKEY } | DECRYPT }
+    [ file_name_convert ]
+
+# CASE ENCRYPTION_FINISH
+ALTER TABLESPACE name ENCRYPTION FINISH { ENCRYPT | REKEY | DECRYPT }
+    [ file_name_convert ]
+
+# WHERE file_name_convert
+FILE_NAME_CONVERT = ( file_name_pair [, ...] ) [ KEEP ]
+
+# WHERE file_name_pair
+'filename_pattern' , 'replacement_filename_pattern'
+
+# PARTOFIS datafile_specification
+'file_name' [ SIZE size_value ] [ REUSE ] [ autoextend_clause ]
+
+SIZE size_value [ REUSE ] [ autoextend_clause ]
+
+autoextend_clause
+
+# WHERE autoextend_clause
+AUTOEXTEND { OFF | ON [ NEXT size_value ] [ MAXSIZE { size_value | UNLIMITED } ] }
+
+# WHERE extent_management_clause
+EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE | UNIFORM [ SIZE size_value ] ]
+
+# ONEOFIS default_parameter
+TABLE { COMPRESS FOR OLTP | COMPRESS FOR QUERY { LOW | HIGH } | COMPRESS FOR ARCHIVE { LOW | HIGH } | NOCOMPRESS }
+INDEX { COMPRESS ADVANCED { LOW | HIGH } | NOCOMPRESS }
+STORAGE ( storage_option [...] )
+
+# ONEOFIS storage_option
+INITIAL size_value
+NEXT size_value
+MINEXTENTS min_extents
+MAXEXTENTS { max_extents | UNLIMITED }
+PCTINCREASE pct_increase
+
+# WHERE size_value
+size [ K | M | G | T | P | E ]

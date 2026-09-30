@@ -1,0 +1,42 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-DIMENSION.html
+
+CREATE DIMENSION name
+    level_definition [...]
+    dimension_relationship_definition [...]
+
+# ONEOFIS dimension_relationship_definition
+hierarchy_definition
+attribute_definition
+extended_attribute_definition
+
+# WHERE level_definition
+LEVEL level IS { level_column | ( level_column [, ...] ) }
+    [ SKIP WHEN NULL ]
+
+# WHERE level_column
+table . colname
+
+# WHERE hierarchy_definition
+HIERARCHY hierarchy
+    ( child_level parent_level_clause [...] [ dimension_join_clause [...] ] )
+
+# WHERE parent_level_clause
+CHILD OF parent_level
+
+# WHERE dimension_join_clause
+JOIN KEY { join_colname | ( join_colname [, ...] ) } REFERENCES parent_level
+
+# WHERE join_colname
+[ table . ] colname
+
+# WHERE attribute_definition
+ATTRIBUTE level DETERMINES { dependent_colname | ( dependent_colname [, ...] ) }
+
+# WHERE dependent_colname
+[ table . ] colname
+
+# WHERE extended_attribute_definition
+ATTRIBUTE attribute attribute_level_clause [...]
+
+# WHERE attribute_level_clause
+LEVEL level DETERMINES { dependent_colname | ( dependent_colname [, ...] ) }

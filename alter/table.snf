@@ -36,33 +36,6 @@ ALTER TABLE name ENABLE VALIDATE CONSTRAINT constraint
 # CASE CONSTRAINT_RENAME
 ALTER TABLE name RENAME CONSTRAINT constraint TO new_constraint
 
-# CASE PARTITION_ADD
-ALTER TABLE name ADD PARTITION partition partition_definition
-
-# CASE PARTITION_EXCHANGE
-ALTER TABLE name EXCHANGE PARTITION partition WITH TABLE referenced_schema . referenced_table { INCLUDING | EXCLUDING } INDEXES { WITH | WITHOUT } VALIDATION [ UPDATE GLOBAL INDEXES ]
-
-# CASE PARTITION_MERGE
-ALTER TABLE name MERGE PARTITIONS partition , other_partition INTO PARTITION new_partition [ UPDATE GLOBAL INDEXES ]
-
-# CASE PARTITION_SPLIT
-ALTER TABLE name SPLIT PARTITION partition split_clause INTO ( PARTITION other_partition , PARTITION new_partition ) [ UPDATE GLOBAL INDEXES ]
-
-# CASE SUBPARTITION_ADD
-ALTER TABLE name MODIFY PARTITION partition ADD SUBPARTITION subpartition partition_definition
-
-# CASE SUBPARTITION_EXCHANGE
-ALTER TABLE name EXCHANGE SUBPARTITION subpartition WITH TABLE referenced_schema . referenced_table { INCLUDING | EXCLUDING } INDEXES { WITH | WITHOUT } VALIDATION [ UPDATE GLOBAL INDEXES ]
-
-# CASE SUBPARTITION_MERGE
-ALTER TABLE name MERGE SUBPARTITIONS subpartition , other_partition INTO SUBPARTITION new_partition [ UPDATE GLOBAL INDEXES ]
-
-# CASE SUBPARTITION_SPLIT
-ALTER TABLE name SPLIT SUBPARTITION subpartition split_clause INTO ( SUBPARTITION other_partition , SUBPARTITION new_partition ) [ UPDATE GLOBAL INDEXES ]
-
-# CASE TABLE_MOVE
-ALTER TABLE name MOVE TABLESPACE tablespace
-
 # CASE TABLE_READ_ONLY
 ALTER TABLE name READ ONLY
 
@@ -77,18 +50,6 @@ ALTER TABLE name DROP COLUMN colname [ CASCADE CONSTRAINTS ]
 
 # CASE DROP_CONSTRAINT
 ALTER TABLE name DROP CONSTRAINT constraint [ CASCADE ]
-
-# CASE DROP_PARTITION
-ALTER TABLE name DROP PARTITION partition [ UPDATE GLOBAL INDEXES ]
-
-# CASE DROP_SUBPARTITION
-ALTER TABLE name DROP SUBPARTITION subpartition [ UPDATE GLOBAL INDEXES ]
-
-# CASE TRUNCATE_PARTITION
-ALTER TABLE name TRUNCATE PARTITION partition [ UPDATE GLOBAL INDEXES ]
-
-# CASE TRUNCATE_SUBPARTITION
-ALTER TABLE name TRUNCATE SUBPARTITION subpartition [ UPDATE GLOBAL INDEXES ]
 
 # CASE SET_UNUSED
 ALTER TABLE name SET UNUSED { COLUMN colname | ( colname [, ...] ) }
@@ -109,17 +70,219 @@ ALTER TABLE name MODIFY ( { colname { VISIBLE | INVISIBLE } } [, ...] )
 # CASE ROW_MOVEMENT
 ALTER TABLE name { ENABLE | DISABLE } ROW MOVEMENT
 
-# CASE PHYSICAL_ATTRIBUTES
-ALTER TABLE name [ PCTFREE pctfree ] [ INITRANS initrans ]
-
 # CASE LOGGING
 ALTER TABLE name { LOGGING | NOLOGGING }
 
+
+# CASE PHYSICAL_ATTRIBUTES
+ALTER TABLE name physical_attribute [...]
+
 # CASE COMPRESSION
-ALTER TABLE name { NOCOMPRESS | COMPRESS [ BASIC | FOR { OLTP | QUERY { LOW | HIGH } | ARCHIVE { LOW | HIGH } } ] | ROW STORE COMPRESS [ BASIC | ADVANCED ] }
+ALTER TABLE name table_compression
 
 # CASE PARALLEL
-ALTER TABLE name { NOPARALLEL | PARALLEL [ degree ] }
+ALTER TABLE name parallel_clause
+
+# CASE ALLOCATE_EXTENT
+ALTER TABLE name allocate_extent_clause
+
+# CASE DEALLOCATE_UNUSED
+ALTER TABLE name deallocate_unused_clause
+
+# CASE SHRINK
+ALTER TABLE name SHRINK SPACE [ COMPACT ] [ CASCADE ]
+
+# CASE TABLE_MOVE
+ALTER TABLE name MOVE [ ONLINE ]
+    segment_attributes
+    [ table_compression ]
+    [ lob_storage_clause [...] ]
+    [ parallel_clause ]
+    [ UPDATE INDEXES ]
+
+# CASE LOB_MODIFY
+ALTER TABLE name MODIFY LOB ( lob_item ) ( lob_modify_option [...] )
+
+# CASE LOB_MOVE
+ALTER TABLE name MOVE lob_storage_clause [...]
+    [ parallel_clause ] [ UPDATE INDEXES ]
+
+# CASE PARTITION_ADD_RANGE
+ALTER TABLE name ADD range_partition_definition
+    [ update_index_clause ]
+
+# CASE PARTITION_ADD_LIST
+ALTER TABLE name ADD list_partition_definition
+    [ update_index_clause ]
+
+# CASE PARTITION_ADD_HASH
+ALTER TABLE name ADD hash_partition_definition
+    [ update_index_clause ] [ parallel_clause ]
+
+# CASE PARTITION_ADD_SYSTEM
+ALTER TABLE name ADD reference_partition_definition
+    [ update_index_clause ]
+
+# CASE SUBPARTITION_ADD_RANGE
+ALTER TABLE name MODIFY PARTITION partition
+    ADD range_subpartition_definition
+    [ update_index_clause ]
+
+# CASE SUBPARTITION_ADD_LIST
+ALTER TABLE name MODIFY PARTITION partition
+    ADD list_subpartition_definition
+    [ update_index_clause ]
+
+# CASE SUBPARTITION_ADD_HASH
+ALTER TABLE name MODIFY PARTITION partition
+    ADD hash_subpartition_definition
+    [ update_index_clause ] [ parallel_clause ]
+
+# CASE PARTITION_EXCHANGE
+ALTER TABLE name EXCHANGE partition_selector
+    WITH TABLE referenced_table
+    [ { INCLUDING | EXCLUDING } INDEXES ]
+    [ { WITH | WITHOUT } VALIDATION ]
+    [ EXCEPTIONS INTO exceptions_table ]
+    [ update_index_clause [ parallel_clause ] ]
+    [ CASCADE ]
+
+# CASE SUBPARTITION_EXCHANGE
+ALTER TABLE name EXCHANGE subpartition_selector
+    WITH TABLE referenced_table
+    [ { INCLUDING | EXCLUDING } INDEXES ]
+    [ { WITH | WITHOUT } VALIDATION ]
+    [ EXCEPTIONS INTO exceptions_table ]
+    [ update_index_clause [ parallel_clause ] ]
+    [ CASCADE ]
+
+# CASE PARTITION_MERGE
+ALTER TABLE name MERGE PARTITIONS partition_or_key
+    { , partition_or_key [, ...] | TO partition_or_key }
+    [ INTO partition_spec ]
+    [ update_index_clause ] [ parallel_clause ]
+
+# CASE SUBPARTITION_MERGE
+ALTER TABLE name MERGE SUBPARTITIONS subpartition_or_key
+    { , subpartition_or_key [, ...] | TO subpartition_or_key }
+    [ INTO subpartition_spec ]
+    [ update_index_clause ] [ parallel_clause ]
+
+# CASE PARTITION_SPLIT_RANGE
+ALTER TABLE name SPLIT partition_selector AT ( literal [, ...] )
+    [ INTO ( partition_spec , partition_spec ) ]
+    [ update_index_clause ] [ parallel_clause ] [ ONLINE ]
+
+# CASE PARTITION_SPLIT_LIST
+ALTER TABLE name SPLIT partition_selector VALUES ( list_values )
+    [ INTO ( partition_spec , partition_spec ) ]
+    [ update_index_clause ] [ parallel_clause ] [ ONLINE ]
+
+# CASE PARTITION_SPLIT_MULTIPLE_RANGE
+ALTER TABLE name SPLIT partition_selector
+    INTO ( range_partition_definition [, ...] , partition_spec )
+    [ update_index_clause ] [ parallel_clause ] [ ONLINE ]
+
+# CASE PARTITION_SPLIT_MULTIPLE_LIST
+ALTER TABLE name SPLIT partition_selector
+    INTO ( list_partition_definition [, ...] , partition_spec )
+    [ update_index_clause ] [ parallel_clause ] [ ONLINE ]
+
+# CASE SUBPARTITION_SPLIT_RANGE
+ALTER TABLE name SPLIT subpartition_selector AT ( literal [, ...] )
+    [ INTO ( subpartition_spec , subpartition_spec ) ]
+    [ update_index_clause ] [ parallel_clause ] [ ONLINE ]
+
+# CASE SUBPARTITION_SPLIT_LIST
+ALTER TABLE name SPLIT subpartition_selector VALUES ( list_values )
+    [ INTO ( subpartition_spec , subpartition_spec ) ]
+    [ update_index_clause ] [ parallel_clause ] [ ONLINE ]
+
+# CASE PARTITION_MOVE
+ALTER TABLE name MOVE partition_selector [ MAPPING TABLE ]
+    partition_properties
+    [ update_index_clause ] [ parallel_clause ] [ ONLINE ]
+
+# CASE SUBPARTITION_MOVE
+ALTER TABLE name MOVE subpartition_selector
+    [ INDEXING { ON | OFF } ] partition_storage
+    [ update_index_clause ] [ parallel_clause ] [ ONLINE ]
+
+# CASE PARTITION_MODIFY
+ALTER TABLE name MODIFY partition_selector partition_modify_option
+
+# CASE SUBPARTITION_MODIFY
+ALTER TABLE name MODIFY subpartition_selector subpartition_modify_option
+
+# CASE PARTITION_LIST_ADD_VALUES
+ALTER TABLE name MODIFY partition_selector ADD VALUES ( list_values )
+
+# CASE PARTITION_LIST_DROP_VALUES
+ALTER TABLE name MODIFY partition_selector DROP VALUES ( list_values )
+
+# CASE SUBPARTITION_LIST_ADD_VALUES
+ALTER TABLE name MODIFY subpartition_selector ADD VALUES ( list_values )
+
+# CASE SUBPARTITION_LIST_DROP_VALUES
+ALTER TABLE name MODIFY subpartition_selector DROP VALUES ( list_values )
+
+# CASE PARTITION_RENAME
+ALTER TABLE name RENAME partition_selector TO new_partition
+
+# CASE SUBPARTITION_RENAME
+ALTER TABLE name RENAME subpartition_selector TO new_subpartition
+
+# CASE PARTITION_COALESCE
+ALTER TABLE name COALESCE PARTITION
+    [ update_index_clause ] [ parallel_clause ]
+
+# CASE SUBPARTITION_COALESCE
+ALTER TABLE name MODIFY PARTITION partition COALESCE SUBPARTITION
+    [ update_index_clause ] [ parallel_clause ]
+
+# CASE DROP_PARTITION
+ALTER TABLE name DROP PARTITION partition_or_key [, ...]
+    [ update_index_clause [ parallel_clause ] ]
+
+# CASE DROP_SUBPARTITION
+ALTER TABLE name DROP SUBPARTITION subpartition_or_key [, ...]
+    [ update_index_clause [ parallel_clause ] ]
+
+# CASE TRUNCATE_PARTITION
+ALTER TABLE name TRUNCATE PARTITION partition_or_key [, ...]
+    [ { DROP [ ALL ] | REUSE } STORAGE ]
+    [ update_index_clause [ parallel_clause ] ] [ CASCADE ]
+
+# CASE TRUNCATE_SUBPARTITION
+ALTER TABLE name TRUNCATE SUBPARTITION subpartition_or_key [, ...]
+    [ { DROP [ ALL ] | REUSE } STORAGE ]
+    [ update_index_clause [ parallel_clause ] ] [ CASCADE ]
+
+# CASE SET_INTERVAL
+ALTER TABLE name SET INTERVAL ( [ interval_expression ] )
+
+# CASE SET_AUTOMATIC_PARTITIONING
+ALTER TABLE name SET PARTITIONING { AUTOMATIC | MANUAL }
+
+# CASE PARTITION_STORE_IN
+ALTER TABLE name SET STORE IN ( tablespace [, ...] )
+
+# CASE SET_SUBPARTITION_TEMPLATE
+ALTER TABLE name SET SUBPARTITION TEMPLATE
+    { ( range_subpartition_definition [, ...] )
+    | ( list_subpartition_definition [, ...] )
+    | ( hash_subpartition_definition [, ...] )
+    | ( ) | subpartition_count }
+
+# CASE MODIFY_PARTITIONING
+ALTER TABLE name MODIFY partition_clause [ ONLINE ] [ UPDATE INDEXES ]
+
+# CASE MODIFY_NONPARTITIONED
+ALTER TABLE name MODIFY NONPARTITIONED [ ONLINE ] [ UPDATE INDEXES ]
+
+# CASE PARTITION_DEFAULT_ATTRIBUTES
+ALTER TABLE name MODIFY DEFAULT ATTRIBUTES [ FOR PARTITION partition ]
+    default_partition_option [...]
 
 # WHERE constraint_definition
 { UNIQUE ( colname [, ...] ) | PRIMARY KEY ( colname [, ...] ) |
@@ -140,3 +303,286 @@ colname data_type [ DEFAULT [ ON NULL ] default_expression ] [ NOT NULL ]
 
 # WHERE column_modification
 colname data_type [ DEFAULT [ ON NULL ] default_expression ]
+
+
+# ONEOFIS physical_attribute
+PCTFREE pctfree
+PCTUSED pctused
+INITRANS initrans
+storage_clause
+
+# ONEOFIS lob_modify_option
+storage_clause
+PCTVERSION pctversion
+FREEPOOLS freepools
+REBUILD FREEPOOLS
+RETENTION [ MAX | MIN retention_seconds | AUTO | NONE ]
+{ DEDUPLICATE | KEEP_DUPLICATES }
+{ COMPRESS [ HIGH | MEDIUM | LOW ] | NOCOMPRESS }
+ENCRYPT encryption_options
+DECRYPT
+CACHE
+{ NOCACHE | CACHE READS } [ LOGGING | NOLOGGING | FILESYSTEM_LIKE_LOGGING ]
+allocate_extent_clause
+SHRINK SPACE [ COMPACT ] [ CASCADE ]
+deallocate_unused_clause
+
+# WHERE partition_selector
+PARTITION { partition | FOR ( partition_key [, ...] ) }
+
+# WHERE subpartition_selector
+SUBPARTITION { subpartition | FOR ( partition_key [, ...] ) }
+
+# WHERE partition_or_key
+{ partition | FOR ( partition_key [, ...] ) }
+
+# WHERE subpartition_or_key
+{ subpartition | FOR ( partition_key [, ...] ) }
+
+# WHERE partition_spec
+PARTITION [ partition ] partition_properties
+
+# WHERE subpartition_spec
+SUBPARTITION [ subpartition ] subpartition_properties
+
+# WHERE update_index_clause
+{ UPDATE GLOBAL INDEXES | UPDATE INDEXES }
+
+# PARTOFIS partition_modify_option
+partition_attribute [...]
+    [ table_compression ]
+    [ lob_partition_modification [...] ]
+
+table_compression
+
+lob_partition_modification [...]
+
+{ READ ONLY | READ WRITE }
+
+INDEXING { ON | OFF }
+
+[ REBUILD ] UNUSABLE LOCAL INDEXES
+
+# ONEOFIS partition_attribute
+physical_attribute
+{ LOGGING | NOLOGGING }
+allocate_extent_clause
+deallocate_unused_clause
+SHRINK SPACE [ COMPACT ] [ CASCADE ]
+
+# PARTOFIS subpartition_modify_option
+allocate_extent_clause
+
+deallocate_unused_clause
+
+SHRINK SPACE [ COMPACT ] [ CASCADE ]
+
+lob_partition_modification [...]
+
+{ READ ONLY | READ WRITE }
+
+INDEXING { ON | OFF }
+
+[ REBUILD ] UNUSABLE LOCAL INDEXES
+
+# ONEOFIS default_partition_option
+physical_attribute
+TABLESPACE tablespace
+{ LOGGING | NOLOGGING }
+table_compression
+{ READ ONLY | READ WRITE }
+INDEXING { ON | OFF }
+
+# WHERE physical_attributes
+[ PCTFREE pctfree ]
+[ PCTUSED pctused ]
+[ INITRANS initrans ]
+[ storage_clause ]
+
+# WHERE segment_attributes
+physical_attributes
+[ TABLESPACE tablespace ]
+[ LOGGING | NOLOGGING ]
+
+# PARTOFIS table_compression
+NOCOMPRESS
+
+COMPRESS
+
+ROW STORE COMPRESS [ BASIC | ADVANCED ]
+
+COLUMN STORE COMPRESS [ FOR { QUERY | ARCHIVE } [ LOW | HIGH ] ]
+    [ [ NO ] ROW LEVEL LOCKING ]
+
+# WHERE parallel_clause
+{ NOPARALLEL | PARALLEL [ degree ] }
+
+# WHERE storage_clause
+STORAGE ( storage_option [...] )
+
+# ONEOFIS storage_option
+NEXT size_value
+MINEXTENTS min_extents
+MAXEXTENTS { max_extents | UNLIMITED }
+MAXSIZE { size_value | UNLIMITED }
+PCTINCREASE pct_increase
+FREELISTS freelists
+BUFFER_POOL { KEEP | RECYCLE | DEFAULT }
+FLASH_CACHE { KEEP | NONE | DEFAULT }
+CELL_FLASH_CACHE { KEEP | NONE | DEFAULT }
+
+# WHERE size_value
+size [ K | M | G | T | P | E ]
+
+# PARTOFIS lob_storage_clause
+LOB ( lob_item ) STORE AS lob_store_definition
+
+LOB ( lob_item , lob_item [, ...] ) STORE AS lob_multi_store_definition
+
+# PARTOFIS lob_store_definition
+{ SECUREFILE | BASICFILE } [ lob_segment ] [ ( lob_storage_option [...] ) ]
+
+lob_segment [ ( lob_storage_option [...] ) ]
+
+( lob_storage_option [...] )
+
+# PARTOFIS lob_multi_store_definition
+{ SECUREFILE | BASICFILE } [ ( lob_storage_option [...] ) ]
+
+( lob_storage_option [...] )
+
+# ONEOFIS lob_storage_option
+TABLESPACE tablespace
+{ ENABLE | DISABLE } STORAGE IN ROW
+CHUNK chunk_size
+PCTVERSION pctversion
+FREEPOOLS freepools
+RETENTION [ MAX | MIN retention_seconds | AUTO | NONE ]
+{ DEDUPLICATE | KEEP_DUPLICATES }
+{ COMPRESS [ HIGH | MEDIUM | LOW ] | NOCOMPRESS }
+ENCRYPT encryption_options
+DECRYPT
+{ CACHE | NOCACHE | CACHE READS } [ LOGGING | NOLOGGING | FILESYSTEM_LIKE_LOGGING ]
+storage_clause
+
+# WHERE encryption_options
+[ USING 'encrypt_algorithm' ]
+[ IDENTIFIED BY password ]
+[ 'integrity_algorithm' ]
+[ [ NO ] SALT ]
+
+# PARTOFIS partition_clause
+PARTITION BY RANGE ( colname [, ...] )
+    [ INTERVAL ( interval_expression ) [ STORE IN ( tablespace [, ...] ) ] ]
+    [ subpartition_clause ]
+    ( range_partition_definition [, ...] )
+
+PARTITION BY LIST ( colname [, ...] )
+    [ AUTOMATIC [ STORE IN ( tablespace [, ...] ) ] ]
+    [ subpartition_clause ]
+    ( list_partition_definition [, ...] )
+
+PARTITION BY HASH ( colname [, ...] )
+    [ subpartition_clause ]
+    { ( hash_partition_definition [, ...] )
+    | PARTITIONS partition_count [ STORE IN ( tablespace [, ...] ) ] [ table_compression ] }
+
+PARTITION BY REFERENCE ( constraint )
+    [ ( reference_partition_definition [, ...] ) ]
+
+PARTITION BY SYSTEM
+    [ PARTITIONS partition_count
+    | ( reference_partition_definition [, ...] ) ]
+
+# WHERE range_partition_definition
+PARTITION [ partition ] range_values_clause
+    partition_properties
+    [ subpartition_definitions ]
+
+# WHERE list_partition_definition
+PARTITION [ partition ] list_values_clause
+    partition_properties
+    [ subpartition_definitions ]
+
+# WHERE hash_partition_definition
+PARTITION [ partition ]
+    [ READ ONLY | READ WRITE ]
+    [ INDEXING { ON | OFF } ]
+    partition_storage
+    [ subpartition_definitions ]
+
+# WHERE reference_partition_definition
+PARTITION [ partition ] partition_properties
+
+# WHERE partition_properties
+[ SEGMENT CREATION { IMMEDIATE | DEFERRED } ]
+[ READ ONLY | READ WRITE ]
+[ INDEXING { ON | OFF } ]
+segment_attributes
+[ table_compression ]
+[ lob_storage_clause [...] ]
+
+# WHERE partition_storage
+[ TABLESPACE tablespace ]
+[ table_compression ]
+[ lob_storage_clause [...] ]
+
+# WHERE range_values_clause
+VALUES LESS THAN ( { literal | MAXVALUE } [, ...] )
+
+# WHERE list_values_clause
+VALUES ( { list_values | DEFAULT } )
+
+# PARTOFIS list_values
+{ literal | NULL } [, ...]
+
+( { literal | NULL } [, ...] ) [, ...]
+
+# PARTOFIS subpartition_clause
+SUBPARTITION BY RANGE ( colname [, ...] )
+    [ SUBPARTITION TEMPLATE ( range_subpartition_definition [, ...] ) ]
+
+SUBPARTITION BY LIST ( colname [, ...] )
+    [ SUBPARTITION TEMPLATE ( list_subpartition_definition [, ...] ) ]
+
+SUBPARTITION BY HASH ( colname [, ...] )
+    [ SUBPARTITIONS subpartition_count [ STORE IN ( tablespace [, ...] ) ]
+    | SUBPARTITION TEMPLATE ( hash_subpartition_definition [, ...] ) ]
+
+# PARTOFIS subpartition_definitions
+( range_subpartition_definition [, ...] )
+
+( list_subpartition_definition [, ...] )
+
+( hash_subpartition_definition [, ...] )
+
+SUBPARTITIONS subpartition_count [ STORE IN ( tablespace [, ...] ) ]
+
+# WHERE range_subpartition_definition
+SUBPARTITION [ subpartition ] range_values_clause
+    subpartition_properties
+
+# WHERE list_subpartition_definition
+SUBPARTITION [ subpartition ] list_values_clause
+    subpartition_properties
+
+# WHERE hash_subpartition_definition
+SUBPARTITION [ subpartition ] subpartition_properties
+
+# WHERE subpartition_properties
+[ READ ONLY | READ WRITE ]
+[ INDEXING { ON | OFF } ]
+partition_storage
+
+# WHERE allocate_extent_clause
+ALLOCATE EXTENT [ (
+    [ SIZE size_value ]
+    [ DATAFILE 'datafile' ]
+    [ INSTANCE instance_number ]
+) ]
+
+# WHERE deallocate_unused_clause
+DEALLOCATE UNUSED [ KEEP size_value ]
+
+# WHERE lob_partition_modification
+LOB lob_item ( lob_modify_option [...] )

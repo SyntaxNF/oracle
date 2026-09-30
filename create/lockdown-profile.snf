@@ -1,0 +1,4 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-LOCKDOWN-PROFILE.html
+
+CREATE LOCKDOWN PROFILE name
+    [ FROM base_profile | INCLUDING base_profile ]

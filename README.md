@@ -99,7 +99,7 @@ colname data_type [ DEFAULT default_expression ] [ NOT NULL ]
 
 | 占位符 | 含义 |
 | --- | --- |
-| `object_definition` | 函数、过程、包或类型等程序单元的定义内容。 |
+| `plsql_body`、`declaration_definition` | 程序体、局部声明的结构化节点；不再以整段 object_definition 代替程序单元。 |
 | `partition_clause`、`partition_definition` | 分区子句和单个分区定义。 |
 | `referenced_schema`、`referenced_table`、`referenced_object` | 被引用对象的所有者和对象标识符。 |
 | `job_type`、`job_action`、`repeat_interval` | `DBMS_SCHEDULER` 作业类型、动作和重复计划。 |
@@ -116,3 +116,10 @@ Studio 的 Oracle Registry 决定哪些操作可执行；SNF Pages 只提供语�
 ## 覆盖状态
 
 语句入口覆盖、本轮修正和剩余缺口见 [SQL 定义覆盖检查](docs/coverage.md)。文件存在不代表全部语法组合已经验证。
+
+
+## 19c 覆盖清单与校验
+
+当前 164 个 `.snf` 文件映射官方 SQL 目录全部 161 个命令页，并包含匿名 PL/SQL block 和少量包过程调用。入口齐全不代表完整 Oracle 文法；具体 structured/partial 范围见 [逐命令清单](docs/statement-inventory.json) 与 [覆盖说明](docs/coverage.md)。表达式、对象状态和跨子句语义仍需消费方校验。
+
+本轮存在 CASE/占位符调整，接入前查看 [迁移清单](docs/migration.md) 和 [语义约束](docs/semantic-contracts.md)。真实 parser 和结构回归的复现命令见 [验证说明](docs/validation.md)；这些检查不执行 Oracle SQL，不构建 Studio Pages，不生成 `.snf.json`。运行检查仍需遵守 AGENTS.md 或用户的明确授权。

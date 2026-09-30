@@ -1,0 +1,19 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-INDEXTYPE.html
+
+# CASE OPERATORS
+ALTER INDEXTYPE name operator_action [, ...]
+    [ USING implementation_type [ array_dml_clause ] ]
+    [ WITH LOCAL [ RANGE ] PARTITION ]
+    [ WITH { SYSTEM | USER } MANAGED STORAGE TABLES ]
+
+# CASE COMPILE
+ALTER INDEXTYPE name COMPILE
+    [ WITH LOCAL [ RANGE ] PARTITION ]
+    [ WITH { SYSTEM | USER } MANAGED STORAGE TABLES ]
+
+# WHERE operator_action
+{ ADD | DROP } operator ( parameter_type [, ...] )
+
+# WHERE array_dml_clause
+[ WITH | WITHOUT ] ARRAY DML
+    [ ( type [ , varray_type ] ) [, ...] ]

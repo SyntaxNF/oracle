@@ -1,0 +1,52 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-ANALYTIC-VIEW.html
+
+CREATE [ OR REPLACE ] [ FORCE | NOFORCE ] ANALYTIC VIEW name
+    [ SHARING = { METADATA | NONE } ]
+    [ classification_clause ]
+    USING table [ [ AS ] table_alias ]
+    DIMENSION BY ( dimension_key_definition [, ...] )
+    MEASURES ( measure_definition [, ...] )
+    [ DEFAULT MEASURE measure ]
+    [ DEFAULT AGGREGATE BY aggregate_function ]
+    [ CACHE cache_definition [, ...] ]
+
+# WHERE dimension_key_definition
+attribute_dimension [ [ AS ] dimension_alias ]
+    [ classification_clause ]
+    KEY { fact_column | ( fact_column [, ...] ) }
+    REFERENCES [ DISTINCT ] { attribute | ( attribute [, ...] ) }
+    HIERARCHIES ( hierarchy_reference [, ...] )
+
+# WHERE fact_column
+[ table_alias . ] colname
+
+# WHERE hierarchy_reference
+hierarchy [ [ AS ] hierarchy_alias ] [ DEFAULT ]
+
+# WHERE measure_definition
+measure [ measure_clause ] [ classification_clause ]
+
+# PARTOFIS measure_clause
+FACT fact_column [ AGGREGATE BY aggregate_function ]
+
+AGGREGATE BY aggregate_function
+
+AS ( calculated_measure_expression )
+
+# WHERE cache_definition
+MEASURE GROUP { ALL | ( measure [, ...] ) [ materialized_levels_clause [...] ] }
+
+# WHERE materialized_levels_clause
+LEVELS ( level_definition [, ...] ) MATERIALIZED
+
+# WHERE level_definition
+( [ [ dimension_alias . ] hierarchy_alias . ] level )
+
+# WHERE classification_clause
+[ CAPTION caption_value ]
+    [ DESCRIPTION description_value ]
+    [ user_classification_clause [...] ]
+
+# WHERE user_classification_clause
+CLASSIFICATION classification
+    [ VALUE classification_value ] [ LANGUAGE language_value ]

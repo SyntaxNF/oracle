@@ -1,0 +1,32 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-LOCKDOWN-PROFILE.html
+
+# CASE FEATURE
+ALTER LOCKDOWN PROFILE name { DISABLE | ENABLE } FEATURE
+    { = ( 'feature' [, ...] ) | ALL [ EXCEPT = ( 'feature' [, ...] ) ] }
+
+# CASE OPTION
+ALTER LOCKDOWN PROFILE name { DISABLE | ENABLE } OPTION
+    { = ( 'option' [, ...] ) | ALL [ EXCEPT = ( 'option' [, ...] ) ] }
+
+# CASE STATEMENT
+ALTER LOCKDOWN PROFILE name { DISABLE | ENABLE } STATEMENT
+    { = ( 'sql_statement' [, ...] ) | ALL [ EXCEPT = ( 'sql_statement' [, ...] ) ] }
+
+# CASE STATEMENT_CLAUSE
+ALTER LOCKDOWN PROFILE name { DISABLE | ENABLE } STATEMENT = ( 'sql_statement' )
+    CLAUSE { = ( 'clause' [, ...] ) | ALL [ EXCEPT = ( 'clause' [, ...] ) ] }
+
+# CASE STATEMENT_OPTION
+ALTER LOCKDOWN PROFILE name { DISABLE | ENABLE }
+    STATEMENT = ( { 'ALTER SESSION' | 'ALTER SYSTEM' } ) CLAUSE = ( 'SET' )
+    OPTION { = ( 'clause_option' [, ...] ) | ALL [ EXCEPT = ( 'clause_option' [, ...] ) ] }
+
+# CASE STATEMENT_OPTION_VALUES
+ALTER LOCKDOWN PROFILE name DISABLE
+    STATEMENT = ( { 'ALTER SESSION' | 'ALTER SYSTEM' } ) CLAUSE = ( 'SET' )
+    OPTION = ( 'clause_option' ) option_value_clause [...]
+
+# ONEOFIS option_value_clause
+VALUE = ( 'option_value' [, ...] )
+MINVALUE = 'option_value'
+MAXVALUE = 'option_value'

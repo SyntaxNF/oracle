@@ -1,3 +1,607 @@
-# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TRIGGER.html
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/lnpls/CREATE-TRIGGER-statement.html
 
-CREATE [ OR REPLACE ] TRIGGER name trigger_definition
+# CASE STATEMENT_DML
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    { BEFORE | AFTER } dml_event [OR ...] ON table
+    [ referencing_clause ]
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    anonymous_block
+
+# CASE STATEMENT_DML_CALL
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    { BEFORE | AFTER } dml_event [OR ...] ON table
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    CALL routine ( [ actual_parameter [, ...] ] ) ;
+
+# CASE ROW_DML_NORMAL
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    { BEFORE | AFTER } dml_event [OR ...] ON { table | editioning_view }
+    [ referencing_clause ] FOR EACH ROW
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    anonymous_block
+
+# CASE ROW_DML_NORMAL_CALL
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    { BEFORE | AFTER } dml_event [OR ...] ON { table | editioning_view }
+    FOR EACH ROW
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    CALL routine ( [ actual_parameter [, ...] ] ) ;
+
+# CASE ROW_DML_FORWARD
+CREATE [ OR REPLACE ] [ EDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    { BEFORE | AFTER } dml_event [OR ...] ON table
+    [ referencing_clause ] FOR EACH ROW
+    FORWARD CROSSEDITION
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    anonymous_block
+
+# CASE ROW_DML_FORWARD_CALL
+CREATE [ OR REPLACE ] [ EDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    { BEFORE | AFTER } dml_event [OR ...] ON table
+    FOR EACH ROW
+    FORWARD CROSSEDITION
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    CALL routine ( [ actual_parameter [, ...] ] ) ;
+
+# CASE ROW_DML_REVERSE
+CREATE [ OR REPLACE ] [ EDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    { BEFORE | AFTER } dml_event [OR ...] ON table
+    [ referencing_clause ] FOR EACH ROW
+    REVERSE CROSSEDITION
+    [ PRECEDES trigger [, ...] ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    anonymous_block
+
+# CASE ROW_DML_REVERSE_CALL
+CREATE [ OR REPLACE ] [ EDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    { BEFORE | AFTER } dml_event [OR ...] ON table
+    FOR EACH ROW
+    REVERSE CROSSEDITION
+    [ PRECEDES trigger [, ...] ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    CALL routine ( [ actual_parameter [, ...] ] ) ;
+
+# CASE INSTEAD_OF_DML
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    INSTEAD OF instead_of_event [OR ...]
+    ON [ NESTED TABLE nested_table_column OF ] view
+    [ referencing_clause ] [ FOR EACH ROW ]
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    anonymous_block
+
+# CASE INSTEAD_OF_DML_CALL
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    INSTEAD OF instead_of_event [OR ...]
+    ON [ NESTED TABLE nested_table_column OF ] view
+    [ FOR EACH ROW ]
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    CALL routine ( [ actual_parameter [, ...] ] ) ;
+
+# CASE COMPOUND_DML_NORMAL
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    FOR dml_event [OR ...] ON { table | editioning_view }
+    [ referencing_clause ]
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    COMPOUND TRIGGER
+        [ compound_declaration_definition [...] ]
+        timing_point_definition [...]
+    END [ end_name ] ;
+
+# CASE COMPOUND_DML_FORWARD
+CREATE [ OR REPLACE ] [ EDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    FOR dml_event [OR ...] ON table
+    [ referencing_clause ]
+    FORWARD CROSSEDITION
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    COMPOUND TRIGGER
+        [ compound_declaration_definition [...] ]
+        timing_point_definition [...]
+    END [ end_name ] ;
+
+# CASE COMPOUND_DML_REVERSE
+CREATE [ OR REPLACE ] [ EDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    FOR dml_event [OR ...] ON table
+    [ referencing_clause ]
+    REVERSE CROSSEDITION
+    [ PRECEDES trigger [, ...] ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    COMPOUND TRIGGER
+        [ compound_declaration_definition [...] ]
+        timing_point_definition [...]
+    END [ end_name ] ;
+
+# CASE SYSTEM_DDL
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    { BEFORE | AFTER } ddl_event [OR ...]
+    ON { [ schema . ] SCHEMA | [ PLUGGABLE ] DATABASE }
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    trigger_body
+
+# CASE INSTEAD_OF_CREATE
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    INSTEAD OF CREATE
+    ON { [ schema . ] SCHEMA | [ PLUGGABLE ] DATABASE }
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    trigger_body
+
+# CASE DATABASE_STARTUP
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    AFTER STARTUP
+    ON DATABASE
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    trigger_body
+
+# CASE DATABASE_SHUTDOWN
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    BEFORE SHUTDOWN
+    ON DATABASE
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    trigger_body
+
+# CASE DATABASE_ROLE_CHANGE
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    AFTER DB_ROLE_CHANGE
+    ON DATABASE
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    trigger_body
+
+# CASE SESSION_AFTER
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    AFTER { SERVERERROR | LOGON | SUSPEND } [OR ...]
+    ON { [ schema . ] SCHEMA | [ PLUGGABLE ] DATABASE }
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    trigger_body
+
+# CASE SESSION_LOGOFF
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    BEFORE LOGOFF
+    ON { [ schema . ] SCHEMA | [ PLUGGABLE ] DATABASE }
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    trigger_body
+
+# CASE PDB_CLONE
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    AFTER CLONE
+    ON PLUGGABLE DATABASE
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    trigger_body
+
+# CASE PDB_UNPLUG
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    BEFORE UNPLUG
+    ON PLUGGABLE DATABASE
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    trigger_body
+
+# CASE SET_CONTAINER
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    { BEFORE | AFTER } SET CONTAINER
+    ON { [ schema . ] SCHEMA | [ PLUGGABLE ] DATABASE }
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    trigger_body
+
+# CASE COMPOUND_NONEDITIONING_VIEW
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    FOR instead_of_event [OR ...] ON noneditioning_view
+    [ referencing_clause ]
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    COMPOUND TRIGGER
+        [ compound_declaration_definition [...] ]
+        INSTEAD OF EACH ROW IS
+            BEGIN plsql_statement [...] [ EXCEPTION exception_handler [...] ]
+            END INSTEAD OF EACH ROW ;
+    END [ end_name ] ;
+
+# WHERE dml_event
+{ DELETE | INSERT | UPDATE [ OF colname [, ...] ] }
+
+# WHERE instead_of_event
+{ DELETE | INSERT | UPDATE }
+
+# WHERE referencing_clause
+REFERENCING referencing_definition [...]
+
+# WHERE referencing_definition
+{ OLD [ AS ] old_alias | NEW [ AS ] new_alias | PARENT [ AS ] parent_alias }
+
+# WHERE trigger_ordering_clause
+FOLLOWS trigger [, ...]
+
+# WHERE trigger_body
+{ anonymous_block | CALL routine ( [ actual_parameter [, ...] ] ) ; }
+
+# PARTOFIS timing_point_definition
+BEFORE STATEMENT IS
+    BEGIN plsql_statement [...] [ EXCEPTION exception_handler [...] ]
+    END BEFORE STATEMENT ;
+
+BEFORE EACH ROW IS
+    BEGIN plsql_statement [...] [ EXCEPTION exception_handler [...] ]
+    END BEFORE EACH ROW ;
+
+AFTER STATEMENT IS
+    BEGIN plsql_statement [...] [ EXCEPTION exception_handler [...] ]
+    END AFTER STATEMENT ;
+
+AFTER EACH ROW IS
+    BEGIN plsql_statement [...] [ EXCEPTION exception_handler [...] ]
+    END AFTER EACH ROW ;
+
+# WHERE ddl_event
+{ ALTER | ANALYZE | ASSOCIATE STATISTICS | AUDIT | COMMENT | CREATE | DISASSOCIATE STATISTICS | DROP | GRANT | NOAUDIT | RENAME | REVOKE | TRUNCATE | DDL }
+
+# WHERE parameter_definition
+parameter { [ IN ] parameter_type [ { := | DEFAULT } value_expression ] | { OUT | IN OUT } [ NOCOPY ] parameter_type }
+
+# WHERE input_parameter_definition
+parameter [ IN ] parameter_type [ { := | DEFAULT } value_expression ]
+
+# WHERE actual_parameter
+[ parameter => ] value_expression
+
+# WHERE accessible_by_clause
+ACCESSIBLE BY ( accessor_definition [, ...] )
+
+# WHERE accessor_definition
+[ FUNCTION | PROCEDURE | PACKAGE | TRIGGER | TYPE ] accessor
+
+# WHERE parallel_enable_clause
+PARALLEL_ENABLE
+    [ ( PARTITION parameter BY
+        { ANY | { HASH | RANGE } ( colname [, ...] ) [ streaming_clause ] | VALUE ( colname ) }
+    ) ]
+
+# WHERE streaming_clause
+{ ORDER | CLUSTER } value_expression BY ( colname [, ...] )
+
+# WHERE result_cache_clause
+RESULT_CACHE [ RELIES_ON ( relation [, ...] ) ]
+
+# PARTOFIS call_specification
+LANGUAGE JAVA NAME 'java_signature'
+
+LANGUAGE C c_call_definition
+
+EXTERNAL c_call_definition
+
+# WHERE anonymous_block
+[ label_definition [...] ]
+[ DECLARE declaration_definition [...] ]
+plsql_body
+
+# WHERE label_definition
+<< label >>
+
+# WHERE plsql_body
+BEGIN
+    plsql_statement [...]
+[ EXCEPTION
+    exception_handler [...]
+]
+END [ end_name ] ;
+
+# WHERE exception_handler
+WHEN { exception_name [OR ...] | OTHERS } THEN
+    plsql_statement [...]
+
+# PARTOFIS declaration_definition
+variable plsql_data_type
+    { [ { := | DEFAULT } value_expression ] | NOT NULL { := | DEFAULT } value_expression } ;
+
+constant CONSTANT plsql_data_type [ NOT NULL ] { := | DEFAULT } value_expression ;
+
+exception_name EXCEPTION ;
+
+TYPE type_name IS RECORD ( record_field_definition [, ...] ) ;
+
+TYPE type_name IS TABLE OF plsql_data_type [ NOT NULL ] [ INDEX BY index_data_type ] ;
+
+TYPE type_name IS { VARRAY | VARYING ARRAY } ( size_value ) OF plsql_data_type [ NOT NULL ] ;
+
+TYPE type_name IS REF CURSOR [ RETURN row_type ] ;
+
+SUBTYPE subtype IS base_type
+    [ subtype_constraint | CHARACTER SET character_set ] [ NOT NULL ] ;
+
+CURSOR cursor_name [ ( input_parameter_definition [, ...] ) ] RETURN row_type ;
+
+CURSOR cursor_name [ ( input_parameter_definition [, ...] ) ]
+    [ RETURN row_type ] IS query_statement ;
+
+PROCEDURE procedure [ ( parameter_definition [, ...] ) ] ;
+
+FUNCTION function_name [ ( parameter_definition [, ...] ) ] RETURN parameter_type ;
+
+PROCEDURE procedure [ ( parameter_definition [, ...] ) ] { IS | AS }
+    [ declaration_definition [...] ]
+    plsql_body
+
+FUNCTION function_name [ ( parameter_definition [, ...] ) ] RETURN parameter_type { IS | AS }
+    [ declaration_definition [...] ]
+    plsql_body
+
+pragma_definition
+
+# WHERE record_field_definition
+field plsql_data_type
+    { [ { := | DEFAULT } value_expression ] | NOT NULL { := | DEFAULT } value_expression }
+
+# WHERE subtype_constraint
+{ ( precision_value [ , scale_value ] ) | RANGE lower_value .. upper_value }
+
+# PARTOFIS pragma_definition
+PRAGMA AUTONOMOUS_TRANSACTION ;
+
+PRAGMA EXCEPTION_INIT ( exception_name , error_code_value ) ;
+
+PRAGMA INLINE ( subprogram , { 'YES' | 'NO' } ) ;
+
+PRAGMA UDF ;
+
+PRAGMA RESTRICT_REFERENCES ( { subprogram | DEFAULT } , purity_option [, ...] ) ;
+
+# WHERE purity_option
+{ RNDS | WNDS | RNPS | WNPS | TRUST }
+
+# WHERE plsql_statement
+[ label_definition [...] ] unlabeled_statement
+
+# PARTOFIS unlabeled_statement
+assignment_target := value_expression ;
+
+NULL ;
+
+RETURN [ value_expression ] ;
+
+RAISE [ exception_name ] ;
+
+GOTO label ;
+
+{ EXIT | CONTINUE } [ label ] [ WHEN boolean_expression ] ;
+
+procedure [ ( [ actual_parameter [, ...] ] ) ] ;
+
+IF boolean_expression THEN
+    plsql_statement [...]
+[ elsif_clause [...] ]
+[ ELSE
+    plsql_statement [...]
+]
+END IF ;
+
+CASE [ value_expression ]
+    case_when_clause [...]
+[ ELSE
+    plsql_statement [...]
+]
+END CASE [ end_name ] ;
+
+LOOP
+    plsql_statement [...]
+END LOOP [ label ] ;
+
+WHILE boolean_expression LOOP
+    plsql_statement [...]
+END LOOP [ label ] ;
+
+FOR index IN [ REVERSE ] lower_expression .. upper_expression LOOP
+    plsql_statement [...]
+END LOOP [ label ] ;
+
+FOR record IN { cursor_name [ ( actual_parameter [, ...] ) ] | ( query_statement ) } LOOP
+    plsql_statement [...]
+END LOOP [ label ] ;
+
+FORALL index IN forall_bounds_clause [ SAVE EXCEPTIONS ]
+    forall_dml_statement ;
+
+OPEN cursor_name [ ( actual_parameter [, ...] ) ] ;
+
+OPEN cursor_variable FOR query_statement ;
+
+OPEN cursor_variable FOR dynamic_sql_expression
+    [ USING input_bind_definition [, ...] ] ;
+
+FETCH { cursor_name | cursor_variable } INTO assignment_target [, ...] ;
+
+FETCH { cursor_name | cursor_variable }
+    BULK COLLECT INTO collection [, ...] [ LIMIT row_count_expression ] ;
+
+CLOSE { cursor_name | cursor_variable } ;
+
+EXECUTE IMMEDIATE dynamic_sql_expression
+    [ { INTO assignment_target [, ...] | BULK COLLECT INTO collection [, ...] }
+        [ USING bind_definition [, ...] ]
+    | USING bind_definition [, ...]
+    | [ USING input_bind_definition [, ...] ]
+        { RETURNING | RETURN } [ BULK COLLECT ] INTO assignment_target [, ...]
+    ] ;
+
+PIPE ROW ( value_expression ) ;
+
+SELECT [ ALL | DISTINCT | UNIQUE ] select_item [, ...]
+    [ BULK COLLECT ] INTO assignment_target [, ...]
+    FROM from_expression [, ...]
+    [ WHERE boolean_expression ]
+    [ GROUP BY value_expression [, ...] ]
+    [ HAVING boolean_expression ]
+    [ ORDER BY order_expression [, ...] ]
+    [ FOR UPDATE [ OF column_reference [, ...] ] [ NOWAIT | WAIT seconds_value | SKIP LOCKED ] ] ;
+
+embedded_sql_statement ;
+
+anonymous_block
+
+# WHERE elsif_clause
+ELSIF boolean_expression THEN
+    plsql_statement [...]
+
+# WHERE case_when_clause
+WHEN case_test_expression THEN
+    plsql_statement [...]
+
+# WHERE forall_bounds_clause
+{ lower_expression .. upper_expression
+| INDICES OF collection [ BETWEEN lower_expression AND upper_expression ]
+| VALUES OF index_collection }
+
+# WHERE bind_definition
+[ IN | OUT | IN OUT ] bind_expression
+
+# WHERE input_bind_definition
+[ IN ] bind_expression
+
+# WHERE select_item
+{ * | table_alias . * | value_expression [ [ AS ] col_alias ] }
+
+# WHERE order_expression
+value_expression [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
+
+# STATEMENT query_statement
+SELECT
+
+# STATEMENT forall_dml_statement
+INSERT
+UPDATE
+DELETE
+MERGE
+EXECUTE IMMEDIATE
+
+# STATEMENT embedded_sql_statement
+INSERT
+UPDATE
+DELETE
+MERGE
+COMMIT
+ROLLBACK
+SAVEPOINT
+SET TRANSACTION
+LOCK TABLE
+
+
+# WHERE c_call_definition
+{ LIBRARY library [ NAME external_name ] | NAME external_name LIBRARY library }
+    [ AGENT IN ( parameter [, ...] ) ]
+    [ WITH CONTEXT ]
+    [ PARAMETERS ( external_parameter_definition [, ...] ) ]
+
+# WHERE external_parameter_definition
+{ CONTEXT
+| SELF [ TDO | external_property ]
+| { parameter | RETURN } [ external_property ] [ BY REFERENCE ] [ external_data_type ] }
+
+# WHERE external_property
+{ INDICATOR [ STRUCT | TDO ] | LENGTH | DURATION | MAXLEN | CHARSETID | CHARSETFORM }
+
+# WHERE plsql_data_type
+{ data_type | anchored_name % TYPE | row_source % ROWTYPE }
+
+# WHERE row_type
+{ record_type | row_source % ROWTYPE }
+
+# WHERE parameter_type
+{ data_type | anchored_name % TYPE | row_source % ROWTYPE }
+
+# WHERE index_data_type
+{ PLS_INTEGER | BINARY_INTEGER | VARCHAR2 ( size_value ) | index_subtype }
+
+# PARTOFIS compound_declaration_definition
+variable plsql_data_type
+    { [ { := | DEFAULT } value_expression ] | NOT NULL { := | DEFAULT } value_expression } ;
+
+constant CONSTANT plsql_data_type [ NOT NULL ] { := | DEFAULT } value_expression ;
+
+exception_name EXCEPTION ;
+
+TYPE type_name IS RECORD ( record_field_definition [, ...] ) ;
+
+TYPE type_name IS TABLE OF plsql_data_type [ NOT NULL ] [ INDEX BY index_data_type ] ;
+
+TYPE type_name IS { VARRAY | VARYING ARRAY } ( size_value ) OF plsql_data_type [ NOT NULL ] ;
+
+TYPE type_name IS REF CURSOR [ RETURN row_type ] ;
+
+SUBTYPE subtype IS base_type
+    [ subtype_constraint | CHARACTER SET character_set ] [ NOT NULL ] ;
+
+CURSOR cursor_name [ ( input_parameter_definition [, ...] ) ] RETURN row_type ;
+
+CURSOR cursor_name [ ( input_parameter_definition [, ...] ) ]
+    [ RETURN row_type ] IS query_statement ;
+
+PROCEDURE procedure [ ( parameter_definition [, ...] ) ] ;
+
+FUNCTION function_name [ ( parameter_definition [, ...] ) ] RETURN parameter_type ;
+
+PROCEDURE procedure [ ( parameter_definition [, ...] ) ] { IS | AS }
+    [ declaration_definition [...] ]
+    plsql_body
+
+FUNCTION function_name [ ( parameter_definition [, ...] ) ] RETURN parameter_type { IS | AS }
+    [ declaration_definition [...] ]
+    plsql_body
+
+compound_pragma_definition
+
+
+# PARTOFIS compound_pragma_definition
+PRAGMA EXCEPTION_INIT ( exception_name , error_code_value ) ;
+
+PRAGMA INLINE ( subprogram , { 'YES' | 'NO' } ) ;

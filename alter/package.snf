@@ -1,7 +1,16 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-PACKAGE.html
 
 # CASE COMPILE
-ALTER PACKAGE name COMPILE
+ALTER PACKAGE name COMPILE [ DEBUG ]
+    [ PACKAGE | SPECIFICATION | BODY ]
+    [ compiler_parameter_assignment [...] ] [ REUSE SETTINGS ]
+
+# CASE EDITIONING
+ALTER PACKAGE name { EDITIONABLE | NONEDITIONABLE }
 
 # CASE COMPILE_BODY
 ALTER PACKAGE name COMPILE BODY
+    [ compiler_parameter_assignment [...] ] [ REUSE SETTINGS ]
+
+# WHERE compiler_parameter_assignment
+compiler_parameter = compiler_value

@@ -1,0 +1,9 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-RESOURCE-COST.html
+
+ALTER RESOURCE COST resource_cost_option [...]
+
+# ONEOFIS resource_cost_option
+CPU_PER_SESSION weight
+CONNECT_TIME weight
+LOGICAL_READS_PER_SESSION weight
+PRIVATE_SGA weight

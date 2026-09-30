@@ -1,0 +1,40 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-CLUSTER.html
+
+# CASE ATTRIBUTES
+ALTER CLUSTER name cluster_attribute [...]
+
+# CASE PARTITION_ALLOCATE
+ALTER CLUSTER name MODIFY PARTITION partition allocate_extent_clause
+
+# CASE ALLOCATE
+ALTER CLUSTER name allocate_extent_clause
+
+# CASE DEALLOCATE
+ALTER CLUSTER name DEALLOCATE UNUSED
+    [ KEEP size_value [ K | M | G | T | P | E ] ]
+
+# ONEOFIS cluster_attribute
+PCTFREE pctfree
+PCTUSED pctused
+INITRANS initrans
+SIZE size_value [ K | M | G | T | P | E ]
+STORAGE ( storage_option [...] )
+NOPARALLEL
+PARALLEL [ degree ]
+CACHE
+NOCACHE
+
+# WHERE allocate_extent_clause
+ALLOCATE EXTENT
+    [ ( [ SIZE size_value [ K | M | G | T | P | E ] ]
+        [ DATAFILE 'file_name' ] [ INSTANCE instance_number ] ) ]
+
+# ONEOFIS storage_option
+NEXT size_value [ K | M | G | T | P | E ]
+MAXEXTENTS { max_extents | UNLIMITED }
+PCTINCREASE pctincrease
+FREELISTS freelists
+FREELIST GROUPS freelist_groups
+BUFFER_POOL { KEEP | RECYCLE | DEFAULT }
+FLASH_CACHE { KEEP | NONE | DEFAULT }
+CELL_FLASH_CACHE { KEEP | NONE | DEFAULT }

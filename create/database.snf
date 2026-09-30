@@ -1,0 +1,74 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-DATABASE.html
+
+CREATE DATABASE [ name ]
+    [ USER SYS IDENTIFIED BY sys_password USER SYSTEM IDENTIFIED BY system_password ]
+    [ CONTROLFILE REUSE ]
+    [ MAXDATAFILES max_datafiles_value ] [ MAXINSTANCES max_instances_value ]
+    [ CHARACTER SET character_set ] [ NATIONAL CHARACTER SET national_character_set ]
+    [ SET DEFAULT { BIGFILE | SMALLFILE } TABLESPACE ]
+    [ LOGFILE logfile_definition [, ...] ]
+    [ MAXLOGFILES max_logfiles_value ] [ MAXLOGMEMBERS max_logmembers_value ]
+    [ MAXLOGHISTORY max_loghistory_value ] [ ARCHIVELOG | NOARCHIVELOG ]
+    [ FORCE LOGGING | SET STANDBY NOLOGGING FOR { DATA AVAILABILITY | LOAD PERFORMANCE } ]
+    [ EXTENT MANAGEMENT LOCAL ]
+    [ DATAFILE datafile_definition [, ...] ]
+    [ SYSAUX DATAFILE datafile_definition [, ...] ]
+    [ default_tablespace_clause ]
+    [ default_temporary_tablespace_clause ]
+    [ undo_tablespace_clause ]
+    [ SET TIME_ZONE = time_zone_value ]
+    [ user_data_tablespace_clause ]
+    [ enable_pluggable_database_clause ]
+
+# WHERE default_tablespace_clause
+DEFAULT TABLESPACE tablespace [ DATAFILE datafile_definition ]
+    [ extent_management_clause ]
+
+# WHERE default_temporary_tablespace_clause
+[ BIGFILE | SMALLFILE ] DEFAULT
+    { TEMPORARY TABLESPACE | LOCAL TEMPORARY TABLESPACE FOR { ALL | LEAF } } tablespace
+    [ TEMPFILE datafile_definition [, ...] ] [ extent_management_clause ]
+
+# WHERE undo_tablespace_clause
+[ BIGFILE | SMALLFILE ] UNDO TABLESPACE tablespace
+    [ DATAFILE datafile_definition [, ...] ]
+
+# WHERE user_data_tablespace_clause
+[ BIGFILE | SMALLFILE ] USER_DATA TABLESPACE tablespace
+    DATAFILE datafile_definition [, ...]
+
+# WHERE enable_pluggable_database_clause
+ENABLE PLUGGABLE DATABASE
+    [ SEED [ file_name_convert_clause ]
+        [ SYSTEM seed_datafiles_clause ] [ SYSAUX seed_datafiles_clause ] ]
+    [ LOCAL UNDO { ON | OFF } ]
+
+# PARTOFIS seed_datafiles_clause
+DATAFILES SIZE size_clause [ autoextend_clause ]
+
+DATAFILES autoextend_clause
+
+# WHERE logfile_definition
+[ GROUP group_number ] redo_file_definition
+
+# WHERE redo_file_definition
+[ 'file_name' | ( 'file_name' [, ...] ) ]
+    [ SIZE size_clause ] [ BLOCKSIZE block_size_value ] [ REUSE ]
+
+# WHERE size_clause
+size_value [ K | M | G | T | P | E ]
+
+# WHERE autoextend_clause
+AUTOEXTEND { OFF | ON [ NEXT size_clause ] [ MAXSIZE { UNLIMITED | size_clause } ] }
+
+# WHERE datafile_definition
+[ 'file_name' ] [ SIZE size_clause ] [ REUSE ] [ autoextend_clause ]
+
+# WHERE extent_management_clause
+EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE | UNIFORM [ SIZE size_clause ] ]
+
+# WHERE file_name_convert_clause
+FILE_NAME_CONVERT = { ( file_name_pair [, ...] ) | NONE }
+
+# WHERE file_name_pair
+'filename_pattern', 'replacement_filename_pattern'

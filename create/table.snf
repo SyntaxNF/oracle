@@ -2,14 +2,25 @@
 
 # CASE NORMAL
 CREATE TABLE name ( { column_definition | table_constraint } [, ...] )
-    [ TABLESPACE tablespace ] [ PARTITION BY partition_clause ]
+    [ SEGMENT CREATION { IMMEDIATE | DEFERRED } ]
+    [ ORGANIZATION HEAP ]
+    segment_attributes
+    [ table_compression ]
+    [ lob_storage_clause [...] ]
+    [ READ ONLY | READ WRITE ]
+    [ INDEXING { ON | OFF } ]
+    [ partition_clause ]
+    [ parallel_clause ]
+    [ { ENABLE | DISABLE } ROW MOVEMENT ]
 
 # CASE TEMPORARY
-CREATE GLOBAL TEMPORARY TABLE name ( { column_definition | table_constraint } [, ...] )
-    [ ON COMMIT { DELETE | PRESERVE } ROWS ] [ TABLESPACE tablespace ]
+CREATE GLOBAL TEMPORARY TABLE name ( { temporary_column_definition | temporary_table_constraint } [, ...] )
+    [ ON COMMIT { DELETE | PRESERVE } ROWS ]
+    [ TABLESPACE tablespace ]
+    [ temporary_lob_storage_clause [...] ]
 
 # CASE PRIVATE_TEMPORARY
-CREATE PRIVATE TEMPORARY TABLE name ( column_definition [, ...] )
+CREATE PRIVATE TEMPORARY TABLE name ( private_temporary_column_definition [, ...] )
     [ ON COMMIT { DROP | PRESERVE } DEFINITION ]
 
 # CASE EXTERNAL
@@ -24,13 +35,29 @@ CREATE TABLE name ( { column_definition | table_constraint } [, ...] )
 
 # CASE INDEX_ORGANIZED
 CREATE TABLE name ( { column_definition | table_constraint } [, ...] )
-    ORGANIZATION INDEX [ TABLESPACE tablespace ]
-    [ PCTTHRESHOLD pctthreshold ] [ INCLUDING colname ]
-    [ OVERFLOW [ TABLESPACE overflow_tablespace ] ]
+    ORGANIZATION INDEX
+    segment_attributes
+    [ PCTTHRESHOLD pctthreshold ]
+    [ COMPRESS [ prefix_length ] | NOCOMPRESS ]
+    [ MAPPING TABLE | NOMAPPING ]
+    [ [ INCLUDING colname ] OVERFLOW segment_attributes ]
+    [ lob_storage_clause [...] ]
+    [ partition_clause ]
+    [ parallel_clause ]
 
 # CASE AS_QUERY
-CREATE [ GLOBAL TEMPORARY ] TABLE name
-    [ ( query_column_definition [, ...] ) ]
+CREATE TABLE name [ ( query_column_definition [, ...] ) ]
+    [ SEGMENT CREATION { IMMEDIATE | DEFERRED } ]
+    segment_attributes
+    [ table_compression ]
+    [ lob_storage_clause [...] ]
+    [ partition_clause ]
+    [ parallel_clause ]
+    AS query_statement
+
+# CASE TEMPORARY_AS_QUERY
+CREATE GLOBAL TEMPORARY TABLE name
+    [ ( temporary_query_column_definition [, ...] ) ]
     [ ON COMMIT { DELETE | PRESERVE } ROWS ]
     [ TABLESPACE tablespace ]
     AS query_statement
@@ -81,3 +108,226 @@ colname [ DEFAULT default_expression ] [ inline_constraint [...] ]
 
 # WHERE location_definition
 [ directory : ] 'file_name'
+
+
+# WHERE physical_attributes
+[ PCTFREE pctfree ]
+[ PCTUSED pctused ]
+[ INITRANS initrans ]
+[ storage_clause ]
+
+# WHERE segment_attributes
+physical_attributes
+[ TABLESPACE tablespace ]
+[ LOGGING | NOLOGGING ]
+
+# PARTOFIS table_compression
+NOCOMPRESS
+
+COMPRESS
+
+ROW STORE COMPRESS [ BASIC | ADVANCED ]
+
+COLUMN STORE COMPRESS [ FOR { QUERY | ARCHIVE } [ LOW | HIGH ] ]
+    [ [ NO ] ROW LEVEL LOCKING ]
+
+# WHERE parallel_clause
+{ NOPARALLEL | PARALLEL [ degree ] }
+
+# WHERE storage_clause
+STORAGE ( storage_option [...] )
+
+# ONEOFIS storage_option
+INITIAL size_value
+NEXT size_value
+MINEXTENTS min_extents
+MAXEXTENTS { max_extents | UNLIMITED }
+MAXSIZE { size_value | UNLIMITED }
+PCTINCREASE pct_increase
+FREELISTS freelists
+FREELIST GROUPS freelist_groups
+BUFFER_POOL { KEEP | RECYCLE | DEFAULT }
+FLASH_CACHE { KEEP | NONE | DEFAULT }
+CELL_FLASH_CACHE { KEEP | NONE | DEFAULT }
+
+# WHERE size_value
+size [ K | M | G | T | P | E ]
+
+# PARTOFIS lob_storage_clause
+LOB ( lob_item ) STORE AS lob_store_definition
+
+LOB ( lob_item , lob_item [, ...] ) STORE AS lob_multi_store_definition
+
+# PARTOFIS lob_store_definition
+{ SECUREFILE | BASICFILE } [ lob_segment ] [ ( lob_storage_option [...] ) ]
+
+lob_segment [ ( lob_storage_option [...] ) ]
+
+( lob_storage_option [...] )
+
+# PARTOFIS lob_multi_store_definition
+{ SECUREFILE | BASICFILE } [ ( lob_storage_option [...] ) ]
+
+( lob_storage_option [...] )
+
+# ONEOFIS lob_storage_option
+TABLESPACE tablespace
+{ ENABLE | DISABLE } STORAGE IN ROW
+CHUNK chunk_size
+PCTVERSION pctversion
+FREEPOOLS freepools
+RETENTION [ MAX | MIN retention_seconds | AUTO | NONE ]
+{ DEDUPLICATE | KEEP_DUPLICATES }
+{ COMPRESS [ HIGH | MEDIUM | LOW ] | NOCOMPRESS }
+ENCRYPT encryption_options
+DECRYPT
+{ CACHE | NOCACHE | CACHE READS } [ LOGGING | NOLOGGING | FILESYSTEM_LIKE_LOGGING ]
+storage_clause
+
+# WHERE encryption_options
+[ USING 'encrypt_algorithm' ]
+[ IDENTIFIED BY password ]
+[ 'integrity_algorithm' ]
+[ [ NO ] SALT ]
+
+# PARTOFIS partition_clause
+PARTITION BY RANGE ( colname [, ...] )
+    [ INTERVAL ( interval_expression ) [ STORE IN ( tablespace [, ...] ) ] ]
+    [ subpartition_clause ]
+    ( range_partition_definition [, ...] )
+
+PARTITION BY LIST ( colname [, ...] )
+    [ AUTOMATIC [ STORE IN ( tablespace [, ...] ) ] ]
+    [ subpartition_clause ]
+    ( list_partition_definition [, ...] )
+
+PARTITION BY HASH ( colname [, ...] )
+    [ subpartition_clause ]
+    { ( hash_partition_definition [, ...] )
+    | PARTITIONS partition_count [ STORE IN ( tablespace [, ...] ) ] [ table_compression ] }
+
+PARTITION BY REFERENCE ( constraint )
+    [ ( reference_partition_definition [, ...] ) ]
+
+PARTITION BY SYSTEM
+    [ PARTITIONS partition_count
+    | ( reference_partition_definition [, ...] ) ]
+
+# WHERE range_partition_definition
+PARTITION [ partition ] range_values_clause
+    partition_properties
+    [ subpartition_definitions ]
+
+# WHERE list_partition_definition
+PARTITION [ partition ] list_values_clause
+    partition_properties
+    [ subpartition_definitions ]
+
+# WHERE hash_partition_definition
+PARTITION [ partition ]
+    [ READ ONLY | READ WRITE ]
+    [ INDEXING { ON | OFF } ]
+    partition_storage
+    [ subpartition_definitions ]
+
+# WHERE reference_partition_definition
+PARTITION [ partition ] partition_properties
+
+# WHERE partition_properties
+[ SEGMENT CREATION { IMMEDIATE | DEFERRED } ]
+[ READ ONLY | READ WRITE ]
+[ INDEXING { ON | OFF } ]
+segment_attributes
+[ table_compression ]
+[ lob_storage_clause [...] ]
+
+# WHERE partition_storage
+[ TABLESPACE tablespace ]
+[ table_compression ]
+[ lob_storage_clause [...] ]
+
+# WHERE range_values_clause
+VALUES LESS THAN ( { literal | MAXVALUE } [, ...] )
+
+# WHERE list_values_clause
+VALUES ( { list_values | DEFAULT } )
+
+# PARTOFIS list_values
+{ literal | NULL } [, ...]
+
+( { literal | NULL } [, ...] ) [, ...]
+
+# PARTOFIS subpartition_clause
+SUBPARTITION BY RANGE ( colname [, ...] )
+    [ SUBPARTITION TEMPLATE ( range_subpartition_definition [, ...] ) ]
+
+SUBPARTITION BY LIST ( colname [, ...] )
+    [ SUBPARTITION TEMPLATE ( list_subpartition_definition [, ...] ) ]
+
+SUBPARTITION BY HASH ( colname [, ...] )
+    [ SUBPARTITIONS subpartition_count [ STORE IN ( tablespace [, ...] ) ]
+    | SUBPARTITION TEMPLATE ( hash_subpartition_definition [, ...] ) ]
+
+# PARTOFIS subpartition_definitions
+( range_subpartition_definition [, ...] )
+
+( list_subpartition_definition [, ...] )
+
+( hash_subpartition_definition [, ...] )
+
+SUBPARTITIONS subpartition_count [ STORE IN ( tablespace [, ...] ) ]
+
+# WHERE range_subpartition_definition
+SUBPARTITION [ subpartition ] range_values_clause
+    subpartition_properties
+
+# WHERE list_subpartition_definition
+SUBPARTITION [ subpartition ] list_values_clause
+    subpartition_properties
+
+# WHERE hash_subpartition_definition
+SUBPARTITION [ subpartition ] subpartition_properties
+
+# WHERE subpartition_properties
+[ READ ONLY | READ WRITE ]
+[ INDEXING { ON | OFF } ]
+partition_storage
+
+# PARTOFIS temporary_column_definition
+colname data_type [ COLLATE collate ]
+    [ DEFAULT [ ON NULL ] default_expression | identity_clause ]
+    [ temporary_inline_constraint [...] ]
+
+colname [ data_type ] [ GENERATED ALWAYS ] AS ( col_expression ) [ VIRTUAL ]
+    [ temporary_inline_constraint [...] ]
+
+# WHERE temporary_inline_constraint
+[ CONSTRAINT constraint ]
+    { [ NOT ] NULL | UNIQUE | PRIMARY KEY | CHECK ( boolean_expression ) }
+    constraint_options
+
+# WHERE temporary_table_constraint
+[ CONSTRAINT constraint ]
+    { UNIQUE ( colname [, ...] ) | PRIMARY KEY ( colname [, ...] ) | CHECK ( boolean_expression ) }
+    constraint_options
+
+# WHERE temporary_query_column_definition
+colname [ DEFAULT default_expression ] [ temporary_inline_constraint [...] ]
+
+# WHERE private_temporary_column_definition
+colname data_type [ COLLATE collate ] [ [ NOT ] NULL ]
+
+# WHERE temporary_lob_storage_clause
+LOB ( lob_item ) STORE AS
+    [ BASICFILE | SECUREFILE ] [ lob_segment ]
+    ( temporary_lob_option [...] )
+
+# ONEOFIS temporary_lob_option
+{ ENABLE | DISABLE } STORAGE IN ROW
+CHUNK chunk_size
+PCTVERSION pctversion
+FREEPOOLS freepools
+RETENTION [ MAX | MIN retention_seconds | AUTO | NONE ]
+{ DEDUPLICATE | KEEP_DUPLICATES }
+{ COMPRESS [ HIGH | MEDIUM | LOW ] | NOCOMPRESS }
+{ CACHE | NOCACHE | CACHE READS }

@@ -1,10 +1,21 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TRIGGER.html
 
 # CASE COMPILE
-ALTER TRIGGER name COMPILE
+ALTER TRIGGER name COMPILE [ DEBUG ]
+
+    [ compiler_parameter_assignment [...] ] [ REUSE SETTINGS ]
+
+# CASE EDITIONING
+ALTER TRIGGER name { EDITIONABLE | NONEDITIONABLE }
+
+# CASE ENABLE
+ALTER TRIGGER name ENABLE
 
 # CASE DISABLE
 ALTER TRIGGER name DISABLE
 
-# CASE ENABLE
-ALTER TRIGGER name ENABLE
+# CASE RENAME
+ALTER TRIGGER name RENAME TO new_name
+
+# WHERE compiler_parameter_assignment
+compiler_parameter = compiler_value
