@@ -1,4 +1,4 @@
-# https://docs.oracle.com/en/database/oracle/oracle-database/26/arpls/DBMS_STATS.html
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_STATS.html
 
 # CASE TABLE
 BEGIN DBMS_STATS.GATHER_TABLE_STATS(OWNNAME => owner, TABNAME => name, FORCE => FALSE); END;
@@ -10,4 +10,4 @@ BEGIN DBMS_STATS.GATHER_TABLE_STATS(OWNNAME => owner, TABNAME => table, PARTNAME
 BEGIN DBMS_STATS.GATHER_INDEX_STATS(OWNNAME => owner, INDNAME => name, FORCE => FALSE); END;
 
 # CASE INDEX_PARTITION
-BEGIN DBMS_STATS.GATHER_INDEX_STATS(OWNNAME => owner, INDNAME => table, PARTNAME => name, FORCE => FALSE); END;
+BEGIN DBMS_STATS.GATHER_INDEX_STATS(OWNNAME => owner, INDNAME => index, PARTNAME => name, FORCE => FALSE); END;
