@@ -1,0 +1,8 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-JAVA.html
+
+ALTER JAVA { SOURCE | CLASS } name
+    [ RESOLVER ( resolver_mapping [...] ) ]
+    { COMPILE | RESOLVE | AUTHID { CURRENT_USER | DEFINER } }
+
+# WHERE resolver_mapping
+( match_string [ , ] { schema | - } )

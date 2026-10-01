@@ -1,0 +1,7 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-INMEMORY-JOIN-GROUP.html
+
+CREATE INMEMORY JOIN GROUP name
+    ( join_column_definition [, ...] )
+
+# WHERE join_column_definition
+[ schema . ] table ( colname )

@@ -1,8 +1,39 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-VIEW.html
 
-CREATE [ OR REPLACE ] [ FORCE | NOFORCE ]
-    [ EDITIONING | EDITIONABLE [ EDITIONING ] | NONEDITIONABLE ] VIEW name
+# CASE RELATIONAL
+CREATE [ OR REPLACE ] [ FORCE | NOFORCE ] [ EDITIONABLE | NONEDITIONABLE ] VIEW name
+    [ SHARING = { METADATA | DATA | EXTENDED DATA | NONE } ]
     [ ( view_column_definition [, ...] ) ]
+    [ DEFAULT COLLATION collate ]
+    [ BEQUEATH { CURRENT_USER | DEFINER } ]
+    AS query_statement
+    [ WITH { READ ONLY | CHECK OPTION } [ CONSTRAINT constraint ] ]
+    [ CONTAINER_MAP | CONTAINERS_DEFAULT ]
+
+# CASE EDITIONING
+CREATE [ OR REPLACE ] [ FORCE | NOFORCE ] [ EDITIONABLE ] EDITIONING VIEW name
+    [ ( editioning_column_definition [, ...] ) ]
+    [ DEFAULT COLLATION collate ]
+    AS query_statement
+    [ WITH READ ONLY [ CONSTRAINT constraint ] ]
+
+# CASE OBJECT
+CREATE [ OR REPLACE ] [ FORCE | NOFORCE ] [ EDITIONABLE | NONEDITIONABLE ] VIEW name
+    [ SHARING = { METADATA | NONE } ]
+    OF type_name
+    { WITH OBJECT { IDENTIFIER | ID } { DEFAULT | ( attribute [, ...] ) }
+    | UNDER superview }
+    [ ( object_view_constraint [, ...] ) ]
+    [ DEFAULT COLLATION collate ]
+    [ BEQUEATH { CURRENT_USER | DEFINER } ]
+    AS query_statement
+    [ WITH { READ ONLY | CHECK OPTION } [ CONSTRAINT constraint ] ]
+
+# CASE XMLTYPE
+CREATE [ OR REPLACE ] [ FORCE | NOFORCE ] [ EDITIONABLE | NONEDITIONABLE ] VIEW name
+    [ SHARING = { METADATA | NONE } ]
+    OF XMLTYPE [ xmlschema_spec ]
+    WITH OBJECT { IDENTIFIER | ID } { DEFAULT | ( expression [, ...] ) }
     [ DEFAULT COLLATION collate ]
     [ BEQUEATH { CURRENT_USER | DEFINER } ]
     AS query_statement
@@ -11,5 +42,35 @@ CREATE [ OR REPLACE ] [ FORCE | NOFORCE ]
 # STATEMENT query_statement
 SELECT
 
-# WHERE view_column_definition
+# PARTOFIS view_column_definition
+col_alias [ VISIBLE | INVISIBLE ] inline_view_constraint [...]
+
+view_constraint
+
+# PARTOFIS object_view_constraint
+attribute inline_view_constraint [...]
+
+view_constraint
+
+# WHERE inline_view_constraint
+[ CONSTRAINT constraint ]
+{ UNIQUE | PRIMARY KEY | REFERENCES referenced_object [ ( referenced_column [, ...] ) ] }
+[ RELY | NORELY ] DISABLE NOVALIDATE
+
+# WHERE xmlschema_spec
+[ XMLSCHEMA xmlschema_url ] ELEMENT element_spec
+[ STORE ALL VARRAYS AS { LOBS | TABLES } ]
+[ { ALLOW | DISALLOW } NONSCHEMA ]
+[ { ALLOW | DISALLOW } ANYSCHEMA ]
+
+# PARTOFIS view_constraint
+[ CONSTRAINT constraint ] UNIQUE ( colname [, ...] ) [ RELY | NORELY ] DISABLE NOVALIDATE
+
+[ CONSTRAINT constraint ] PRIMARY KEY ( colname [, ...] ) [ RELY | NORELY ] DISABLE NOVALIDATE
+
+[ CONSTRAINT constraint ] FOREIGN KEY ( colname [, ...] )
+    REFERENCES referenced_object [ ( referenced_column [, ...] ) ]
+    [ RELY | NORELY ] DISABLE NOVALIDATE
+
+# WHERE editioning_column_definition
 col_alias [ VISIBLE | INVISIBLE ]

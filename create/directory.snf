@@ -1,3 +1,4 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-DIRECTORY.html
 
-CREATE [ OR REPLACE ] DIRECTORY name AS directory_path
+CREATE [ OR REPLACE ] DIRECTORY name
+    [ SHARING = { METADATA | NONE } ] AS 'directory_path'

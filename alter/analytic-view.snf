@@ -1,0 +1,7 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-ANALYTIC-VIEW.html
+
+# CASE RENAME
+ALTER ANALYTIC VIEW name RENAME TO new_name
+
+# CASE COMPILE
+ALTER ANALYTIC VIEW name COMPILE

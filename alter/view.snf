@@ -2,3 +2,30 @@
 
 # CASE COMPILE
 ALTER VIEW name COMPILE
+
+# CASE CONSTRAINT_ADD
+ALTER VIEW name ADD view_constraint
+
+# CASE CONSTRAINT_RELY
+ALTER VIEW name MODIFY CONSTRAINT constraint { RELY | NORELY }
+
+# CASE CONSTRAINT_DROP
+ALTER VIEW name DROP { CONSTRAINT constraint | PRIMARY KEY | UNIQUE ( colname [, ...] ) }
+
+# CASE READ_ONLY
+ALTER VIEW name READ ONLY
+
+# CASE READ_WRITE
+ALTER VIEW name READ WRITE
+
+# CASE EDITIONING
+ALTER VIEW name { EDITIONABLE | NONEDITIONABLE }
+
+# PARTOFIS view_constraint
+[ CONSTRAINT constraint ] UNIQUE ( colname [, ...] ) [ RELY | NORELY ] DISABLE NOVALIDATE
+
+[ CONSTRAINT constraint ] PRIMARY KEY ( colname [, ...] ) [ RELY | NORELY ] DISABLE NOVALIDATE
+
+[ CONSTRAINT constraint ] FOREIGN KEY ( colname [, ...] )
+    REFERENCES referenced_object [ ( referenced_column [, ...] ) ]
+    [ RELY | NORELY ] DISABLE NOVALIDATE
