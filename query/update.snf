@@ -1,6 +1,6 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/UPDATE.html
 
-UPDATE { dml_target | ONLY ( dml_target ) } [ table_alias ]
+UPDATE [ hint_clause ] { dml_target | ONLY ( dml_target ) } [ table_alias ]
     SET { column_assignment [, ...] | VALUE ( table_alias ) = value_expression }
     [ WHERE boolean_expression | WHERE CURRENT OF cursor ]
     [ returning_clause ]
@@ -32,3 +32,6 @@ LOG ERRORS [ INTO error_table ] [ ( tag_expression ) ]
 
 # STATEMENT query_statement
 SELECT
+
+# WHERE hint_clause
+/*+ hint [...] */

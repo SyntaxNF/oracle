@@ -1,0 +1,111 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-PLUGGABLE-DATABASE.html
+
+# CASE SEED
+CREATE PLUGGABLE DATABASE { name [ AS APPLICATION CONTAINER ] | AS SEED }
+    ADMIN USER admin_user IDENTIFIED BY password
+    [ ROLES = ( role [, ...] ) ] [ PARALLEL [ degree ] ]
+    [ default_tablespace_clause ] [ pdb_storage_clause ]
+    [ file_name_convert_clause ] [ service_name_convert_clause ]
+    [ path_prefix_clause ] [ TEMPFILE REUSE ]
+    [ user_tablespaces_clause ] [ standbys_clause ]
+    [ LOGGING | NOLOGGING ] [ create_file_dest_clause ]
+    [ HOST = 'hostname' ] [ PORT = port_number ]
+    [ snapshot_mode_clause ]
+
+# CASE CLONE
+CREATE PLUGGABLE DATABASE { name [ AS APPLICATION CONTAINER ] | AS SEED }
+    FROM { source_pdb [ @ database_link ] | NON$CDB @ database_link }
+    [ USING SNAPSHOT { snapshot | AT SCN scn_value | AT snapshot_timestamp_value } ]
+    [ PARALLEL [ degree ] ] [ default_tablespace_clause ] [ pdb_storage_clause ]
+    [ file_name_convert_clause ] [ service_name_convert_clause ]
+    [ path_prefix_clause ] [ TEMPFILE REUSE ] [ SNAPSHOT COPY ]
+    [ user_tablespaces_clause ] [ standbys_clause ]
+    [ LOGGING | NOLOGGING ] [ create_file_dest_clause ]
+    [ KEYSTORE IDENTIFIED BY { EXTERNAL STORE | keystore_password } ]
+    [ refresh_mode_clause ] [ RELOCATE [ AVAILABILITY { MAX | NORMAL } ] ] [ NO DATA ]
+    [ HOST = 'hostname' ] [ PORT = port_number ]
+    [ snapshot_mode_clause ]
+
+# CASE PROXY
+CREATE PLUGGABLE DATABASE name AS PROXY FROM source_pdb @ database_link
+    [ HOST = 'hostname' ] [ PORT = port_number ]
+
+# CASE MIRROR_COPY
+CREATE PLUGGABLE DATABASE name FROM source_pdb USING MIRROR COPY mirror_copy
+
+# CASE XML
+CREATE PLUGGABLE DATABASE { name [ AS APPLICATION CONTAINER ] | AS SEED }
+    [ AS CLONE ] USING 'file_name'
+    [ source_file_clause ]
+    [ [ COPY | MOVE ] file_name_convert_clause | NOCOPY ]
+    [ service_name_convert_clause ] [ default_tablespace_clause ]
+    [ pdb_storage_clause ] [ path_prefix_clause ] [ TEMPFILE REUSE ]
+    [ user_tablespaces_clause ] [ standbys_clause ]
+    [ LOGGING | NOLOGGING ] [ create_file_dest_clause ]
+    [ HOST = 'hostname' ] [ PORT = port_number ]
+    [ snapshot_mode_clause ]
+
+# PARTOFIS source_file_clause
+SOURCE_FILE_NAME_CONVERT = { ( file_name_pair [, ...] ) | NONE }
+
+SOURCE_FILE_DIRECTORY = { 'directory_path' | NONE }
+
+# WHERE default_tablespace_clause
+DEFAULT TABLESPACE tablespace [ DATAFILE datafile_definition ] [ extent_management_clause ]
+
+# WHERE service_name_convert_clause
+SERVICE_NAME_CONVERT = { ( service_name_pair [, ...] ) | NONE }
+
+# WHERE service_name_pair
+'service_name', 'replacement_service_name'
+
+# WHERE path_prefix_clause
+PATH_PREFIX = { 'directory_path' | directory | NONE }
+
+# WHERE user_tablespaces_clause
+USER_TABLESPACES = { ( quoted_tablespace [, ...] ) | ALL [ EXCEPT ( quoted_tablespace [, ...] ) ] | NONE }
+    [ SNAPSHOT COPY | NO DATA | COPY | MOVE | NOCOPY ]
+
+# WHERE standbys_clause
+STANDBYS = { ( quoted_container_database [, ...] ) | ALL [ EXCEPT ( quoted_container_database [, ...] ) ] | NONE }
+
+# WHERE create_file_dest_clause
+CREATE_FILE_DEST = { NONE | 'directory_path' | diskgroup }
+
+# WHERE snapshot_mode_clause
+SNAPSHOT MODE { MANUAL | EVERY snapshot_interval { HOURS | MINUTES } | NONE }
+
+# WHERE refresh_mode_clause
+REFRESH MODE { MANUAL | EVERY refresh_interval { MINUTES | HOURS } | NONE }
+
+# WHERE pdb_storage_clause
+STORAGE { UNLIMITED | ( storage_limit_options ) }
+
+# WHERE storage_limit_options
+[ MAXSIZE { UNLIMITED | size_clause } ]
+[ MAX_AUDIT_SIZE { UNLIMITED | size_clause } ]
+[ MAX_DIAG_SIZE { UNLIMITED | size_clause } ]
+
+# WHERE file_name_convert_clause
+FILE_NAME_CONVERT = { ( file_name_pair [, ...] ) | NONE }
+
+# WHERE file_name_pair
+'filename_pattern', 'replacement_filename_pattern'
+
+# WHERE extent_management_clause
+EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE | UNIFORM [ SIZE size_clause ] ]
+
+# WHERE size_clause
+size_value [ K | M | G | T | P | E ]
+
+# WHERE autoextend_clause
+AUTOEXTEND { OFF | ON [ NEXT size_clause ] [ MAXSIZE { UNLIMITED | size_clause } ] }
+
+# WHERE datafile_definition
+[ 'file_name' ] [ SIZE size_clause ] [ REUSE ] [ autoextend_clause ]
+
+# WHERE quoted_container_database
+'container_database'
+
+# WHERE quoted_tablespace
+'tablespace'

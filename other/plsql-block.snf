@@ -1,0 +1,22 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/lnpls/block.html
+# declaration_definition and plsql_statement are complete fragments including their semicolons.
+# exception_handler is a complete WHEN ... THEN handler, including statement semicolons.
+
+# CASE ANONYMOUS
+anonymous_block
+
+# WHERE anonymous_block
+label_definition [...]
+[ DECLARE declaration_definition [...] ]
+plsql_body
+
+# WHERE label_definition
+<< label >>
+
+# WHERE plsql_body
+BEGIN
+    plsql_statement [...]
+[ EXCEPTION
+    exception_handler [...]
+]
+END [ end_name ] ;

@@ -1,0 +1,193 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-PLUGGABLE-DATABASE.html
+
+# CASE STATE
+ALTER PLUGGABLE DATABASE [ name ] pdb_state_action
+
+# CASE MULTIPLE_STATE
+ALTER PLUGGABLE DATABASE { name [, ...] | ALL [ EXCEPT name [, ...] ] }
+    pdb_state_action
+
+# CASE UNPLUG
+ALTER PLUGGABLE DATABASE name UNPLUG INTO 'file_name'
+
+# CASE SETTINGS
+ALTER PLUGGABLE DATABASE [ name ] pdb_setting_action
+
+# CASE FILES
+ALTER PLUGGABLE DATABASE [ name ] database_file_action
+
+# CASE ALL_DATAFILES
+ALTER PLUGGABLE DATABASE [ name ] DATAFILE ALL { ONLINE | OFFLINE }
+
+# CASE RECOVERY
+ALTER PLUGGABLE DATABASE [ name ] pdb_recovery_action
+
+# CASE APPLICATION
+ALTER PLUGGABLE DATABASE APPLICATION application application_action
+
+# CASE SYNC_ALL_APPLICATIONS
+ALTER PLUGGABLE DATABASE APPLICATION ALL SYNC
+
+# CASE SNAPSHOT_MODE
+ALTER PLUGGABLE DATABASE [ name ] SNAPSHOT MODE
+    { MANUAL | EVERY snapshot_interval { HOURS | MINUTES } | NONE }
+
+# CASE CREATE_SNAPSHOT
+ALTER PLUGGABLE DATABASE SNAPSHOT [ snapshot ]
+
+# CASE DROP_SNAPSHOT
+ALTER PLUGGABLE DATABASE DROP SNAPSHOT snapshot
+
+# CASE REFRESH_SWITCHOVER
+ALTER PLUGGABLE DATABASE [ name ] FROM source_pdb @ database_link SWITCHOVER
+
+# CASE CONTAINERS_DEFAULT
+ALTER PLUGGABLE DATABASE CONTAINERS DEFAULT TARGET = { ( container ) | NONE }
+
+# CASE PREPARE_MIRROR_COPY
+ALTER PLUGGABLE DATABASE PREPARE MIRROR COPY mirror_copy
+    WITH { UNPROTECTED | MIRROR | HIGH } REDUNDANCY
+
+# CASE DROP_MIRROR_COPY
+ALTER PLUGGABLE DATABASE DROP MIRROR COPY mirror_copy
+
+# CASE LOST_WRITE_PROTECTION
+ALTER PLUGGABLE DATABASE [ ENABLE | REMOVE | SUSPEND ] LOST WRITE PROTECTION
+
+# CASE MATERIALIZE
+ALTER PLUGGABLE DATABASE MATERIALIZE
+
+# CASE MAX_SNAPSHOTS
+ALTER PLUGGABLE DATABASE SET MAX_PDB_SNAPSHOTS = snapshot_count
+
+# PARTOFIS pdb_state_action
+OPEN { [ READ WRITE | READ ONLY ] [ RESTRICTED ] [ FORCE ] | [ READ WRITE ] UPGRADE [ RESTRICTED ] | RESETLOGS }
+    [ instances_clause ] [ services_clause ]
+
+CLOSE [ IMMEDIATE ] [ instances_clause | RELOCATE [ TO 'instance_name' ] | NORELOCATE ]
+
+{ SAVE | DISCARD } STATE [ instances_clause ]
+
+# WHERE instances_clause
+INSTANCES = { ( quoted_instance_name [, ...] ) | ALL [ EXCEPT ( quoted_instance_name [, ...] ) ] }
+
+# WHERE services_clause
+SERVICES = { ( service [, ...] ) | ALL EXCEPT ( service [, ...] ) }
+
+# ONEOFIS pdb_setting_action
+DEFAULT EDITION = edition
+SET DEFAULT { BIGFILE | SMALLFILE } TABLESPACE
+DEFAULT TABLESPACE tablespace
+DEFAULT TEMPORARY TABLESPACE { tablespace | tablespace_group }
+RENAME GLOBAL_NAME TO new_name
+SET TIME_ZONE = time_zone_value
+supplemental_logging_clause
+pdb_storage_clause
+LOGGING
+NOLOGGING
+{ ENABLE | DISABLE } FORCE { LOGGING | NOLOGGING }
+SET STANDBY NOLOGGING FOR { DATA AVAILABILITY | LOAD PERFORMANCE }
+REFRESH MODE { MANUAL | EVERY refresh_interval { MINUTES | HOURS } | NONE }
+REFRESH
+SET CONTAINER_MAP = 'map_object'
+
+# WHERE pdb_storage_clause
+STORAGE { UNLIMITED | ( storage_limit_options ) }
+
+# WHERE storage_limit_options
+[ MAXSIZE { UNLIMITED | size_clause } ]
+[ MAX_AUDIT_SIZE { UNLIMITED | size_clause } ]
+[ MAX_DIAG_SIZE { UNLIMITED | size_clause } ]
+
+# PARTOFIS pdb_recovery_action
+RECOVER [ AUTOMATIC ] [ FROM 'location' ]
+    [ DATABASE | TABLESPACE tablespace [, ...] | DATAFILE file_reference [, ...] | LOGFILE 'file_name' | CONTINUE [ DEFAULT ] ]
+
+{ BEGIN | END } BACKUP
+
+{ ENABLE | DISABLE } RECOVERY
+
+# PARTOFIS application_action
+BEGIN INSTALL 'application_version' [ COMMENT 'comment_text' ]
+
+END INSTALL [ 'application_version' ]
+
+BEGIN PATCH patch_number [ MINIMUM VERSION 'application_version' ] [ COMMENT 'comment_text' ]
+
+END PATCH [ patch_number ]
+
+BEGIN UPGRADE 'start_version' TO 'end_version' [ COMMENT 'comment_text' ]
+
+END UPGRADE [ TO 'application_version' ]
+
+BEGIN UNINSTALL
+
+END UNINSTALL
+
+SET PATCH patch_number
+
+SET VERSION 'application_version'
+
+SET COMPATIBILITY VERSION { 'application_version' | CURRENT }
+
+SYNC TO { 'application_version' | PATCH 'patch_number' }
+
+SYNC
+
+# PARTOFIS database_file_action
+RENAME FILE quoted_file_name [, ...] TO quoted_replacement_file_name [, ...]
+
+CREATE DATAFILE file_reference [, ...] [ AS { datafile_definition [, ...] | NEW } ]
+
+DATAFILE file_reference [, ...] datafile_action
+
+TEMPFILE file_reference [, ...] tempfile_action
+
+MOVE DATAFILE file_reference [ TO 'replacement_file_name' ] [ REUSE ] [ KEEP ]
+
+# WHERE file_reference
+{ 'file_name' | file_number }
+
+# ONEOFIS datafile_action
+ONLINE
+OFFLINE [ FOR DROP ]
+RESIZE size_clause
+autoextend_clause
+END BACKUP
+ENCRYPT
+DECRYPT
+
+# ONEOFIS tempfile_action
+RESIZE size_clause
+autoextend_clause
+DROP [ INCLUDING DATAFILES ]
+ONLINE
+OFFLINE
+
+# WHERE datafile_definition
+[ 'file_name' ] [ SIZE size_clause ] [ REUSE ] [ autoextend_clause ]
+
+# WHERE size_clause
+size_value [ K | M | G | T | P | E ]
+
+# WHERE autoextend_clause
+AUTOEXTEND { OFF | ON [ NEXT size_clause ] [ MAXSIZE { UNLIMITED | size_clause } ] }
+
+# WHERE supplemental_logging_clause
+{ ADD | DROP } SUPPLEMENTAL LOG DATA
+    [ ( supplemental_key_value [, ...] ) COLUMNS | FOR PROCEDURAL REPLICATION | SUBSET DATABASE REPLICATION ]
+
+# ONEOFIS supplemental_key_value
+ALL
+PRIMARY KEY
+UNIQUE
+FOREIGN KEY
+
+# WHERE quoted_file_name
+'file_name'
+
+# WHERE quoted_instance_name
+'instance_name'
+
+# WHERE quoted_replacement_file_name
+'replacement_file_name'

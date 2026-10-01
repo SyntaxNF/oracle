@@ -1,0 +1,43 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/NOAUDIT-Unified-Auditing.html
+
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/NOAUDIT-Traditional-Auditing.html
+
+# CASE UNIFIED_POLICY
+NOAUDIT POLICY name
+    [ { BY user [, ...]
+      | BY USERS WITH GRANTED ROLES role [, ...] } ]
+    [ WHENEVER [ NOT ] SUCCESSFUL ]
+
+# CASE UNIFIED_CONTEXT
+NOAUDIT context_audit_clause [, ...] [ BY user [, ...] ]
+
+# WHERE context_audit_clause
+CONTEXT NAMESPACE namespace ATTRIBUTES attribute [, ...]
+
+# CASE TRADITIONAL_STATEMENT
+NOAUDIT { sql_statement_shortcut [, ...] | ALL | ALL STATEMENTS
+    | system_privilege [, ...] | ALL PRIVILEGES }
+    [ BY user [, ...]  ]
+
+    [ WHENEVER [ NOT ] SUCCESSFUL ]
+    [ CONTAINER = { CURRENT | ALL } ]
+
+# CASE TRADITIONAL_OBJECT
+NOAUDIT { object_action [, ...] | ALL }
+    ON { object | DIRECTORY directory | MINING MODEL mining_model
+        | SQL TRANSLATION PROFILE translation_profile | DEFAULT }
+
+    [ WHENEVER [ NOT ] SUCCESSFUL ]
+    [ CONTAINER = { CURRENT | ALL } ]
+
+# CASE TRADITIONAL_NETWORK
+NOAUDIT NETWORK
+
+    [ WHENEVER [ NOT ] SUCCESSFUL ]
+    [ CONTAINER = { CURRENT | ALL } ]
+
+# CASE TRADITIONAL_DIRECT_PATH
+NOAUDIT DIRECT_PATH LOAD [ BY user [, ...] ]
+
+    [ WHENEVER [ NOT ] SUCCESSFUL ]
+    [ CONTAINER = { CURRENT | ALL } ]

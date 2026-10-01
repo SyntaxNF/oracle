@@ -1,3 +1,127 @@
-# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TRIGGER.html
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/lnpls/CREATE-TRIGGER-statement.html
+# declaration_definition and plsql_statement are complete fragments including their semicolons.
+# exception_handler is a complete WHEN ... THEN handler, including statement semicolons.
 
-CREATE [ OR REPLACE ] TRIGGER name trigger_definition
+# CASE SIMPLE_DML
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    { BEFORE | AFTER } dml_event [OR ...] ON { table | editioning_view }
+    [ referencing_clause ] [ FOR EACH ROW ]
+    [ trigger_edition_clause ] [ trigger_ordering_clause ]
+    [ ENABLE | DISABLE ] [ WHEN ( boolean_expression ) ]
+    trigger_body
+
+# CASE INSTEAD_OF_DML
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    INSTEAD OF instead_of_event [OR ...]
+    ON [ NESTED TABLE nested_table_column OF ] view
+    [ referencing_clause ] [ FOR EACH ROW ]
+    [ trigger_edition_clause ] [ trigger_ordering_clause ]
+    [ ENABLE | DISABLE ]
+    trigger_body
+
+# CASE COMPOUND_DML
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    FOR dml_event [OR ...] ON { table | editioning_view }
+    [ referencing_clause ]
+    [ trigger_edition_clause ] [ trigger_ordering_clause ]
+    [ ENABLE | DISABLE ] [ WHEN ( boolean_expression ) ]
+    COMPOUND TRIGGER
+        declaration_definition [...]
+        timing_point_definition [...]
+    END [ end_name ] ;
+
+# CASE COMPOUND_NONEDITIONING_VIEW
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    FOR instead_of_event [OR ...] ON noneditioning_view
+    [ referencing_clause ]
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    COMPOUND TRIGGER
+        declaration_definition [...]
+        INSTEAD OF EACH ROW IS
+            BEGIN plsql_statement [...] [ EXCEPTION exception_handler [...] ]
+            END INSTEAD OF EACH ROW ;
+    END [ end_name ] ;
+
+# CASE SYSTEM
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    { BEFORE | AFTER | INSTEAD OF }
+    { ddl_event [OR ...] | database_event [OR ...] }
+    ON { [ schema . ] SCHEMA | [ PLUGGABLE ] DATABASE }
+    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    [ WHEN ( boolean_expression ) ]
+    trigger_body
+
+# WHERE dml_event
+{ DELETE | INSERT | UPDATE [ OF colname [, ...] ] }
+
+# WHERE instead_of_event
+{ DELETE | INSERT | UPDATE }
+
+# WHERE referencing_clause
+REFERENCING referencing_definition [...]
+
+# WHERE referencing_definition
+{ OLD [ AS ] old_alias | NEW [ AS ] new_alias | PARENT [ AS ] parent_alias }
+
+# WHERE trigger_edition_clause
+{ FORWARD | REVERSE } CROSSEDITION
+
+# WHERE trigger_ordering_clause
+{ FOLLOWS | PRECEDES } trigger [, ...]
+
+# PARTOFIS trigger_body
+anonymous_block
+
+CALL routine ( actual_parameter [, ...] ) ;
+
+# WHERE actual_parameter
+[ parameter => ] value_expression
+
+# PARTOFIS timing_point_definition
+BEFORE STATEMENT IS
+    BEGIN plsql_statement [...] [ EXCEPTION exception_handler [...] ]
+    END BEFORE STATEMENT ;
+
+BEFORE EACH ROW IS
+    BEGIN plsql_statement [...] [ EXCEPTION exception_handler [...] ]
+    END BEFORE EACH ROW ;
+
+AFTER STATEMENT IS
+    BEGIN plsql_statement [...] [ EXCEPTION exception_handler [...] ]
+    END AFTER STATEMENT ;
+
+AFTER EACH ROW IS
+    BEGIN plsql_statement [...] [ EXCEPTION exception_handler [...] ]
+    END AFTER EACH ROW ;
+
+# WHERE ddl_event
+{ ALTER | ANALYZE | ASSOCIATE STATISTICS | AUDIT | COMMENT | CREATE | DISASSOCIATE STATISTICS | DROP | GRANT | NOAUDIT | RENAME | REVOKE | TRUNCATE | DDL }
+
+# WHERE database_event
+{ STARTUP | SHUTDOWN | DB_ROLE_CHANGE | SERVERERROR | LOGON | LOGOFF | SUSPEND | CLONE | UNPLUG | SET CONTAINER }
+
+# WHERE anonymous_block
+label_definition [...]
+[ DECLARE declaration_definition [...] ]
+plsql_body
+
+# WHERE label_definition
+<< label >>
+
+# WHERE plsql_body
+BEGIN
+    plsql_statement [...]
+[ EXCEPTION
+    exception_handler [...]
+]
+END [ end_name ] ;

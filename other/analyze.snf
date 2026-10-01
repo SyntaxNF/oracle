@@ -1,0 +1,30 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ANALYZE.html
+
+# CASE TABLE
+ANALYZE TABLE name [ partition_extension_clause ] table_action
+
+# CASE INDEX
+ANALYZE INDEX name [ partition_extension_clause ]
+    { VALIDATE STRUCTURE | DELETE [ SYSTEM ] STATISTICS }
+
+# CASE CLUSTER
+ANALYZE CLUSTER name
+    { VALIDATE STRUCTURE [ CASCADE [ FAST | COMPLETE ] ]
+    | LIST CHAINED ROWS [ INTO chained_rows_table ]
+    | DELETE [ SYSTEM ] STATISTICS }
+
+# PARTOFIS table_action
+VALIDATE REF UPDATE [ SET DANGLING TO NULL ]
+
+VALIDATE STRUCTURE [ CASCADE [ FAST | COMPLETE ] ]
+    [ ONLINE | OFFLINE ] [ INTO invalid_rows_table ]
+
+LIST CHAINED ROWS [ INTO chained_rows_table ]
+
+DELETE [ SYSTEM ] STATISTICS
+
+# ONEOFIS partition_extension_clause
+PARTITION ( partition )
+PARTITION FOR ( partition_key_value [, ...] )
+SUBPARTITION ( subpartition )
+SUBPARTITION FOR ( subpartition_key_value [, ...] )

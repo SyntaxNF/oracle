@@ -1,0 +1,36 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-JAVA.html
+
+# CASE SOURCE
+CREATE [ OR REPLACE ] [ AND { RESOLVE | COMPILE } ] [ NOFORCE ]
+    JAVA SOURCE NAMED name
+    [ SHARING = { METADATA | NONE } ]
+    [ AUTHID { CURRENT_USER | DEFINER } ]
+    [ resolver_clause ]
+    { java_using_clause | AS java_source_text }
+
+# CASE CLASS
+CREATE [ OR REPLACE ] [ AND { RESOLVE | COMPILE } ] [ NOFORCE ]
+    JAVA CLASS [ SCHEMA schema ]
+    [ SHARING = { METADATA | NONE } ]
+    [ AUTHID { CURRENT_USER | DEFINER } ]
+    [ resolver_clause ] java_using_clause
+
+# CASE RESOURCE
+CREATE [ OR REPLACE ] JAVA RESOURCE NAMED name
+    [ SHARING = { METADATA | NONE } ] java_using_clause
+
+# WHERE resolver_clause
+RESOLVER ( resolver_mapping [...] )
+
+# WHERE resolver_mapping
+( match_string [ , ] { schema | - } )
+
+# PARTOFIS java_using_clause
+USING BFILE ( directory , 'file_name' )
+
+USING { CLOB | BLOB | BFILE } query_statement
+
+USING 'blob_key'
+
+# STATEMENT query_statement
+SELECT

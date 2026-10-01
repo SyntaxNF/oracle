@@ -1,3 +1,126 @@
-# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-FUNCTION.html
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/lnpls/CREATE-FUNCTION-statement.html
+# declaration_definition and plsql_statement are complete fragments including their semicolons.
+# exception_handler is a complete WHEN ... THEN handler, including statement semicolons.
 
-CREATE [ OR REPLACE ] FUNCTION name object_definition
+# CASE PLSQL
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] FUNCTION name
+    [ SHARING = { METADATA | NONE } ]
+    [ ( parameter_definition [, ...] ) ] RETURN parameter_type
+    [ AUTHID { CURRENT_USER | DEFINER } ]
+    [ accessible_by_clause ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    [ DETERMINISTIC ]
+    [ parallel_enable_clause ]
+    [ result_cache_clause ]
+    { IS | AS }
+    declaration_definition [...]
+    plsql_body
+
+# CASE PIPELINED_PLSQL
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] FUNCTION name
+    [ SHARING = { METADATA | NONE } ]
+    [ ( parameter_definition [, ...] ) ] RETURN parameter_type
+    [ AUTHID { CURRENT_USER | DEFINER } ]
+    [ accessible_by_clause ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    [ DETERMINISTIC ]
+    [ parallel_enable_clause ]
+    PIPELINED { IS | AS }
+    declaration_definition [...]
+    plsql_body
+
+# CASE CALL_SPECIFICATION
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] FUNCTION name
+    [ SHARING = { METADATA | NONE } ]
+    [ ( parameter_definition [, ...] ) ] RETURN parameter_type
+    [ AUTHID { CURRENT_USER | DEFINER } ]
+    [ accessible_by_clause ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    [ DETERMINISTIC ]
+    [ parallel_enable_clause ]
+    { IS | AS } call_specification ;
+
+# CASE AGGREGATE
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] FUNCTION name
+    [ SHARING = { METADATA | NONE } ]
+    ( input_parameter_definition ) RETURN parameter_type
+    [ AUTHID { CURRENT_USER | DEFINER } ]
+    [ accessible_by_clause ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    [ DETERMINISTIC ] [ parallel_enable_clause ]
+    AGGREGATE USING implementation_type ;
+
+# CASE PIPELINED_INTERFACE
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] FUNCTION name
+    [ SHARING = { METADATA | NONE } ]
+    [ ( parameter_definition [, ...] ) ] RETURN parameter_type
+    [ AUTHID { CURRENT_USER | DEFINER } ]
+    [ accessible_by_clause ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    [ DETERMINISTIC ]
+    [ parallel_enable_clause ]
+    PIPELINED USING implementation_type ;
+
+# CASE POLYMORPHIC
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] FUNCTION name
+    [ SHARING = { METADATA | NONE } ]
+    [ ( input_parameter_definition [, ...] ) ] RETURN TABLE
+    [ accessible_by_clause ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    PIPELINED [ ROW | TABLE ] POLYMORPHIC USING implementation_package ;
+
+# WHERE parameter_definition
+parameter { [ IN ] parameter_type [ { := | DEFAULT } value_expression ] | { OUT | IN OUT } [ NOCOPY ] parameter_type }
+
+# WHERE input_parameter_definition
+parameter [ IN ] parameter_type [ { := | DEFAULT } value_expression ]
+
+# WHERE parameter_type
+{ data_type | anchored_name % TYPE | row_source % ROWTYPE }
+
+# WHERE accessible_by_clause
+ACCESSIBLE BY ( accessor_definition [, ...] )
+
+# WHERE accessor_definition
+[ FUNCTION | PROCEDURE | PACKAGE | TRIGGER | TYPE ] accessor
+
+# WHERE parallel_enable_clause
+PARALLEL_ENABLE
+    [ ( PARTITION parameter BY
+        { ANY | { HASH | RANGE } ( colname [, ...] ) [ streaming_clause ] | VALUE ( colname ) }
+    ) ]
+
+# WHERE streaming_clause
+{ ORDER | CLUSTER } value_expression BY ( colname [, ...] )
+
+# WHERE result_cache_clause
+RESULT_CACHE [ RELIES_ON ( relation [, ...] ) ]
+
+# PARTOFIS call_specification
+LANGUAGE JAVA NAME 'java_signature'
+
+LANGUAGE C c_call_definition
+
+EXTERNAL c_call_definition
+
+# WHERE c_call_definition
+{ LIBRARY library [ NAME external_name ] | NAME external_name LIBRARY library }
+    [ AGENT IN ( parameter [, ...] ) ]
+    [ WITH CONTEXT ]
+    [ PARAMETERS ( external_parameter_definition [, ...] ) ]
+
+# WHERE external_parameter_definition
+{ CONTEXT
+| SELF [ TDO | external_property ]
+| { parameter | RETURN } [ external_property ] [ BY REFERENCE ] [ external_data_type ] }
+
+# WHERE external_property
+{ INDICATOR [ STRUCT | TDO ] | LENGTH | DURATION | MAXLEN | CHARSETID | CHARSETFORM }
+
+# WHERE plsql_body
+BEGIN
+    plsql_statement [...]
+[ EXCEPTION
+    exception_handler [...]
+]
+END [ end_name ] ;

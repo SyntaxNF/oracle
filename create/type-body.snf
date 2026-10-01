@@ -1,3 +1,73 @@
-# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TYPE-BODY.html
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/lnpls/CREATE-TYPE-BODY-statement.html
+# declaration_definition and plsql_statement are complete fragments including their semicolons.
+# exception_handler is a complete WHEN ... THEN handler, including statement semicolons.
 
-CREATE [ OR REPLACE ] TYPE BODY name object_definition
+# CASE BODY
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE BODY name
+    { IS | AS }
+    method_definition [...]
+END ;
+
+# PARTOFIS method_definition
+[ [ NOT ] OVERRIDING ] { MEMBER | STATIC } PROCEDURE procedure [ ( parameter_definition [, ...] ) ]
+    { IS | AS } declaration_definition [...] plsql_body
+
+[ [ NOT ] OVERRIDING ] { MEMBER | STATIC } FUNCTION function_name [ ( parameter_definition [, ...] ) ]
+    RETURN parameter_type [ DETERMINISTIC ]
+    { IS | AS } declaration_definition [...] plsql_body
+
+MAP MEMBER FUNCTION function_name RETURN map_scalar_type
+    { IS | AS } declaration_definition [...] plsql_body
+
+ORDER MEMBER FUNCTION function_name ( parameter [ IN ] object_type )
+    RETURN order_numeric_type
+    { IS | AS } declaration_definition [...] plsql_body
+
+CONSTRUCTOR FUNCTION type_name [ ( parameter_definition [, ...] ) ]
+    RETURN SELF AS RESULT
+    { IS | AS } declaration_definition [...] plsql_body
+
+[ [ NOT ] OVERRIDING ] { MEMBER | STATIC } PROCEDURE procedure [ ( parameter_definition [, ...] ) ]
+    { IS | AS } call_specification ;
+
+[ [ NOT ] OVERRIDING ] { MEMBER | STATIC } FUNCTION function_name [ ( parameter_definition [, ...] ) ]
+    RETURN parameter_type [ DETERMINISTIC ]
+    { IS | AS } call_specification ;
+
+# WHERE parameter_definition
+parameter { [ IN ] parameter_type [ { := | DEFAULT } value_expression ] | { OUT | IN OUT } [ NOCOPY ] parameter_type }
+
+# WHERE parameter_type
+{ data_type | anchored_name % TYPE | row_source % ROWTYPE }
+
+# PARTOFIS call_specification
+LANGUAGE JAVA NAME 'java_signature'
+
+LANGUAGE C c_call_definition
+
+EXTERNAL c_call_definition
+
+# WHERE c_call_definition
+{ LIBRARY library [ NAME external_name ] | NAME external_name LIBRARY library }
+    [ AGENT IN ( parameter [, ...] ) ]
+    [ WITH CONTEXT ]
+    [ PARAMETERS ( external_parameter_definition [, ...] ) ]
+
+# WHERE external_parameter_definition
+{ CONTEXT
+| SELF [ TDO | external_property ]
+| { parameter | RETURN } [ external_property ] [ BY REFERENCE ] [ external_data_type ] }
+
+# WHERE external_property
+{ INDICATOR [ STRUCT | TDO ] | LENGTH | DURATION | MAXLEN | CHARSETID | CHARSETFORM }
+
+# WHERE order_numeric_type
+{ NUMBER | numeric_subtype }
+
+# WHERE plsql_body
+BEGIN
+    plsql_statement [...]
+[ EXCEPTION
+    exception_handler [...]
+]
+END [ end_name ] ;

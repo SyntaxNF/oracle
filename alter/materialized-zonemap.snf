@@ -1,0 +1,38 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-MATERIALIZED-ZONEMAP.html
+
+# CASE ATTRIBUTES
+ALTER MATERIALIZED ZONEMAP name zonemap_attributes_clause
+
+# CASE REFRESH
+ALTER MATERIALIZED ZONEMAP name zonemap_refresh_clause
+
+# CASE PRUNING
+ALTER MATERIALIZED ZONEMAP name { ENABLE | DISABLE } PRUNING
+
+# CASE COMPILE
+ALTER MATERIALIZED ZONEMAP name COMPILE
+
+# CASE REBUILD
+ALTER MATERIALIZED ZONEMAP name REBUILD
+
+# CASE UNUSABLE
+ALTER MATERIALIZED ZONEMAP name UNUSABLE
+
+# PARTOFIS zonemap_attributes_clause
+PCTFREE pctfree_value [ PCTUSED pctused_value ] [ CACHE | NOCACHE ]
+
+PCTUSED pctused_value [ CACHE | NOCACHE ]
+
+{ CACHE | NOCACHE }
+
+# PARTOFIS zonemap_refresh_clause
+REFRESH { FAST | COMPLETE | FORCE } [ ON refresh_mode_value ]
+
+REFRESH ON refresh_mode_value
+
+# ONEOFIS refresh_mode_value
+DEMAND
+COMMIT
+LOAD
+DATA MOVEMENT
+LOAD DATA MOVEMENT

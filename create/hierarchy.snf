@@ -1,0 +1,35 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-HIERARCHY.html
+
+CREATE [ OR REPLACE ] [ FORCE | NOFORCE ] HIERARCHY name
+    [ SHARING = { METADATA | NONE } ]
+    [ classification_clause ]
+    USING attribute_dimension
+    ( level hierarchy_parent_clause [...] )
+    [ HIERARCHICAL ATTRIBUTES ( hierarchical_attribute_definition [, ...] ) ]
+
+# WHERE hierarchy_parent_clause
+CHILD OF level
+
+# WHERE hierarchical_attribute_definition
+hierarchical_attribute_value [ classification_clause ]
+
+# ONEOFIS hierarchical_attribute_value
+MEMBER_NAME
+MEMBER_UNIQUE_NAME
+MEMBER_CAPTION
+MEMBER_DESCRIPTION
+LEVEL_NAME
+HIER_ORDER
+DEPTH
+IS_LEAF
+PARENT_LEVEL_NAME
+PARENT_UNIQUE_NAME
+
+# WHERE classification_clause
+[ CAPTION caption_value ]
+    [ DESCRIPTION description_value ]
+    user_classification_clause [...]
+
+# WHERE user_classification_clause
+CLASSIFICATION classification
+    [ VALUE classification_value ] [ LANGUAGE language_value ]

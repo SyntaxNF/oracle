@@ -26,9 +26,9 @@
 | `placeholder` | 需要由调用方提供或由其他语法节点展开的占位符。 |
 | `[ syntax ]` | 整个 `syntax` 可选，最多出现一次。 |
 | `{ a \| b }` | 必须从候选项中选择一个。 |
-| `syntax [...]` | 前一个 `syntax` 可以继续重复，成员之间没有额外分隔符。 |
-| `item [, ...]` | `item` 可重复，多个成员之间使用逗号分隔。 |
-| `statement [; ...]` | `statement` 可重复，多个语句之间使用分号分隔。 |
+| `syntax [...]` | 前一个完整 `syntax` 属于 LOOP，可出现 0 次或更多次；成员之间没有额外分隔符。 |
+| `item [, ...]` | 整个 `item` 可出现 0 次或更多次，成员之间使用逗号分隔。 |
+| `statement [; ...]` | 整个 `statement` 可出现 0 次或更多次，成员之间使用分号分隔。 |
 | `( syntax )` | 需要原样生成的 SQL 圆括号。 |
 | `'value'` | 需要原样生成的 SQL 字符串字面量。 |
 
@@ -60,6 +60,8 @@ colname data_type [ DEFAULT default_expression ] [ NOT NULL ]
 - `ONEOFIS` 的单个候选不能换行；候选需要跨行时使用 `PARTOFIS`。
 - PL/SQL 定义包含完整单元内容，不附加 SQL*Plus 使用的 `/`。
 - SNF 表达规范语句，不收录仅被解析器容忍、但不适合作为标准生成结果的写法。
+- LOOP 自身是 0 次或更多次；纯 `[ item [...] ]` 外壳冗余，但带关键字或字面括号的整段可选项保留。圆括号内相邻可空成员可各带尾逗号，由既有生成约定清理最后一个逗号。
+- 生成模板不承担完整 Oracle 语义校验；不为限制索引/触发器等组合而复制 CASE 矩阵，也不展开一套重复的 PL/SQL 解析器。
 - `*.snf.json` 由 Studio 根目录的 `pnpm --filter @breeze/snf-oracle run init` 生成，不手工修改或提交。
 
 ## 占位符命名
@@ -99,7 +101,7 @@ colname data_type [ DEFAULT default_expression ] [ NOT NULL ]
 
 | 占位符 | 含义 |
 | --- | --- |
-| `object_definition` | 函数、过程、包或类型等程序单元的定义内容。 |
+| `plsql_body`、`declaration_definition` | 程序体骨架和完整自由声明输入；声明自带分号，不扩展成完整 PL/SQL 校验器。 |
 | `partition_clause`、`partition_definition` | 分区子句和单个分区定义。 |
 | `referenced_schema`、`referenced_table`、`referenced_object` | 被引用对象的所有者和对象标识符。 |
 | `job_type`、`job_action`、`repeat_interval` | `DBMS_SCHEDULER` 作业类型、动作和重复计划。 |
@@ -116,3 +118,10 @@ Studio 的 Oracle Registry 决定哪些操作可执行；SNF Pages 只提供语�
 ## 覆盖状态
 
 语句入口覆盖、本轮修正和剩余缺口见 [SQL 定义覆盖检查](docs/coverage.md)。文件存在不代表全部语法组合已经验证。
+
+
+## 19c 覆盖清单与校验
+
+当前 164 个 `.snf` 文件映射官方 SQL 目录全部 161 个命令页，并包含匿名 PL/SQL block 和少量包过程调用。入口齐全不代表完整 Oracle 文法；具体 structured/partial 范围见 [逐命令清单](docs/statement-inventory.json) 与 [覆盖说明](docs/coverage.md)。表达式、对象状态和跨子句语义不由本仓库证明；自由表达式和程序片段是有意保留的输入边界。
+
+本轮存在 CASE/占位符调整，接入前查看 [迁移清单](docs/migration.md) 和 [输入与生成边界](docs/semantic-contracts.md)。真实 parser 和结构回归的复现命令见 [验证说明](docs/validation.md)；这些检查不执行 Oracle SQL，不构建 Studio Pages，不生成 `.snf.json`。运行检查仍需遵守 AGENTS.md 或用户的明确授权。

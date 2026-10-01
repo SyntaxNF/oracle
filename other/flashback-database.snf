@@ -1,0 +1,13 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/FLASHBACK-DATABASE.html
+
+# CASE SCN
+FLASHBACK [ STANDBY ] [ PLUGGABLE ] DATABASE [ name ] TO [ BEFORE ] SCN scn_expression
+
+# CASE TIMESTAMP
+FLASHBACK [ STANDBY ] [ PLUGGABLE ] DATABASE [ name ] TO [ BEFORE ] TIMESTAMP timestamp_expression
+
+# CASE RESTORE_POINT
+FLASHBACK [ STANDBY ] [ PLUGGABLE ] DATABASE [ name ] TO RESTORE POINT restore_point
+
+# CASE BEFORE_RESETLOGS
+FLASHBACK [ STANDBY ] [ PLUGGABLE ] DATABASE [ name ] TO BEFORE RESETLOGS

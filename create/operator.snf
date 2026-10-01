@@ -1,0 +1,19 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-OPERATOR.html
+
+CREATE [ OR REPLACE ] OPERATOR name
+    BINDING binding_definition [, ...]
+
+# WHERE binding_definition
+( parameter_type [, ...] ) RETURN return_type
+    [ implementation_clause ] USING function
+
+# PARTOFIS implementation_clause
+ANCILLARY TO primary_operator_binding [, ...]
+
+WITH INDEX CONTEXT , SCAN CONTEXT implementation_type
+    [ COMPUTE ANCILLARY DATA ] [ WITH COLUMN CONTEXT ]
+
+WITH COLUMN CONTEXT
+
+# WHERE primary_operator_binding
+primary_operator ( parameter_type [, ...] )

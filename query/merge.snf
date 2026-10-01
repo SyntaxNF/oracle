@@ -1,9 +1,9 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/MERGE.html
 
-MERGE INTO table [ target_alias ]
+MERGE [ hint_clause ] INTO table [ target_alias ]
     USING { source_table | ( query_statement ) } [ source_alias ]
     ON ( boolean_expression )
-    { update_clause [ insert_clause ] | insert_clause }
+    { update_clause [ insert_clause ] | insert_clause [ update_clause ] }
     [ error_logging_clause ]
 
 # WHERE update_clause
@@ -25,3 +25,6 @@ SELECT
 
 # WHERE column_assignment
 colname = { value_expression | DEFAULT }
+
+# WHERE hint_clause
+/*+ hint [...] */

@@ -1,0 +1,128 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ADMINISTER-KEY-MANAGEMENT.html
+
+# CASE CREATE_KEYSTORE
+ADMINISTER KEY MANAGEMENT CREATE KEYSTORE [ 'keystore_location' ]
+    IDENTIFIED BY keystore_password
+
+# CASE AUTO_LOGIN_KEYSTORE
+ADMINISTER KEY MANAGEMENT CREATE [ LOCAL ] AUTO_LOGIN KEYSTORE
+    FROM KEYSTORE [ 'keystore_location' ] IDENTIFIED BY keystore_password
+
+# CASE OPEN_KEYSTORE
+ADMINISTER KEY MANAGEMENT SET KEYSTORE OPEN [ FORCE KEYSTORE ]
+    IDENTIFIED BY authentication_value [ container_clause ]
+
+# CASE CLOSE_KEYSTORE
+ADMINISTER KEY MANAGEMENT SET KEYSTORE CLOSE
+    [ IDENTIFIED BY authentication_value ] [ container_clause ]
+
+# CASE BACKUP_KEYSTORE
+ADMINISTER KEY MANAGEMENT BACKUP KEYSTORE [ USING 'backup_identifier' ]
+    [ FORCE KEYSTORE ] IDENTIFIED BY authentication_value
+    [ TO 'keystore_location' ]
+
+# CASE PASSWORD
+ADMINISTER KEY MANAGEMENT ALTER KEYSTORE PASSWORD [ FORCE KEYSTORE ]
+    IDENTIFIED BY old_keystore_password SET new_keystore_password [ backup_clause ]
+
+# CASE MERGE_NEW
+ADMINISTER KEY MANAGEMENT MERGE KEYSTORE 'source_keystore_location'
+    [ IDENTIFIED BY source_keystore_password ]
+    AND KEYSTORE 'other_keystore_location' [ IDENTIFIED BY other_keystore_password ]
+    INTO NEW KEYSTORE 'new_keystore_location' IDENTIFIED BY new_keystore_password
+
+# CASE MERGE_EXISTING
+ADMINISTER KEY MANAGEMENT MERGE KEYSTORE 'source_keystore_location'
+    [ IDENTIFIED BY source_keystore_password ]
+    INTO EXISTING KEYSTORE 'target_keystore_location'
+    IDENTIFIED BY target_keystore_password backup_clause
+
+# CASE SET_KEY
+ADMINISTER KEY MANAGEMENT SET [ ENCRYPTION ] KEY
+    [ USING TAG 'tag' ] [ USING ALGORITHM 'encryption_algorithm' ] [ FORCE KEYSTORE ]
+    IDENTIFIED BY authentication_value backup_clause [ container_clause ]
+
+# CASE CREATE_KEY
+ADMINISTER KEY MANAGEMENT CREATE [ ENCRYPTION ] KEY
+    [ USING TAG 'tag' ] [ USING ALGORITHM 'encryption_algorithm' ] [ FORCE KEYSTORE ]
+    IDENTIFIED BY authentication_value backup_clause [ container_clause ]
+
+# CASE USE_KEY
+ADMINISTER KEY MANAGEMENT USE [ ENCRYPTION ] KEY 'key_id'
+    [ USING TAG 'tag' ] [ FORCE KEYSTORE ]
+    IDENTIFIED BY authentication_value [ backup_clause ]
+
+# CASE KEY_TAG
+ADMINISTER KEY MANAGEMENT SET TAG 'tag' FOR 'key_id' [ FORCE KEYSTORE ]
+    IDENTIFIED BY authentication_value [ backup_clause ]
+
+# CASE EXPORT_KEYS
+ADMINISTER KEY MANAGEMENT EXPORT [ ENCRYPTION ] KEYS WITH SECRET secret
+    TO 'file_name' [ FORCE KEYSTORE ] IDENTIFIED BY keystore_password
+    [ identifier_clause ]
+
+# CASE IMPORT_KEYS
+ADMINISTER KEY MANAGEMENT IMPORT [ ENCRYPTION ] KEYS WITH SECRET secret
+    FROM 'file_name' [ FORCE KEYSTORE ] IDENTIFIED BY keystore_password backup_clause
+
+# CASE MOVE_KEYS
+ADMINISTER KEY MANAGEMENT MOVE [ ENCRYPTION ] KEYS
+    TO NEW KEYSTORE 'new_keystore_location' IDENTIFIED BY new_keystore_password
+    FROM [ FORCE ] KEYSTORE IDENTIFIED BY keystore_password
+    [ identifier_clause ] backup_clause
+
+# CASE MIGRATE_KEY
+ADMINISTER KEY MANAGEMENT { USE | SET } [ ENCRYPTION ] KEY [ 'key_id' ]
+    IDENTIFIED BY external_keystore_password [ FORCE KEYSTORE ]
+    MIGRATE USING software_keystore_password
+
+# CASE REVERSE_MIGRATE_KEY
+ADMINISTER KEY MANAGEMENT SET [ ENCRYPTION ] KEY
+    IDENTIFIED BY software_keystore_password [ FORCE KEYSTORE ]
+    REVERSE MIGRATE USING external_keystore_password backup_clause
+
+# CASE SECRET_WRITE
+ADMINISTER KEY MANAGEMENT { ADD | UPDATE } SECRET 'secret'
+    FOR CLIENT 'client_identifier' [ USING TAG 'tag' ] [ FORCE KEYSTORE ]
+    IDENTIFIED BY authentication_value backup_clause
+
+# CASE SECRET_DELETE
+ADMINISTER KEY MANAGEMENT DELETE SECRET FOR CLIENT 'client_identifier'
+    [ FORCE KEYSTORE ] IDENTIFIED BY authentication_value backup_clause
+
+# CASE AUTO_LOGIN_SECRET_WRITE
+ADMINISTER KEY MANAGEMENT { ADD | UPDATE } SECRET 'secret'
+    FOR CLIENT 'client_identifier' [ USING TAG 'tag' ]
+    TO [ LOCAL ] AUTO_LOGIN KEYSTORE 'directory_path'
+
+# CASE AUTO_LOGIN_SECRET_DELETE
+ADMINISTER KEY MANAGEMENT DELETE SECRET FOR CLIENT 'client_identifier'
+    FROM [ LOCAL ] AUTO_LOGIN KEYSTORE 'directory_path'
+
+# CASE ISOLATE_KEYSTORE
+ADMINISTER KEY MANAGEMENT ISOLATE KEYSTORE IDENTIFIED BY isolated_keystore_password
+    FROM ROOT KEYSTORE [ FORCE KEYSTORE ]
+    IDENTIFIED BY authentication_value [ backup_clause ]
+
+# CASE UNITE_KEYSTORE
+ADMINISTER KEY MANAGEMENT UNITE KEYSTORE IDENTIFIED BY isolated_keystore_password
+    WITH ROOT KEYSTORE [ FORCE KEYSTORE ]
+    IDENTIFIED BY authentication_value [ backup_clause ]
+
+# WHERE authentication_value
+{ EXTERNAL STORE | keystore_password }
+
+# WHERE backup_clause
+WITH BACKUP [ USING 'backup_identifier' ]
+
+# WHERE container_clause
+CONTAINER = { ALL | CURRENT }
+
+# WHERE identifier_clause
+WITH IDENTIFIER IN { quoted_key_id [, ...] | ( query_statement ) }
+
+# STATEMENT query_statement
+SELECT
+
+# WHERE quoted_key_id
+'key_id'
