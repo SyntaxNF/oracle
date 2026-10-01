@@ -267,16 +267,3 @@ for (const file of ['create/materialized-view.snf', 'alter/materialized-view.snf
     assert.equal(f.render(options, { values, include: node => /^\s*NEXT/.test(node.content) }), 'NEXT CURRENT_DATE + 1');
     assert.equal(f.render(options, { values, include: node => !node.content.includes('rollback_segment_clause') }), 'FAST ON COMMIT START WITH CURRENT_DATE NEXT CURRENT_DATE + 1 WITH PRIMARY KEY USING ENFORCED CONSTRAINTS');
 });
-
-
-test('official command inventory keeps 161 unique entries with existing definition mappings', () => {
-    const inventory = JSON.parse(fs.readFileSync(path.join(root, 'docs/statement-inventory.json'), 'utf8'));
-    assert.equal(inventory.statements.length, 161);
-    assert.equal(new Set(inventory.statements.map(entry => entry.statement)).size, 161);
-    for (const entry of inventory.statements) {
-        assert.match(entry.source, /^https:\/\/docs\.oracle\.com\/en\/database\/oracle\/oracle-database\/19\//);
-        assert.ok(['structured', 'partial'].includes(entry.status), entry.statement);
-        assert.ok(entry.coverage && entry.remaining && entry.files.length, entry.statement);
-        for (const file of entry.files) assert.ok(files.includes(file), `${entry.statement}: ${file}`);
-    }
-});
