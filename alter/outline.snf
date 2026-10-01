@@ -1,0 +1,10 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-OUTLINE.html
+
+ALTER OUTLINE [ PUBLIC | PRIVATE ] name outline_action [...]
+
+# ONEOFIS outline_action
+REBUILD
+RENAME TO new_name
+CHANGE CATEGORY TO category
+ENABLE
+DISABLE

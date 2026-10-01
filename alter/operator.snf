@@ -1,0 +1,23 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-OPERATOR.html
+
+# CASE ADD_BINDING
+ALTER OPERATOR name ADD BINDING
+    ( parameter_type [, ...] ) RETURN ( return_type )
+    [ implementation_clause ] USING function
+
+# CASE DROP_BINDING
+ALTER OPERATOR name DROP BINDING ( parameter_type [, ...] ) [ FORCE ]
+
+# CASE COMPILE
+ALTER OPERATOR name COMPILE
+
+# PARTOFIS implementation_clause
+ANCILLARY TO primary_operator_binding [, ...]
+
+WITH INDEX CONTEXT , SCAN CONTEXT implementation_type
+    [ COMPUTE ANCILLARY DATA ] [ WITH COLUMN CONTEXT ]
+
+WITH COLUMN CONTEXT
+
+# WHERE primary_operator_binding
+primary_operator ( parameter_type [, ...] )

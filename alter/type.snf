@@ -1,7 +1,68 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TYPE.html
 
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/lnpls/ALTER-TYPE-statement.html
+
 # CASE COMPILE
-ALTER TYPE name COMPILE
+ALTER TYPE name COMPILE [ DEBUG ] [ SPECIFICATION | BODY ]
+    compiler_parameter_assignment [...] [ REUSE SETTINGS ]
 
 # CASE COMPILE_BODY
 ALTER TYPE name COMPILE BODY
+    compiler_parameter_assignment [...] [ REUSE SETTINGS ]
+
+# CASE EDITIONING
+ALTER TYPE name { EDITIONABLE | NONEDITIONABLE }
+
+# CASE RESET
+ALTER TYPE name RESET
+
+# CASE PROPERTIES
+ALTER TYPE name [ NOT ] { INSTANTIABLE | FINAL }
+
+# CASE ATTRIBUTE_ADD_MODIFY
+ALTER TYPE name { ADD | MODIFY } ATTRIBUTE
+    { attribute data_type | ( attribute_definition [, ...] ) }
+    [ dependent_handling_clause ]
+
+# CASE ATTRIBUTE_DROP
+ALTER TYPE name DROP ATTRIBUTE { attribute | ( attribute [, ...] ) }
+    [ dependent_handling_clause ]
+
+# CASE COLLECTION
+ALTER TYPE name MODIFY { LIMIT limit_value | ELEMENT TYPE data_type }
+    [ dependent_handling_clause ]
+
+# CASE METHODS
+ALTER TYPE name method_action [, ...] [ dependent_handling_clause ]
+
+# WHERE compiler_parameter_assignment
+compiler_parameter = compiler_value
+
+# WHERE attribute_definition
+attribute data_type
+
+# WHERE method_action
+{ ADD | DROP } method_specification
+
+# PARTOFIS method_specification
+[ [ NOT ] OVERRIDING ] [ [ NOT ] FINAL ] [ [ NOT ] INSTANTIABLE ]
+    { MEMBER | STATIC } PROCEDURE procedure [ ( parameter_definition [, ...] ) ]
+
+[ [ NOT ] OVERRIDING ] [ [ NOT ] FINAL ] [ [ NOT ] INSTANTIABLE ]
+    { MEMBER | STATIC } FUNCTION function_name [ ( parameter_definition [, ...] ) ]
+    RETURN data_type [ DETERMINISTIC ]
+
+MAP MEMBER FUNCTION function_name RETURN map_scalar_type
+
+ORDER MEMBER FUNCTION function_name ( parameter [ IN ] object_type )
+    RETURN { NUMBER | numeric_subtype }
+
+# WHERE parameter_definition
+parameter { [ IN ] data_type [ { := | DEFAULT } value_expression ]
+    | { OUT | IN OUT } [ NOCOPY ] data_type }
+
+# PARTOFIS dependent_handling_clause
+INVALIDATE
+
+CASCADE [ [ NOT ] INCLUDING TABLE DATA | CONVERT TO SUBSTITUTABLE ]
+    [ [ FORCE ] EXCEPTIONS INTO exceptions_table ]

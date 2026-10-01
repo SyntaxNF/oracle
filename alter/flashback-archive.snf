@@ -1,0 +1,25 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-FLASHBACK-ARCHIVE.html
+
+# CASE DEFAULT
+ALTER FLASHBACK ARCHIVE name SET DEFAULT
+
+# CASE TABLESPACE_ADD
+ALTER FLASHBACK ARCHIVE name ADD TABLESPACE tablespace
+    [ QUOTA size_value { K | M | G | T | P | E } ]
+
+# CASE TABLESPACE_MODIFY
+ALTER FLASHBACK ARCHIVE name MODIFY TABLESPACE tablespace
+    [ QUOTA size_value { K | M | G | T | P | E } ]
+
+# CASE TABLESPACE_REMOVE
+ALTER FLASHBACK ARCHIVE name REMOVE TABLESPACE tablespace
+
+# CASE RETENTION
+ALTER FLASHBACK ARCHIVE name MODIFY RETENTION retention_value { YEAR | MONTH | DAY }
+
+# CASE PURGE
+ALTER FLASHBACK ARCHIVE name
+    PURGE { ALL | BEFORE { SCN scn_expression | TIMESTAMP timestamp_expression } }
+
+# CASE OPTIMIZE
+ALTER FLASHBACK ARCHIVE name [ NO ] OPTIMIZE DATA

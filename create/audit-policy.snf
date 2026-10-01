@@ -1,0 +1,36 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-AUDIT-POLICY-Unified-Auditing.html
+
+CREATE AUDIT POLICY name audit_targets
+    [ WHEN 'audit_condition' EVALUATE PER { STATEMENT | SESSION | INSTANCE } ]
+    [ ONLY TOPLEVEL ]
+    [ CONTAINER = { ALL | CURRENT } ]
+
+# PARTOFIS audit_targets
+PRIVILEGES system_privilege [, ...] [ action_audit_clause ] [ ROLES role [, ...] ]
+
+action_audit_clause [ ROLES role [, ...] ]
+
+ROLES role [, ...]
+
+# PARTOFIS action_audit_clause
+standard_actions_clause [ component_actions_clause ]
+
+component_actions_clause [ standard_actions_clause ]
+
+# WHERE standard_actions_clause
+ACTIONS standard_action [, ...]
+
+# PARTOFIS standard_action
+{ object_action | ALL } ON { DIRECTORY directory | MINING MODEL mining_model | object }
+
+{ system_action | ALL }
+
+# PARTOFIS component_actions_clause
+ACTIONS COMPONENT = { DATAPUMP | DIRECT_LOAD | OLS | XS } component_action [, ...]
+
+ACTIONS COMPONENT = DV database_vault_action [, ...]
+
+ACTIONS COMPONENT = PROTOCOL { FTP | HTTP | AUTHENTICATION }
+
+# WHERE database_vault_action
+component_action ON object

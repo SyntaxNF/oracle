@@ -1,0 +1,50 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-LOCKDOWN-PROFILE.html
+
+# CASE FEATURE
+ALTER LOCKDOWN PROFILE name { DISABLE | ENABLE } FEATURE
+    { = ( quoted_feature [, ...] ) | ALL [ EXCEPT = ( quoted_feature [, ...] ) ] }
+
+# CASE OPTION
+ALTER LOCKDOWN PROFILE name { DISABLE | ENABLE } OPTION
+    { = ( quoted_option [, ...] ) | ALL [ EXCEPT = ( quoted_option [, ...] ) ] }
+
+# CASE STATEMENT
+ALTER LOCKDOWN PROFILE name { DISABLE | ENABLE } STATEMENT
+    { = ( quoted_sql_statement [, ...] ) | ALL [ EXCEPT = ( quoted_sql_statement [, ...] ) ] }
+
+# CASE STATEMENT_CLAUSE
+ALTER LOCKDOWN PROFILE name { DISABLE | ENABLE } STATEMENT = ( 'sql_statement' )
+    CLAUSE { = ( quoted_clause [, ...] ) | ALL [ EXCEPT = ( quoted_clause [, ...] ) ] }
+
+# CASE STATEMENT_OPTION
+ALTER LOCKDOWN PROFILE name { DISABLE | ENABLE }
+    STATEMENT = ( { 'ALTER SESSION' | 'ALTER SYSTEM' } ) CLAUSE = ( 'SET' )
+    OPTION { = ( quoted_clause_option [, ...] ) | ALL [ EXCEPT = ( quoted_clause_option [, ...] ) ] }
+
+# CASE STATEMENT_OPTION_VALUES
+ALTER LOCKDOWN PROFILE name DISABLE
+    STATEMENT = ( { 'ALTER SESSION' | 'ALTER SYSTEM' } ) CLAUSE = ( 'SET' )
+    OPTION = ( 'clause_option' ) option_value_clauses
+
+# WHERE option_value_clauses
+[ VALUE = ( quoted_option_value [, ...] ) ]
+[ MINVALUE = 'option_value' ]
+[ MAXVALUE = 'option_value' ]
+
+# WHERE quoted_clause
+'clause'
+
+# WHERE quoted_clause_option
+'clause_option'
+
+# WHERE quoted_feature
+'feature'
+
+# WHERE quoted_option
+'option'
+
+# WHERE quoted_option_value
+'option_value'
+
+# WHERE quoted_sql_statement
+'sql_statement'

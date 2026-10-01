@@ -1,0 +1,1809 @@
+{
+  "baseline": "Oracle Database 19c; no unpinned RU-specific extensions",
+  "review_date": "2026-10-01",
+  "catalog_source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/toc.htm",
+  "baseline_commit": "30268454b715a61ca10958753b939cfb5e786dc9",
+  "status_definitions": {
+    "structured": "Reviewed statement-level forms modeled; not an assertion of complete Oracle semantic validation",
+    "partial": "Known clause families or nested grammars remain incomplete"
+  },
+  "statements": [
+    {
+      "statement": "ADMINISTER KEY MANAGEMENT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ADMINISTER-KEY-MANAGEMENT.html",
+      "files": [
+        "other/administer-key-management.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Keystore/create/open/close/backup/password/merge/isolate/unite; key create/set/use/tag/import/export/move/migrate; secret and auto-login store operations",
+      "remaining": "Explicit MKID:MK/raw key imports and all algorithm/provider-specific variants are not fully modeled; credentials are placeholders only"
+    },
+    {
+      "statement": "ALTER ANALYTIC VIEW",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-ANALYTIC-VIEW.html",
+      "files": [
+        "alter/analytic-view.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER ATTRIBUTE DIMENSION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-ATTRIBUTE-DIMENSION.html",
+      "files": [
+        "alter/attribute-dimension.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER AUDIT POLICY (Unified Auditing)",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-AUDIT-POLICY-Unified-Auditing.html",
+      "files": [
+        "alter/audit-policy.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Privilege/standard/component/role targets, conditions/top-level and container where applicable",
+      "remaining": "Full privilege/action catalogues; mode/component-specific semantic restrictions"
+    },
+    {
+      "statement": "ALTER CLUSTER",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-CLUSTER.html",
+      "files": [
+        "alter/cluster.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Physical/storage/size/cache/parallel, extent allocation/deallocation and partition allocation",
+      "remaining": "Backend-specific storage constraints are outside template validation; canonical clause order only"
+    },
+    {
+      "statement": "ALTER DATABASE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-DATABASE.html",
+      "files": [
+        "alter/database.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Startup, recovery, files/logs/controlfiles, standby modes, defaults, mirror copies",
+      "remaining": "CDB fleet/property clauses, complete REGISTER/COMMIT SWITCHOVER/FAILOVER families and all recovery permutations"
+    },
+    {
+      "statement": "ALTER DATABASE DICTIONARY",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-DATABASE-DICTIONARY.html",
+      "files": [
+        "alter/database-dictionary.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER DATABASE LINK",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-DATABASE-LINK.html",
+      "files": [
+        "alter/database-link.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER DIMENSION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-DIMENSION.html",
+      "files": [
+        "alter/dimension.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER DISKGROUP",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-DISKGROUP.html",
+      "files": [
+        "alter/diskgroup.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Disk add/drop/resize/replace/rename/online/offline, rebalance/check/mount/dismount, templates/directories/aliases/attributes/files",
+      "remaining": "ADVM volume/filegroup/quotagroup/user/group/file-ACL/ownership/scrub/redundancy-conversion families"
+    },
+    {
+      "statement": "ALTER FLASHBACK ARCHIVE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-FLASHBACK-ARCHIVE.html",
+      "files": [
+        "alter/flashback-archive.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER FUNCTION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-FUNCTION.html",
+      "files": [
+        "alter/function.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER HIERARCHY",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-HIERARCHY.html",
+      "files": [
+        "alter/hierarchy.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER INDEX",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-INDEX.html",
+      "files": [
+        "alter/index.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Rebuild, partition/subpartition maintenance, physical/storage options, usage/visibility/status",
+      "remaining": "Full XMLIndex/ODCI parameter grammars and backend-specific restrictions"
+    },
+    {
+      "statement": "ALTER INDEXTYPE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-INDEXTYPE.html",
+      "files": [
+        "alter/indextype.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER INMEMORY JOIN GROUP",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-INMEMORY-JOIN-GROUP.html",
+      "files": [
+        "alter/inmemory-join-group.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER JAVA",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-JAVA.html",
+      "files": [
+        "alter/java.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER LIBRARY",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-LIBRARY.html",
+      "files": [
+        "alter/library.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER LOCKDOWN PROFILE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-LOCKDOWN-PROFILE.html",
+      "files": [
+        "alter/lockdown-profile.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER MATERIALIZED VIEW",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-MATERIALIZED-VIEW.html",
+      "files": [
+        "alter/materialized-view.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Compile/freshness/refresh/query-rewrite/evaluation/physical maintenance",
+      "remaining": "Object/partition/LOB/In-Memory and advanced physical options"
+    },
+    {
+      "statement": "ALTER MATERIALIZED VIEW LOG",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-MATERIALIZED-VIEW-LOG.html",
+      "files": [
+        "alter/materialized-view-log.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Record augmentation, purge/refresh/move/physical maintenance",
+      "remaining": "Full partition/LOB and backend-specific physical combinations"
+    },
+    {
+      "statement": "ALTER MATERIALIZED ZONEMAP",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-MATERIALIZED-ZONEMAP.html",
+      "files": [
+        "alter/materialized-zonemap.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER OPERATOR",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-OPERATOR.html",
+      "files": [
+        "alter/operator.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER OUTLINE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-OUTLINE.html",
+      "files": [
+        "alter/outline.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER PACKAGE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-PACKAGE.html",
+      "files": [
+        "alter/package.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER PLUGGABLE DATABASE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-PLUGGABLE-DATABASE.html",
+      "files": [
+        "alter/pluggable-database.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Open/close/save-state/unplug, defaults/datafiles/recovery, application lifecycle, snapshots/mirror copies",
+      "remaining": "Every advanced Data Guard, application, container and lost-write configuration combination"
+    },
+    {
+      "statement": "ALTER PROCEDURE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-PROCEDURE.html",
+      "files": [
+        "alter/procedure.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER PROFILE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-PROFILE.html",
+      "files": [
+        "alter/profile.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER RESOURCE COST",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-RESOURCE-COST.html",
+      "files": [
+        "alter/resource-cost.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER ROLE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-ROLE.html",
+      "files": [
+        "alter/role.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER ROLLBACK SEGMENT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-ROLLBACK-SEGMENT.html",
+      "files": [
+        "alter/rollback-segment.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER SEQUENCE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-SEQUENCE.html",
+      "files": [
+        "alter/sequence.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER SESSION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-SESSION.html",
+      "files": [
+        "alter/session.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER SYNONYM",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-SYNONYM.html",
+      "files": [
+        "alter/synonym.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER SYSTEM",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-SYSTEM.html",
+      "files": [
+        "alter/system.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER TABLE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TABLE.html",
+      "files": [
+        "alter/table.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Columns/constraints, structured add/split/merge/exchange/move/drop/truncate/coalesce partitions, LOB/storage/compression/default attributes",
+      "remaining": "Object/XMLType/collection and hybrid/sharded variants; ILM/In-Memory/clustering; full UPDATE INDEXES/dependent-table/filter branches"
+    },
+    {
+      "statement": "ALTER TABLESPACE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TABLESPACE.html",
+      "files": [
+        "alter/tablespace.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Files, sizing/autoextend, state/retention/backup/logging/defaults/encryption",
+      "remaining": "ILM/In-Memory/lost-write and all legacy dictionary-managed arrangements"
+    },
+    {
+      "statement": "ALTER TABLESPACE SET",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TABLESPACE-SET.html",
+      "files": [
+        "alter/tablespace-set.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Supported set state/defaults/files/backup/logging/encryption operations",
+      "remaining": "Default compression/index compression/In-Memory/ILM/full storage grammar"
+    },
+    {
+      "statement": "ALTER TRIGGER",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TRIGGER.html",
+      "files": [
+        "alter/trigger.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "ALTER TYPE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-TYPE.html",
+      "files": [
+        "alter/type.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Compile/editioning/reset/properties, add/modify/drop attributes and methods, collection evolution/dependent handling",
+      "remaining": "REPLACE type clause; complete external method/constructor variants and evolution semantics"
+    },
+    {
+      "statement": "ALTER USER",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-USER.html",
+      "files": [
+        "alter/user.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Authentication/defaults/roles/quotas/locking/expiry/editions/container-data/proxy grants",
+      "remaining": "RU-specific authentication extensions remain outside scope; not every permutation is emitted"
+    },
+    {
+      "statement": "ALTER VIEW",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-VIEW.html",
+      "files": [
+        "alter/view.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Compile/read/editioning and constraint add/modify/drop",
+      "remaining": "Constraint/view-type compatibility must be enforced externally"
+    },
+    {
+      "statement": "ANALYZE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ANALYZE.html",
+      "files": [
+        "other/analyze.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Table/index/cluster structure/ref validation, chained rows and delete statistics",
+      "remaining": "Obsolete COMPUTE/ESTIMATE statistics syntax excluded from current diagram baseline; context validity of INTO/FAST/ONLINE"
+    },
+    {
+      "statement": "ASSOCIATE STATISTICS",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ASSOCIATE-STATISTICS.html",
+      "files": [
+        "other/associate-statistics.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "AUDIT (Traditional Auditing)",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/AUDIT-Traditional-Auditing.html",
+      "files": [
+        "auth/audit.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Distinct traditional/unified cases, policy/user/role/context or object/system/direct-path/network targets",
+      "remaining": "Full legacy audit shortcut/object-action catalogue; version/mode-specific semantic restrictions"
+    },
+    {
+      "statement": "AUDIT (Unified Auditing)",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/AUDIT-Unified-Auditing.html",
+      "files": [
+        "auth/audit.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Distinct traditional/unified cases, policy/user/role/context or object/system/direct-path/network targets",
+      "remaining": "Full legacy audit shortcut/object-action catalogue; version/mode-specific semantic restrictions"
+    },
+    {
+      "statement": "CALL",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CALL.html",
+      "files": [
+        "other/call.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Qualified routines/arguments/remote link and output/indicator host variables",
+      "remaining": "Object-access expression and argument expression grammar"
+    },
+    {
+      "statement": "COMMENT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/COMMENT.html",
+      "files": [
+        "other/comment.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "COMMIT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/COMMIT.html",
+      "files": [
+        "transaction/commit.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE ANALYTIC VIEW",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-ANALYTIC-VIEW.html",
+      "files": [
+        "create/analytic-view.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Fact source/dimensions/hierarchies/measures/defaults/cache/classification",
+      "remaining": "Complete analytic measure-expression and aggregate function grammars; multi-column DISTINCT references require source/engine confirmation"
+    },
+    {
+      "statement": "CREATE ATTRIBUTE DIMENSION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-ATTRIBUTE-DIMENSION.html",
+      "files": [
+        "create/attribute-dimension.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Single source, attributes, classifications, levels/keys/member metadata/order/determinations",
+      "remaining": "Snowflake multiple sources/JOIN PATH"
+    },
+    {
+      "statement": "CREATE AUDIT POLICY (Unified Auditing)",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-AUDIT-POLICY-Unified-Auditing.html",
+      "files": [
+        "create/audit-policy.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Privilege/standard/component/role targets, conditions/top-level and container where applicable",
+      "remaining": "Full privilege/action catalogues; mode/component-specific semantic restrictions"
+    },
+    {
+      "statement": "CREATE CLUSTER",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-CLUSTER.html",
+      "files": [
+        "create/cluster.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Indexed/hash/sorted/range-hash clusters, physical/storage/parallel/cache settings",
+      "remaining": "Full per-partition table storage descriptions and cross-column/hash restrictions"
+    },
+    {
+      "statement": "CREATE CONTEXT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-CONTEXT.html",
+      "files": [
+        "create/context.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE CONTROLFILE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-CONTROLFILE.html",
+      "files": [
+        "create/controlfile.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE DATABASE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-DATABASE.html",
+      "files": [
+        "create/database.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Core database creation, users, logging, SYSTEM/SYSAUX/default/undo/user tablespaces and CDB seed",
+      "remaining": "Every storage/ASM/file specification variant and all cross-clause compatibility constraints"
+    },
+    {
+      "statement": "CREATE DATABASE LINK",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-DATABASE-LINK.html",
+      "files": [
+        "create/database-link.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE DIMENSION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-DIMENSION.html",
+      "files": [
+        "create/dimension.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE DIRECTORY",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-DIRECTORY.html",
+      "files": [
+        "create/directory.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE DISKGROUP",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-DISKGROUP.html",
+      "files": [
+        "create/diskgroup.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Managed/external redundancy, failgroup/disk definitions and attribute assignments",
+      "remaining": "All extended-site layouts and attribute compatibility are not fully modeled"
+    },
+    {
+      "statement": "CREATE EDITION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-EDITION.html",
+      "files": [
+        "create/edition.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE FLASHBACK ARCHIVE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-FLASHBACK-ARCHIVE.html",
+      "files": [
+        "create/flashback-archive.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE FUNCTION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-FUNCTION.html",
+      "files": [
+        "create/function.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "PL/SQL outer signature/body skeleton, Java/C call specs, aggregate, pipeline/interface and polymorphic forms",
+      "remaining": "Complete declarations, statements and handlers are intentional free inputs; some external-call variants remain unmodeled"
+    },
+    {
+      "statement": "CREATE HIERARCHY",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-HIERARCHY.html",
+      "files": [
+        "create/hierarchy.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE INDEX",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-INDEX.html",
+      "files": [
+        "create/index.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Shared conventional/unique/bitmap table syntax with local/global range/hash, cluster, bitmap-join/domain, storage/compression",
+      "remaining": "XMLIndex-specific mini-language and complete ODCI parameters remain unmodeled; no index-kind compatibility matrix"
+    },
+    {
+      "statement": "CREATE INDEXTYPE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-INDEXTYPE.html",
+      "files": [
+        "create/indextype.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE INMEMORY JOIN GROUP",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-INMEMORY-JOIN-GROUP.html",
+      "files": [
+        "create/inmemory-join-group.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE JAVA",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-JAVA.html",
+      "files": [
+        "create/java.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Source/class/resource inputs, resolver/authid/sharing",
+      "remaining": "Embedded Java language and binary file contents are external leaves; resource-specific option permutations are conservative"
+    },
+    {
+      "statement": "CREATE LIBRARY",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-LIBRARY.html",
+      "files": [
+        "create/library.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE LOCKDOWN PROFILE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-LOCKDOWN-PROFILE.html",
+      "files": [
+        "create/lockdown-profile.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE MATERIALIZED VIEW",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-MATERIALIZED-VIEW.html",
+      "files": [
+        "create/materialized-view.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Heap/prebuilt/IOT, refresh/scheduling/query rewrite/evaluation edition",
+      "remaining": "Object/partition/LOB/In-Memory and advanced physical options"
+    },
+    {
+      "statement": "CREATE MATERIALIZED VIEW LOG",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-MATERIALIZED-VIEW-LOG.html",
+      "files": [
+        "create/materialized-view-log.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Record identifiers/columns/new values, purge/refresh and physical clauses",
+      "remaining": "Full partition/LOB and backend-specific physical combinations"
+    },
+    {
+      "statement": "CREATE MATERIALIZED ZONEMAP",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-MATERIALIZED-ZONEMAP.html",
+      "files": [
+        "create/materialized-zonemap.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "On-table/query forms, scale/storage/refresh/pruning and structured SYS_OP_ZONE_ID/MIN/MAX left-join query",
+      "remaining": "Legacy (+) joins and creation-time column alias list"
+    },
+    {
+      "statement": "CREATE OPERATOR",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-OPERATOR.html",
+      "files": [
+        "create/operator.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE OUTLINE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-OUTLINE.html",
+      "files": [
+        "create/outline.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE PACKAGE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-PACKAGE.html",
+      "files": [
+        "create/package.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Package specification and subprogram signatures/call specs; complete free package declarations",
+      "remaining": "PL/SQL declaration contents are intentional free inputs; no name/type/pragma semantic validation"
+    },
+    {
+      "statement": "CREATE PACKAGE BODY",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-PACKAGE-BODY.html",
+      "files": [
+        "create/package-body.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Member signatures, initialization/body skeleton and free declarations/statements/handlers",
+      "remaining": "PL/SQL fragment contents are intentional free inputs; no scope/overload semantic validation"
+    },
+    {
+      "statement": "CREATE PFILE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-PFILE.html",
+      "files": [
+        "create/pfile.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE PLUGGABLE DATABASE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-PLUGGABLE-DATABASE.html",
+      "files": [
+        "create/pluggable-database.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Seed, local/remote clone, proxy, NON$CDB, XML, mirror-copy, snapshot source and relocate",
+      "remaining": "CONTAINER_MAP; XML decryption and advanced keystore rekey; complete proxy-specific combinations"
+    },
+    {
+      "statement": "CREATE PROCEDURE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-PROCEDURE.html",
+      "files": [
+        "create/procedure.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "PL/SQL outer signature/body skeleton and Java/C call-spec procedures",
+      "remaining": "Complete declarations, statements and handlers are intentional free inputs; some legacy EXTERNAL variants remain unmodeled"
+    },
+    {
+      "statement": "CREATE PROFILE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-PROFILE.html",
+      "files": [
+        "create/profile.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE RESTORE POINT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-RESTORE-POINT.html",
+      "files": [
+        "create/restore-point.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE ROLE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-ROLE.html",
+      "files": [
+        "create/role.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE ROLLBACK SEGMENT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-ROLLBACK-SEGMENT.html",
+      "files": [
+        "create/rollback-segment.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE SCHEMA",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-SCHEMA.html",
+      "files": [
+        "create/schema.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE SEQUENCE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-SEQUENCE.html",
+      "files": [
+        "create/sequence.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE SPFILE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-SPFILE.html",
+      "files": [
+        "create/spfile.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE SYNONYM",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-SYNONYM.html",
+      "files": [
+        "create/synonym.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "CREATE TABLE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLE.html",
+      "files": [
+        "create/table.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Heap/global/private temporary/external/IOT/CTAS, constraints, identity, range/list/hash/interval/automatic/composite/reference/system partitioning, LOB/storage/compression",
+      "remaining": "Object/XMLType/collection storage; hybrid-external/sharded partition sets; ILM/In-Memory/clustering; external driver grammars"
+    },
+    {
+      "statement": "CREATE TABLESPACE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLESPACE.html",
+      "files": [
+        "create/tablespace.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Permanent/temporary/local-temporary/undo, datafiles, autoextend, encryption/storage/compression",
+      "remaining": "ILM/In-Memory/lost-write and all legacy dictionary-managed arrangements"
+    },
+    {
+      "statement": "CREATE TABLESPACE SET",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLESPACE-SET.html",
+      "files": [
+        "create/tablespace-set.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Sharded tablespace-set template creation, file sizing/autoextend",
+      "remaining": "Default compression/index compression/In-Memory/ILM/full storage grammar"
+    },
+    {
+      "statement": "CREATE TRIGGER",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TRIGGER.html",
+      "files": [
+        "create/trigger.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Simple DML, INSTEAD OF, compound table/view and system families; shared body, edition and ordering choices",
+      "remaining": "Complete program fragments are intentional free inputs; event/context compatibility is not enforced by CASE matrices"
+    },
+    {
+      "statement": "CREATE TYPE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TYPE.html",
+      "files": [
+        "create/type.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Object/subtype/nested-table/varray/incomplete types, attributes/methods, MAP/ORDER/constructors/call specs",
+      "remaining": "SQLJ mapping; attribute-less NOT INSTANTIABLE types; every method property and call-spec constructor variant"
+    },
+    {
+      "statement": "CREATE TYPE BODY",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TYPE-BODY.html",
+      "files": [
+        "create/type-body.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Method signatures including MAP/ORDER/constructors, outer bodies and free declarations/statements",
+      "remaining": "Some call-spec constructor/method-property variants remain unmodeled; no object identity/ordering validator"
+    },
+    {
+      "statement": "CREATE USER",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-USER.html",
+      "files": [
+        "create/user.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Authentication/defaults/temporary tablespaces/quotas/profile/expiry/locking/editions/container",
+      "remaining": "RU-specific authentication extensions remain outside scope; not every permutation is emitted"
+    },
+    {
+      "statement": "CREATE VIEW",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-VIEW.html",
+      "files": [
+        "create/view.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Relational/object/XMLType/editioning forms, aliases/constraints/BEQUEATH/restrictions",
+      "remaining": "All object/XML schema semantic restrictions and complete query expression grammar"
+    },
+    {
+      "statement": "DELETE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DELETE.html",
+      "files": [
+        "query/delete.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Table/subquery/collection targets, predicates/returning/error logging",
+      "remaining": "Complete expression grammar; remote/parallel RETURNING restrictions and target updatability"
+    },
+    {
+      "statement": "DISASSOCIATE STATISTICS",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DISASSOCIATE-STATISTICS.html",
+      "files": [
+        "other/disassociate-statistics.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP ANALYTIC VIEW",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-ANALYTIC-VIEW.html",
+      "files": [
+        "drop/analytic-view.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP ATTRIBUTE DIMENSION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-ATTRIBUTE-DIMENSION.html",
+      "files": [
+        "drop/attribute-dimension.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP AUDIT POLICY (Unified Auditing)",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-AUDIT-POLICY-Unified-Auditing.html",
+      "files": [
+        "drop/audit-policy.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP CLUSTER",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-CLUSTER.html",
+      "files": [
+        "drop/cluster.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP CONTEXT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-CONTEXT.html",
+      "files": [
+        "drop/context.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP DATABASE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-DATABASE.html",
+      "files": [
+        "drop/database.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP DATABASE LINK",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-DATABASE-LINK.html",
+      "files": [
+        "drop/database-link.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP DIMENSION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-DIMENSION.html",
+      "files": [
+        "drop/dimension.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP DIRECTORY",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-DIRECTORY.html",
+      "files": [
+        "drop/directory.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP DISKGROUP",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-DISKGROUP.html",
+      "files": [
+        "drop/diskgroup.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP EDITION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-EDITION.html",
+      "files": [
+        "drop/edition.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP FLASHBACK ARCHIVE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-FLASHBACK-ARCHIVE.html",
+      "files": [
+        "drop/flashback-archive.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP FUNCTION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-FUNCTION.html",
+      "files": [
+        "drop/function.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP HIERARCHY",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-HIERARCHY.html",
+      "files": [
+        "drop/hierarchy.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP INDEX",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-INDEX.html",
+      "files": [
+        "drop/index.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP INDEXTYPE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-INDEXTYPE.html",
+      "files": [
+        "drop/indextype.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP INMEMORY JOIN GROUP",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-INMEMORY-JOIN-GROUP.html",
+      "files": [
+        "drop/inmemory-join-group.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP JAVA",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-JAVA.html",
+      "files": [
+        "drop/java.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP LIBRARY",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-LIBRARY.html",
+      "files": [
+        "drop/library.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP LOCKDOWN PROFILE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-LOCKDOWN-PROFILE.html",
+      "files": [
+        "drop/lockdown-profile.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP MATERIALIZED VIEW",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-MATERIALIZED-VIEW.html",
+      "files": [
+        "drop/materialized-view.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP MATERIALIZED VIEW LOG",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-MATERIALIZED-VIEW-LOG.html",
+      "files": [
+        "drop/materialized-view-log.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP MATERIALIZED ZONEMAP",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-MATERIALIZED-ZONEMAP.html",
+      "files": [
+        "drop/materialized-zonemap.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP OPERATOR",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-OPERATOR.html",
+      "files": [
+        "drop/operator.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP OUTLINE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-OUTLINE.html",
+      "files": [
+        "drop/outline.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP PACKAGE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-PACKAGE.html",
+      "files": [
+        "drop/package.snf",
+        "drop/package-body.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP PLUGGABLE DATABASE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-PLUGGABLE-DATABASE.html",
+      "files": [
+        "drop/pluggable-database.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP PROCEDURE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-PROCEDURE.html",
+      "files": [
+        "drop/procedure.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP PROFILE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-PROFILE.html",
+      "files": [
+        "drop/profile.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP RESTORE POINT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-RESTORE-POINT.html",
+      "files": [
+        "drop/restore-point.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP ROLE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-ROLE.html",
+      "files": [
+        "drop/role.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP ROLLBACK SEGMENT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-ROLLBACK-SEGMENT.html",
+      "files": [
+        "drop/rollback-segment.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP SEQUENCE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-SEQUENCE.html",
+      "files": [
+        "drop/sequence.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP SYNONYM",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-SYNONYM.html",
+      "files": [
+        "drop/synonym.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP TABLE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-TABLE.html",
+      "files": [
+        "drop/table.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP TABLESPACE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-TABLESPACE.html",
+      "files": [
+        "drop/tablespace.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP TABLESPACE SET",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-TABLESPACE-SET.html",
+      "files": [
+        "drop/tablespace-set.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP TRIGGER",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-TRIGGER.html",
+      "files": [
+        "drop/trigger.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP TYPE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-TYPE.html",
+      "files": [
+        "drop/type.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP TYPE BODY",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-TYPE-BODY.html",
+      "files": [
+        "drop/type-body.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP USER",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-USER.html",
+      "files": [
+        "drop/user.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "DROP VIEW",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DROP-VIEW.html",
+      "files": [
+        "drop/view.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "EXPLAIN PLAN",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/EXPLAIN-PLAN.html",
+      "files": [
+        "other/explain-plan.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Statement ID/output table and nested statement selection",
+      "remaining": "Nested-statement CASE applicability and all expression semantics"
+    },
+    {
+      "statement": "FLASHBACK DATABASE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/FLASHBACK-DATABASE.html",
+      "files": [
+        "other/flashback-database.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": false,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "FLASHBACK TABLE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/FLASHBACK-TABLE.html",
+      "files": [
+        "other/flashback-table.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "GRANT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/GRANT.html",
+      "files": [
+        "auth/grant.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Object/system/role/program-unit grants, target/column lists and options",
+      "remaining": "Full privilege catalogue, privilege-specific target constraints and grantee semantics"
+    },
+    {
+      "statement": "INSERT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/INSERT.html",
+      "files": [
+        "query/insert.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Single-table VALUES/query, unconditional/conditional multitable, hints/returning/error logging",
+      "remaining": "Complete expression grammar; restrictions on remote/parallel RETURNING and per-target column/value arity"
+    },
+    {
+      "statement": "LOCK TABLE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/LOCK-TABLE.html",
+      "files": [
+        "transaction/lock-table.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "MERGE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/MERGE.html",
+      "files": [
+        "query/merge.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Matched/not-matched actions in either order, optional update-delete, error logging",
+      "remaining": "Complete expression grammar and restrictions on columns referenced by ON condition"
+    },
+    {
+      "statement": "NOAUDIT (Traditional Auditing)",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/NOAUDIT-Traditional-Auditing.html",
+      "files": [
+        "auth/noaudit.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Distinct traditional/unified cases, policy/user/role/context or object/system/direct-path/network targets",
+      "remaining": "Full legacy audit shortcut/object-action catalogue; version/mode-specific semantic restrictions"
+    },
+    {
+      "statement": "NOAUDIT (Unified Auditing)",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/NOAUDIT-Unified-Auditing.html",
+      "files": [
+        "auth/noaudit.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": false,
+      "coverage": "Distinct traditional/unified cases, policy/user/role/context or object/system/direct-path/network targets",
+      "remaining": "Full legacy audit shortcut/object-action catalogue; version/mode-specific semantic restrictions"
+    },
+    {
+      "statement": "PURGE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/PURGE.html",
+      "files": [
+        "other/purge.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "RENAME",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/RENAME.html",
+      "files": [
+        "other/rename.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "REVOKE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/REVOKE.html",
+      "files": [
+        "auth/revoke.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Object/system/role/program-unit revocation and options",
+      "remaining": "Full privilege catalogue and privilege/target-specific compatibility"
+    },
+    {
+      "statement": "ROLLBACK",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ROLLBACK.html",
+      "files": [
+        "transaction/rollback.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "SAVEPOINT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/SAVEPOINT.html",
+      "files": [
+        "transaction/savepoint.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "SELECT",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/SELECT.html",
+      "files": [
+        "query/select.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "CTE/recursive SEARCH+CYCLE, set chains, joins/LATERAL/APPLY, sampling/flashback, hierarchical query, grouping, row limiting/locking, MODEL, PIVOT/UNPIVOT, MATCH_RECOGNIZE",
+      "remaining": "WITH-local PL/SQL and inline analytic views; partitioned outer join; modified/inline external tables; full expressions/function/hint catalogues; recursive/locking semantic restrictions"
+    },
+    {
+      "statement": "SET CONSTRAINT[S]",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/SET-CONSTRAINTS.html",
+      "files": [
+        "transaction/set-constraints.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "SET ROLE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/SET-ROLE.html",
+      "files": [
+        "auth/set-role.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "SET TRANSACTION",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/SET-TRANSACTION.html",
+      "files": [
+        "transaction/set-transaction.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "TRUNCATE CLUSTER",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/TRUNCATE-CLUSTER.html",
+      "files": [
+        "other/truncate-cluster.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "TRUNCATE TABLE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/TRUNCATE-TABLE.html",
+      "files": [
+        "other/table-truncate.snf"
+      ],
+      "status": "structured",
+      "baseline_entry_present": true,
+      "coverage": "Statement alternatives and reusable clauses represented for the baseline",
+      "remaining": "Leaf inputs and context restrictions are outside template validation; RU-specific extensions excluded"
+    },
+    {
+      "statement": "UPDATE",
+      "source": "https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/UPDATE.html",
+      "files": [
+        "query/update.snf"
+      ],
+      "status": "partial",
+      "baseline_entry_present": true,
+      "coverage": "Table/subquery/collection targets, column/list/object-value assignments, predicates/returning/error logging",
+      "remaining": "Complete expression grammar; remote/parallel RETURNING restrictions and target updatability"
+    }
+  ],
+  "supplemental_files": [
+    {
+      "file": "other/plsql-block.snf",
+      "scope": "Anonymous block/core declarations/control flow/cursors/dynamic SQL; partial PL/SQL grammar"
+    },
+    {
+      "file": "other/statistics.snf",
+      "scope": "GATHER_TABLE_STATS/GATHER_INDEX_STATS named-argument envelopes, not all DBMS_STATS"
+    },
+    {
+      "file": "other/scheduler.snf",
+      "scope": "Selected DBMS_SCHEDULER procedures, not all package overloads"
+    },
+    {
+      "file": "other/materialized-view-refresh.snf",
+      "scope": "Basic DBMS_MVIEW.REFRESH call, not all package overloads"
+    }
+  ],
+  "global_exclusions": [
+    "Unpinned RU extensions including IF [NOT] EXISTS (19.28+), annotations, SQL_MACRO, blockchain/immutable-table additions",
+    "Exhaustive scalar/analytic/JSON/XML/spatial/data-mining function and expression grammar, optimizer hint catalogues",
+    "Complete built-in PL/SQL package APIs, SQL*Plus/RMAN/ASMCMD/client command languages",
+    "Database semantic validation, name binding, authorization, storage/platform/edition/license availability"
+  ],
+  "scope": "Canonical SQL generation; free expressions/program fragments and zero-or-more member loops; not an Oracle semantic validator"
+}

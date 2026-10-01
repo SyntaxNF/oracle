@@ -1,25 +1,66 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-USER.html
 
+# CASE PASSWORD
+ALTER USER name IDENTIFIED BY password [ REPLACE old_password ]
+    [ CONTAINER = { CURRENT | ALL } ]
+
+# CASE AUTHENTICATION
+ALTER USER name
+    { IDENTIFIED EXTERNALLY [ AS 'external_name' ]
+    | IDENTIFIED GLOBALLY [ AS 'directory_name' ] | NO AUTHENTICATION }
+    [ CONTAINER = { CURRENT | ALL } ]
+
 # CASE DEFAULT_ROLE
 ALTER USER name DEFAULT ROLE { role [, ...] | ALL [ EXCEPT role [, ...] ] | NONE }
+    [ CONTAINER = { CURRENT | ALL } ]
 
 # CASE DEFAULTS
-ALTER USER name [ DEFAULT TABLESPACE tablespace ] [ QUOTA quota_value size_unit ON tablespace ] [ PROFILE profile ]
+ALTER USER name user_options
+    [ CONTAINER = { CURRENT | ALL } ]
 
 # CASE LOCK
-ALTER USER name ACCOUNT LOCK
-
-# CASE PASSWORD
-ALTER USER name IDENTIFIED BY password
+ALTER USER name ACCOUNT LOCK [ CONTAINER = { CURRENT | ALL } ]
 
 # CASE UNLOCK
-ALTER USER name ACCOUNT UNLOCK
+ALTER USER name ACCOUNT UNLOCK [ CONTAINER = { CURRENT | ALL } ]
 
-# PARTOFIS size_unit
-K
+# CASE PASSWORD_EXPIRE
+ALTER USER name PASSWORD EXPIRE [ CONTAINER = { CURRENT | ALL } ]
 
-M
+# CASE EDITIONS
+ALTER USER name ENABLE EDITIONS [ FOR object_type [, ...] ] [ FORCE ]
 
-G
+# CASE CONTAINER_DATA
+ALTER USER name { SET CONTAINER_DATA = container_data_value
+    | ADD CONTAINER_DATA = ( container [, ...] )
+    | REMOVE CONTAINER_DATA = ( container [, ...] ) }
+    [ FOR object ] [ CONTAINER = CURRENT ]
 
-T
+# CASE PROXY_GRANT
+ALTER USER name [, ...] GRANT CONNECT THROUGH
+    { ENTERPRISE USERS | proxy_user [ proxy_roles_clause ] [ AUTHENTICATION REQUIRED ] }
+
+# CASE PROXY_REVOKE
+ALTER USER name [, ...] REVOKE CONNECT THROUGH { ENTERPRISE USERS | proxy_user }
+
+# WHERE user_options
+[ DEFAULT COLLATION collation ]
+[ DEFAULT TABLESPACE tablespace ]
+[ TEMPORARY TABLESPACE tablespace ]
+[ LOCAL TEMPORARY TABLESPACE local_tablespace ]
+quota_clause [...]
+[ PROFILE profile ]
+[ PASSWORD EXPIRE ]
+[ ACCOUNT { LOCK | UNLOCK } ]
+[ [ HTTP ] DIGEST { ENABLE | DISABLE } ]
+
+# WHERE quota_clause
+QUOTA { size_value [ K | M | G | T | P | E ] | UNLIMITED } ON tablespace
+
+# WHERE container_data_value
+{ ALL | DEFAULT | ( container [, ...] ) }
+
+# ONEOFIS proxy_roles_clause
+WITH ROLE role [, ...]
+WITH ROLE ALL EXCEPT role [, ...]
+WITH NO ROLES

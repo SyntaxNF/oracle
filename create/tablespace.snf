@@ -1,12 +1,65 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLESPACE.html
 
-CREATE TABLESPACE name DATAFILE file_name SIZE size_value size_unit
+# CASE PERMANENT
+CREATE [ BIGFILE | SMALLFILE ] TABLESPACE name
+    [ DATAFILE datafile_specification [, ...] ]
+    permanent_attributes
+    [ IN SHARDSPACE shardspace ]
 
-# PARTOFIS size_unit
-K
+# CASE TEMPORARY
+CREATE [ BIGFILE | SMALLFILE ] TEMPORARY TABLESPACE name
+    [ TEMPFILE datafile_specification [, ...] ]
+    [ TABLESPACE GROUP tablespace_group ]
+    [ EXTENT MANAGEMENT LOCAL [ UNIFORM [ SIZE size_value ] ] ]
 
-M
+# CASE LOCAL_TEMPORARY
+CREATE [ BIGFILE | SMALLFILE ] LOCAL TEMPORARY TABLESPACE FOR { ALL | LEAF } name
+    [ TEMPFILE datafile_specification [, ...] ]
+    [ TABLESPACE GROUP tablespace_group ]
+    [ EXTENT MANAGEMENT LOCAL [ UNIFORM [ SIZE size_value ] ] ]
 
-G
+# CASE UNDO
+CREATE [ BIGFILE | SMALLFILE ] UNDO TABLESPACE name
+    [ DATAFILE datafile_specification [, ...] ]
+    [ EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE ] ]
+    [ RETENTION { GUARANTEE | NOGUARANTEE } ]
 
-T
+# WHERE permanent_attributes
+[ MINIMUM EXTENT size_value ]
+[ BLOCKSIZE block_size [ K ] ]
+[ { LOGGING | NOLOGGING } ]
+[ FORCE LOGGING ]
+[ ENCRYPTION [ { [ USING 'encrypt_algorithm' ] ENCRYPT } | DECRYPT ] ]
+[ DEFAULT default_parameters ]
+[ { ONLINE | OFFLINE } ]
+[ extent_management_clause ]
+[ SEGMENT SPACE MANAGEMENT { AUTO | MANUAL } ]
+[ FLASHBACK { ON | OFF } ]
+
+# PARTOFIS datafile_specification
+'file_name' [ SIZE size_value ] [ REUSE ] [ autoextend_clause ]
+
+SIZE size_value [ REUSE ] [ autoextend_clause ]
+
+autoextend_clause
+
+# WHERE autoextend_clause
+AUTOEXTEND { OFF | ON [ NEXT size_value ] [ MAXSIZE { size_value | UNLIMITED } ] }
+
+# WHERE extent_management_clause
+EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE | UNIFORM [ SIZE size_value ] ]
+
+# WHERE default_parameters
+[ TABLE { COMPRESS FOR OLTP | COMPRESS FOR QUERY { LOW | HIGH } | COMPRESS FOR ARCHIVE { LOW | HIGH } | NOCOMPRESS } ]
+[ INDEX { COMPRESS ADVANCED { LOW | HIGH } | NOCOMPRESS } ]
+[ STORAGE ( storage_options ) ]
+
+# WHERE storage_options
+[ INITIAL size_value ]
+[ NEXT size_value ]
+[ MINEXTENTS min_extents ]
+[ MAXEXTENTS { max_extents | UNLIMITED } ]
+[ PCTINCREASE pct_increase ]
+
+# WHERE size_value
+size [ K | M | G | T | P | E ]

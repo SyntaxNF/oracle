@@ -1,0 +1,47 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-AUDIT-POLICY-Unified-Auditing.html
+
+# CASE ADD
+ALTER AUDIT POLICY name ADD audit_targets
+    [ DROP audit_targets ] [ condition_clause ]
+
+# CASE DROP
+ALTER AUDIT POLICY name DROP audit_targets [ condition_clause ]
+
+# CASE CONDITION
+ALTER AUDIT POLICY name condition_clause
+
+# CASE TOPLEVEL
+ALTER AUDIT POLICY name { ADD | DROP } ONLY TOPLEVEL
+
+# WHERE condition_clause
+CONDITION { DROP | 'audit_condition' EVALUATE PER { STATEMENT | SESSION | INSTANCE } }
+
+# PARTOFIS audit_targets
+PRIVILEGES system_privilege [, ...] [ action_audit_clause ] [ ROLES role [, ...] ]
+
+action_audit_clause [ ROLES role [, ...] ]
+
+ROLES role [, ...]
+
+# PARTOFIS action_audit_clause
+standard_actions_clause [ component_actions_clause ]
+
+component_actions_clause [ standard_actions_clause ]
+
+# WHERE standard_actions_clause
+ACTIONS standard_action [, ...]
+
+# PARTOFIS standard_action
+{ object_action | ALL } ON { DIRECTORY directory | MINING MODEL mining_model | object }
+
+{ system_action | ALL }
+
+# PARTOFIS component_actions_clause
+ACTIONS COMPONENT = { DATAPUMP | DIRECT_LOAD | OLS | XS } component_action [, ...]
+
+ACTIONS COMPONENT = DV database_vault_action [, ...]
+
+ACTIONS COMPONENT = PROTOCOL { FTP | HTTP | AUTHENTICATION }
+
+# WHERE database_vault_action
+component_action ON object

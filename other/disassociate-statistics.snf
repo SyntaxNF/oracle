@@ -1,0 +1,14 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DISASSOCIATE-STATISTICS.html
+
+DISASSOCIATE STATISTICS FROM association_target [ FORCE ]
+
+# ONEOFIS association_target
+COLUMNS column_reference [, ...]
+FUNCTIONS function [, ...]
+PACKAGES package [, ...]
+TYPES type [, ...]
+INDEXES index [, ...]
+INDEXTYPES indextype [, ...]
+
+# WHERE column_reference
+[ schema . ] table . colname

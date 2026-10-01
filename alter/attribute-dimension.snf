@@ -1,0 +1,7 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-ATTRIBUTE-DIMENSION.html
+
+# CASE RENAME
+ALTER ATTRIBUTE DIMENSION name RENAME TO new_name
+
+# CASE COMPILE
+ALTER ATTRIBUTE DIMENSION name COMPILE
