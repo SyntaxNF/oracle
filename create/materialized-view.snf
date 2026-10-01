@@ -1,3 +1,122 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-MATERIALIZED-VIEW.html
 
-CREATE MATERIALIZED VIEW name BUILD { IMMEDIATE | DEFERRED } REFRESH { COMPLETE | FORCE | FAST } ON { DEMAND | COMMIT } AS query_statement
+# CASE HEAP
+CREATE MATERIALIZED VIEW name
+    [ ( col_alias [, ...] ) ]
+    [ DEFAULT COLLATION collate ]
+    [ SEGMENT CREATION { IMMEDIATE | DEFERRED } ]
+    [ ORGANIZATION HEAP ]
+    [ physical_attributes ] [ TABLESPACE tablespace ] [ LOGGING | NOLOGGING ]
+    [ table_compression ]
+    [ CACHE | NOCACHE ] [ parallel_clause ]
+    [ BUILD { IMMEDIATE | DEFERRED } ]
+    [ using_index_clause ] [ refresh_clause ]
+    [ evaluation_edition_clause ]
+    [ { ENABLE | DISABLE } ON QUERY COMPUTATION ]
+    [ query_rewrite_clause ]
+    AS query_statement
+
+# CASE PREBUILT
+CREATE MATERIALIZED VIEW name
+    [ ( col_alias [, ...] ) ]
+    [ DEFAULT COLLATION collate ]
+    ON PREBUILT TABLE [ { WITH | WITHOUT } REDUCED PRECISION ]
+    [ using_index_clause ] [ refresh_clause ]
+    [ evaluation_edition_clause ]
+    [ { ENABLE | DISABLE } ON QUERY COMPUTATION ]
+    [ query_rewrite_clause ]
+    AS query_statement
+
+# CASE INDEX_ORGANIZED
+CREATE MATERIALIZED VIEW name
+    [ ( col_alias [, ...] ) ]
+    [ DEFAULT COLLATION collate ]
+    ORGANIZATION INDEX
+    [ physical_attributes ] [ TABLESPACE tablespace ] [ LOGGING | NOLOGGING ]
+    [ PCTTHRESHOLD threshold ] [ COMPRESS [ prefix_length ] | NOCOMPRESS ]
+    [ [ INCLUDING colname ] OVERFLOW
+        [ physical_attributes ] [ TABLESPACE overflow_tablespace ] [ LOGGING | NOLOGGING ] ]
+    [ parallel_clause ] [ BUILD { IMMEDIATE | DEFERRED } ]
+    [ using_index_clause ] [ refresh_clause ]
+    [ evaluation_edition_clause ]
+    [ { ENABLE | DISABLE } ON QUERY COMPUTATION ]
+    [ query_rewrite_clause ]
+    AS query_statement
+
+# STATEMENT query_statement
+SELECT
+
+# PARTOFIS using_index_clause
+USING INDEX index_attributes
+
+USING NO INDEX
+
+# WHERE index_attributes
+[ INITRANS init_trans ]
+[ STORAGE ( storage_options ) ]
+[ TABLESPACE tablespace ]
+
+# PARTOFIS refresh_clause
+REFRESH refresh_specification
+
+REFRESH FAST ON STATEMENT [ USING { ENFORCED | TRUSTED } CONSTRAINTS ]
+
+NEVER REFRESH
+
+# WHERE refresh_specification
+[ FAST | COMPLETE | FORCE ]
+refresh_timing
+[ WITH { PRIMARY KEY | ROWID } ]
+[ rollback_segment_clause ]
+[ USING { ENFORCED | TRUSTED } CONSTRAINTS ]
+
+# WHERE refresh_timing
+[ ON { COMMIT | DEMAND } ]
+[ START WITH datetime_expression ]
+[ NEXT next_datetime_expression ]
+
+# WHERE rollback_segment_clause
+USING { DEFAULT [ MASTER | LOCAL ] ROLLBACK SEGMENT | [ MASTER | LOCAL ] ROLLBACK SEGMENT rollback_segment }
+
+# WHERE evaluation_edition_clause
+EVALUATE USING { CURRENT EDITION | EDITION edition | NULL EDITION }
+
+# WHERE query_rewrite_clause
+{ ENABLE | DISABLE } QUERY REWRITE
+[ UNUSABLE BEFORE { CURRENT EDITION | EDITION edition } ]
+[ UNUSABLE BEGINNING WITH { CURRENT EDITION | EDITION edition | NULL EDITION } ]
+
+# PARTOFIS table_compression
+NOCOMPRESS
+
+COMPRESS
+
+ROW STORE COMPRESS [ BASIC | ADVANCED ]
+
+COLUMN STORE COMPRESS [ FOR { QUERY | ARCHIVE } [ LOW | HIGH ] ]
+    [ [ NO ] ROW LEVEL LOCKING ]
+
+# WHERE physical_attributes
+[ PCTFREE pct_free ]
+[ PCTUSED pct_used ]
+[ INITRANS init_trans ]
+[ STORAGE ( storage_options ) ]
+
+# WHERE storage_options
+[ INITIAL size_value ]
+[ NEXT size_value ]
+[ MINEXTENTS min_extents ]
+[ MAXEXTENTS { max_extents | UNLIMITED } ]
+[ MAXSIZE { size_value | UNLIMITED } ]
+[ PCTINCREASE pct_increase ]
+[ FREELISTS freelists ]
+[ FREELIST GROUPS freelist_groups ]
+[ BUFFER_POOL { KEEP | RECYCLE | DEFAULT } ]
+[ FLASH_CACHE { KEEP | NONE | DEFAULT } ]
+[ CELL_FLASH_CACHE { KEEP | NONE | DEFAULT } ]
+
+# WHERE size_value
+size [ K | M | G | T | P | E ]
+
+# WHERE parallel_clause
+{ NOPARALLEL | PARALLEL [ degree ] }

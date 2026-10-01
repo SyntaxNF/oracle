@@ -1,6 +1,6 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DELETE.html
 
-DELETE [ FROM ] { dml_target | ONLY ( dml_target ) } [ table_alias ]
+DELETE [ hint_clause ] [ FROM ] { dml_target | ONLY ( dml_target ) } [ table_alias ]
     [ WHERE boolean_expression | WHERE CURRENT OF cursor ]
     [ returning_clause ]
     [ error_logging_clause ]
@@ -27,3 +27,6 @@ LOG ERRORS [ INTO error_table ] [ ( tag_expression ) ]
 
 # STATEMENT query_statement
 SELECT
+
+# WHERE hint_clause
+/*+ hint [...] */

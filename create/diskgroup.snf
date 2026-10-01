@@ -1,0 +1,22 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-DISKGROUP.html
+
+# CASE MANAGED_REDUNDANCY
+CREATE DISKGROUP name
+    [ { HIGH | NORMAL | FLEX | EXTENDED [ SITE site ] } REDUNDANCY ]
+    disk_group_definition [...]
+    [ ATTRIBUTE attribute_assignment [, ...] ]
+
+# CASE EXTERNAL_REDUNDANCY
+CREATE DISKGROUP name EXTERNAL REDUNDANCY
+    [ QUORUM | REGULAR ] DISK disk_definition [, ...]
+    [ ATTRIBUTE attribute_assignment [, ...] ]
+
+# WHERE disk_group_definition
+[ QUORUM | REGULAR ] [ FAILGROUP failgroup ] DISK disk_definition [, ...]
+
+# WHERE disk_definition
+'search_string' [ NAME disk ]
+    [ SIZE size_value [ K | M | G | T | P | E ] ] [ FORCE | NOFORCE ]
+
+# WHERE attribute_assignment
+'attribute_name' = 'attribute_value'

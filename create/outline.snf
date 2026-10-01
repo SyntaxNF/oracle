@@ -1,0 +1,19 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-OUTLINE.html
+
+# CASE STATEMENT
+CREATE [ OR REPLACE ] [ PUBLIC | PRIVATE ] OUTLINE [ name ]
+    [ FOR CATEGORY category ] ON outline_statement
+
+# CASE COPY
+CREATE [ OR REPLACE ] [ PUBLIC | PRIVATE ] OUTLINE [ name ]
+    FROM [ PUBLIC | PRIVATE ] source_outline
+    [ FOR CATEGORY category ]
+
+# STATEMENT outline_statement
+SELECT
+DELETE
+UPDATE
+INSERT
+CREATE TABLE
+
+# INSERT must be single-table INSERT ... SELECT; CREATE TABLE must be CTAS.

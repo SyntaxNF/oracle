@@ -1,0 +1,7 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-FLASHBACK-ARCHIVE.html
+
+CREATE FLASHBACK ARCHIVE [ DEFAULT ] name
+    TABLESPACE tablespace
+    [ QUOTA size_value { K | M | G | T | P | E } ]
+    [ [ NO ] OPTIMIZE DATA ]
+    RETENTION retention_value { YEAR | MONTH | DAY }

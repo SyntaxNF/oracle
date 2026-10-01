@@ -1,0 +1,7 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-HIERARCHY.html
+
+# CASE RENAME
+ALTER HIERARCHY name RENAME TO new_name
+
+# CASE COMPILE
+ALTER HIERARCHY name COMPILE

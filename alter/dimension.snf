@@ -1,0 +1,55 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-DIMENSION.html
+
+# CASE ADD
+ALTER DIMENSION name add_dimension_clause [...]
+
+# CASE DROP
+ALTER DIMENSION name drop_dimension_clause [...]
+
+# CASE COMPILE
+ALTER DIMENSION name COMPILE
+
+# WHERE add_dimension_clause
+ADD { level_definition | hierarchy_definition | attribute_definition | extended_attribute_definition }
+
+# PARTOFIS drop_dimension_clause
+DROP LEVEL level [ RESTRICT | CASCADE ]
+
+DROP HIERARCHY hierarchy
+
+DROP ATTRIBUTE attribute drop_attribute_level_clause [...]
+
+# WHERE drop_attribute_level_clause
+LEVEL level [ COLUMN colname ]
+
+# WHERE level_definition
+LEVEL level IS { level_column | ( level_column [, ...] ) }
+    [ SKIP WHEN NULL ]
+
+# WHERE level_column
+table . colname
+
+# WHERE hierarchy_definition
+HIERARCHY hierarchy
+    ( child_level parent_level_clause [...] dimension_join_clause [...] )
+
+# WHERE parent_level_clause
+CHILD OF parent_level
+
+# WHERE dimension_join_clause
+JOIN KEY { join_colname | ( join_colname [, ...] ) } REFERENCES parent_level
+
+# WHERE join_colname
+[ table . ] colname
+
+# WHERE attribute_definition
+ATTRIBUTE level DETERMINES { dependent_colname | ( dependent_colname [, ...] ) }
+
+# WHERE dependent_colname
+[ table . ] colname
+
+# WHERE extended_attribute_definition
+ATTRIBUTE attribute attribute_level_clause [...]
+
+# WHERE attribute_level_clause
+LEVEL level DETERMINES { dependent_colname | ( dependent_colname [, ...] ) }

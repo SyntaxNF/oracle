@@ -7,7 +7,7 @@ CREATE USER name
     [ DEFAULT TABLESPACE tablespace ]
     [ TEMPORARY TABLESPACE temporary_tablespace ]
     [ LOCAL TEMPORARY TABLESPACE local_temporary_tablespace ]
-    [ quota_clause [...] ]
+    quota_clause [...]
     [ PROFILE profile ] [ PASSWORD EXPIRE ] [ ACCOUNT { LOCK | UNLOCK } ]
     [ ENABLE EDITIONS ] [ CONTAINER = { CURRENT | ALL } ]
 

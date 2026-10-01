@@ -1,13 +1,87 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_STATS.html
 
 # CASE TABLE
-BEGIN DBMS_STATS.GATHER_TABLE_STATS(OWNNAME => owner, TABNAME => name, FORCE => FALSE); END;
+BEGIN
+    DBMS_STATS.GATHER_TABLE_STATS (
+        OWNNAME => owner, TABNAME => name
+        table_statistics_options
+    );
+END;
 
 # CASE TABLE_PARTITION
-BEGIN DBMS_STATS.GATHER_TABLE_STATS(OWNNAME => owner, TABNAME => table, PARTNAME => name, FORCE => FALSE); END;
+BEGIN
+    DBMS_STATS.GATHER_TABLE_STATS (
+        OWNNAME => owner, TABNAME => table, PARTNAME => name
+        table_statistics_options
+    );
+END;
 
 # CASE INDEX
-BEGIN DBMS_STATS.GATHER_INDEX_STATS(OWNNAME => owner, INDNAME => name, FORCE => FALSE); END;
+BEGIN
+    DBMS_STATS.GATHER_INDEX_STATS (
+        OWNNAME => owner, INDNAME => name
+        index_statistics_options
+    );
+END;
 
 # CASE INDEX_PARTITION
-BEGIN DBMS_STATS.GATHER_INDEX_STATS(OWNNAME => owner, INDNAME => index, PARTNAME => name, FORCE => FALSE); END;
+BEGIN
+    DBMS_STATS.GATHER_INDEX_STATS (
+        OWNNAME => owner, INDNAME => index, PARTNAME => name
+        index_statistics_options
+    );
+END;
+
+# WHERE table_statistics_options
+[ , ESTIMATE_PERCENT => estimate_percent_value ]
+    [ , BLOCK_SAMPLE => boolean_value ]
+    [ , METHOD_OPT => method_options_value ]
+    [ , DEGREE => degree_value ]
+    [ , GRANULARITY => granularity_value ]
+    [ , CASCADE => { boolean_value | DBMS_STATS.AUTO_CASCADE } ]
+    [ , STATTAB => statistics_table_value ]
+    [ , STATID => statistics_id_value ]
+    [ , STATOWN => statistics_owner_value ]
+    [ , NO_INVALIDATE => { boolean_value | DBMS_STATS.AUTO_INVALIDATE } ]
+    [ , STATTYPE => 'DATA' ]
+    [ , FORCE => boolean_value ]
+    [ , CONTEXT => context_value ]
+    [ , OPTIONS => { 'GATHER' | 'GATHER AUTO' } ]
+
+# WHERE index_statistics_options
+[ , ESTIMATE_PERCENT => estimate_percent_value ]
+    [ , STATTAB => statistics_table_value ]
+    [ , STATID => statistics_id_value ]
+    [ , STATOWN => statistics_owner_value ]
+    [ , DEGREE => degree_value ]
+    [ , GRANULARITY => index_granularity_value ]
+    [ , NO_INVALIDATE => { boolean_value | DBMS_STATS.AUTO_INVALIDATE } ]
+    [ , FORCE => boolean_value ]
+
+# WHERE boolean_value
+{ TRUE | FALSE | NULL }
+
+# WHERE estimate_percent_value
+{ sample_percent | NULL | DBMS_STATS.AUTO_SAMPLE_SIZE }
+
+# WHERE degree_value
+{ degree | NULL | DBMS_STATS.DEFAULT_DEGREE | DBMS_STATS.AUTO_DEGREE }
+
+# ONEOFIS granularity_value
+'ALL'
+'AUTO'
+'APPROX_GLOBAL AND PARTITION'
+'DEFAULT'
+'GLOBAL'
+'GLOBAL AND PARTITION'
+'PARTITION'
+'SUBPARTITION'
+
+# ONEOFIS index_granularity_value
+'ALL'
+'AUTO'
+'DEFAULT'
+'GLOBAL'
+'GLOBAL AND PARTITION'
+'PARTITION'
+'SUBPARTITION'

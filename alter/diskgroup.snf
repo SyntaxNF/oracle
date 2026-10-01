@@ -1,0 +1,127 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-DISKGROUP.html
+
+# CASE DISKS
+ALTER DISKGROUP name disk_action [, ...] [ rebalance_clause ]
+
+# CASE RESIZE
+ALTER DISKGROUP name RESIZE ALL
+    [ SIZE size_value [ K | M | G | T | P | E ] ] [ rebalance_clause ]
+
+# CASE REPLACE
+ALTER DISKGROUP name REPLACE DISK replacement_definition [, ...]
+    [ POWER power_value ] [ WAIT | NOWAIT ]
+
+# CASE RENAME_DISKS
+ALTER DISKGROUP name RENAME { DISK disk_rename [, ...] | DISKS ALL }
+
+# CASE ONLINE
+ALTER DISKGROUP name ONLINE { disk_target [...] | ALL }
+    [ POWER power_value ] [ WAIT | NOWAIT ]
+
+# CASE OFFLINE
+ALTER DISKGROUP name OFFLINE disk_target [...]
+    [ DROP AFTER duration { H | M } ]
+
+# CASE REBALANCE
+ALTER DISKGROUP name rebalance_clause
+
+# CASE CHECK
+ALTER DISKGROUP name CHECK [ REPAIR | NOREPAIR ]
+
+# CASE AVAILABILITY
+ALTER DISKGROUP { name [, ...] | ALL }
+    { MOUNT [ RESTRICTED | NORMAL ] [ FORCE | NOFORCE ]
+    | DISMOUNT [ FORCE | NOFORCE ] | UNDROP DISKS }
+
+# CASE ATTRIBUTE
+ALTER DISKGROUP name SET ATTRIBUTE 'attribute_name' = 'attribute_value'
+
+# CASE ADD_ALIAS
+ALTER DISKGROUP name ADD ALIAS alias_definition [, ...]
+
+# CASE DROP_ALIAS
+ALTER DISKGROUP name DROP ALIAS quoted_alias_name [, ...]
+
+# CASE RENAME_ALIAS
+ALTER DISKGROUP name RENAME ALIAS alias_rename [, ...]
+
+# CASE ADD_DIRECTORY
+ALTER DISKGROUP name ADD DIRECTORY quoted_directory_path [, ...]
+
+# CASE DROP_DIRECTORY
+ALTER DISKGROUP name DROP DIRECTORY directory_drop [, ...]
+
+# CASE RENAME_DIRECTORY
+ALTER DISKGROUP name RENAME DIRECTORY directory_rename [, ...]
+
+# CASE DROP_FILE
+ALTER DISKGROUP name DROP FILE quoted_file_name [, ...]
+
+# CASE TEMPLATE
+ALTER DISKGROUP name { ADD | MODIFY } TEMPLATE template_definition [, ...]
+
+# CASE DROP_TEMPLATE
+ALTER DISKGROUP name DROP TEMPLATE template [, ...]
+
+# WHERE replacement_definition
+disk WITH 'disk_path' [ FORCE | NOFORCE ]
+
+# WHERE disk_rename
+disk TO new_disk
+
+# PARTOFIS disk_action
+ADD disk_group_definition [...]
+
+DROP [ QUORUM | REGULAR ] DISK disk_drop [, ...]
+
+DROP DISKS IN [ QUORUM | REGULAR ] FAILGROUP failgroup_drop [, ...]
+
+# WHERE disk_group_definition
+[ SITE site ] [ QUORUM | REGULAR ] [ FAILGROUP failgroup ] DISK disk_definition [, ...]
+
+# WHERE disk_definition
+'search_string' [ NAME disk ]
+    [ SIZE size_value [ K | M | G | T | P | E ] ] [ FORCE | NOFORCE ]
+
+# WHERE disk_drop
+disk [ FORCE | NOFORCE ]
+
+# WHERE failgroup_drop
+failgroup [ FORCE | NOFORCE ]
+
+# ONEOFIS disk_target
+[ QUORUM | REGULAR ] DISK disk [, ...]
+DISKS IN [ QUORUM | REGULAR ] FAILGROUP failgroup [, ...]
+
+# PARTOFIS rebalance_clause
+REBALANCE [ { WITH | WITHOUT } phase [, ...] ]
+    [ POWER power_value ] [ WAIT | NOWAIT ]
+
+REBALANCE MODIFY POWER [ power_value ]
+
+# WHERE alias_definition
+'alias_name' FOR 'file_name'
+
+# WHERE alias_rename
+'alias_name' TO 'new_alias_name'
+
+# WHERE directory_drop
+'directory_path' [ FORCE | NOFORCE ]
+
+# WHERE directory_rename
+'directory_path' TO 'new_directory_path'
+
+# WHERE template_definition
+template ATTRIBUTE (
+    [ MIRROR | HIGH | UNPROTECTED | PARITY ]
+    [ FINE | COARSE ] [ HOT | COLD ] [ MIRRORHOT | MIRRORCOLD ]
+)
+
+# WHERE quoted_alias_name
+'alias_name'
+
+# WHERE quoted_directory_path
+'directory_path'
+
+# WHERE quoted_file_name
+'file_name'

@@ -1,3 +1,79 @@
-# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-PACKAGE.html
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/lnpls/CREATE-PACKAGE-statement.html
+# package_data_definition is a complete package declaration, including its semicolon.
 
-CREATE [ OR REPLACE ] PACKAGE name object_definition
+# CASE SPECIFICATION
+CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] PACKAGE name
+    [ SHARING = { METADATA | NONE } ]
+    [ DEFAULT COLLATION USING_NLS_COMP ]
+    [ AUTHID { CURRENT_USER | DEFINER } ]
+    [ accessible_by_clause ]
+    { IS | AS }
+    package_item_definition [...]
+END [ end_name ] ;
+
+# PARTOFIS package_item_definition
+package_data_definition
+
+FUNCTION function_name [ ( parameter_definition [, ...] ) ] RETURN parameter_type
+    [ accessible_by_clause ] [ DETERMINISTIC ] [ parallel_enable_clause ]
+    [ result_cache_clause | PIPELINED ] ;
+
+FUNCTION function_name [ ( input_parameter_definition [, ...] ) ] RETURN TABLE
+    PIPELINED [ ROW | TABLE ] POLYMORPHIC [ USING implementation_package ] ;
+
+PROCEDURE procedure [ ( parameter_definition [, ...] ) ]
+    [ accessible_by_clause ] ;
+
+FUNCTION function_name [ ( parameter_definition [, ...] ) ] RETURN parameter_type
+    { IS | AS } call_specification ;
+
+PROCEDURE procedure [ ( parameter_definition [, ...] ) ]
+    { IS | AS } call_specification ;
+
+# WHERE parameter_definition
+parameter { [ IN ] parameter_type [ { := | DEFAULT } value_expression ] | { OUT | IN OUT } [ NOCOPY ] parameter_type }
+
+# WHERE input_parameter_definition
+parameter [ IN ] parameter_type [ { := | DEFAULT } value_expression ]
+
+# WHERE parameter_type
+{ data_type | anchored_name % TYPE | row_source % ROWTYPE }
+
+# WHERE accessible_by_clause
+ACCESSIBLE BY ( accessor_definition [, ...] )
+
+# WHERE accessor_definition
+[ FUNCTION | PROCEDURE | PACKAGE | TRIGGER | TYPE ] accessor
+
+# WHERE parallel_enable_clause
+PARALLEL_ENABLE
+    [ ( PARTITION parameter BY
+        { ANY | { HASH | RANGE } ( colname [, ...] ) [ streaming_clause ] | VALUE ( colname ) }
+    ) ]
+
+# WHERE streaming_clause
+{ ORDER | CLUSTER } value_expression BY ( colname [, ...] )
+
+# WHERE result_cache_clause
+RESULT_CACHE [ RELIES_ON ( relation [, ...] ) ]
+
+# PARTOFIS call_specification
+LANGUAGE JAVA NAME 'java_signature'
+
+LANGUAGE C c_call_definition
+
+EXTERNAL c_call_definition
+
+# WHERE c_call_definition
+{ LIBRARY library [ NAME external_name ] | NAME external_name LIBRARY library }
+    [ AGENT IN ( parameter [, ...] ) ]
+    [ WITH CONTEXT ]
+    [ PARAMETERS ( external_parameter_definition [, ...] ) ]
+
+# WHERE external_parameter_definition
+{ CONTEXT
+| SELF [ TDO | external_property ]
+| { parameter | RETURN } [ external_property ] [ BY REFERENCE ] [ external_data_type ] }
+
+# WHERE external_property
+{ INDICATOR [ STRUCT | TDO ] | LENGTH | DURATION | MAXLEN | CHARSETID | CHARSETFORM }

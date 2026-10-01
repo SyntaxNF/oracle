@@ -1,0 +1,18 @@
+# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-INDEXTYPE.html
+
+CREATE [ OR REPLACE ] INDEXTYPE name
+    [ SHARING = { METADATA | NONE } ]
+    FOR operator_binding [, ...]
+    USING implementation_type [ array_dml_clause ]
+    [ WITH LOCAL [ RANGE ] PARTITION ]
+    [ WITH { SYSTEM | USER } MANAGED STORAGE TABLES ]
+
+# WHERE operator_binding
+operator ( parameter_type [, ...] )
+
+# WHERE array_dml_clause
+[ WITH | WITHOUT ] ARRAY DML
+    array_dml_type_definition [, ...]
+
+# WHERE array_dml_type_definition
+( type [ , varray_type ] )
