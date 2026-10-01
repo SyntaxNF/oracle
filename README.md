@@ -1,50 +1,37 @@
 # Oracle SNF
 
-本仓库维护 `Oracle Database 19c` 对象操作语句的 `SNF`（Syntax Normal Form）定义。定义既用于阅读，也作为规范 SQL 的生成输入，因此需要准确表达分支、可选项、重复结构和语法节点的语义。定义以 Oracle SQL/PLSQL 语法为边界，独立于消费方的菜单和功能。当前语法覆盖仍在完善；不得为了 Studio 的某个操作而复制、裁剪定义或写死应用策略。
+本仓库维护 Oracle Database 19c 的 SNF（Syntax Normal Form）定义，用于阅读语法和生成规范 SQL。定义按 SQL 语句或 PL/SQL 过程调用族组织，同一句法的变体使用 CASE。
 
-## 版本基线
+## 版本与目录
 
-本仓库以 [Oracle Database 19c SQL Language Reference](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/index.html) 和相关 [PL/SQL Packages and Types Reference](https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/index.html) 为语法基线，不混入其他版本的写法。每个 `.snf` 文件首行链接到对应的 Oracle 19c 官方文档页。
+语法基线为 Oracle Database 19c 的 [SQL Language Reference](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/index.html)、[PL/SQL Language Reference](https://docs.oracle.com/en/database/oracle/oracle-database/19/lnpls/index.html) 和 [PL/SQL Packages and Types Reference](https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/index.html)。每个 `.snf` 文件首行链接到对应的官方文档页；不混入其他版本或未固定最低 RU 的扩展。
 
-## 目录
+- `create/`：创建数据库对象
+- `alter/`：修改数据库对象及其状态
+- `drop/`：删除数据库对象
+- `query/`：查询、插入、更新、删除和合并
+- `transaction/`：事务、保存点和锁定
+- `auth/`：授权、撤销授权、审计和角色设置
+- `other/`：注释、刷新、截断及其他操作
 
-- `create/`：创建数据库对象。
-- `alter/`：修改数据库对象及其状态。
-- `drop/`：删除数据库对象。
-- `query/`：查询、插入、更新、删除和合并。
-- `transaction/`：事务、保存点和锁定。
-- `auth/`：授权、撤销授权和角色设置。
-- `other/`：注释、刷新和截断等操作。
-
-## SNF 语法
-
-### 基础记号
+## SNF 记号
 
 | 记号 | 含义 |
 | --- | --- |
-| `KEYWORD` | 需要原样生成的 SQL 关键字。 |
-| `placeholder` | 需要由调用方提供或由其他语法节点展开的占位符。 |
-| `[ syntax ]` | 整个 `syntax` 可选，最多出现一次。 |
-| `{ a \| b }` | 必须从候选项中选择一个。 |
-| `syntax [...]` | 前一个完整 `syntax` 属于 LOOP，可出现 0 次或更多次；成员之间没有额外分隔符。 |
-| `item [, ...]` | 整个 `item` 可出现 0 次或更多次，成员之间使用逗号分隔。 |
-| `statement [; ...]` | 整个 `statement` 可出现 0 次或更多次，成员之间使用分号分隔。 |
-| `( syntax )` | 需要原样生成的 SQL 圆括号。 |
-| `'value'` | 需要原样生成的 SQL 字符串字面量。 |
+| `KEYWORD` | 原样生成的 SQL 关键字 |
+| `placeholder` | 调用方输入或其他语法节点 |
+| `[ syntax ]` | 整段可选，最多出现一次 |
+| `{ a \| b }` | 从候选项中选择一个 |
+| `item [...]` | 重复前面的完整成员，次数为 0、1、2……，无额外分隔符 |
+| `item [, ...]`、`statement [; ...]` | 重复完整成员，次数为 0、1、2……，分别用逗号、分号分隔 |
+| `( syntax )`、`'value'` | 原样生成的 SQL 圆括号、字符串引号 |
+| `# CASE label` | 完整语法的顶层分支 |
+| `# WHERE name` | 可复用语法节点；相同语法可用逗号声明多个名称 |
+| `# ONEOFIS name` | 每个物理行是一个候选 |
+| `# PARTOFIS name` | 每个空行分隔的 block 是一个候选 |
+| `# STATEMENT name` | 可嵌套的 statement 节点，不作为当前文件的顶层语法 |
 
-省略号只用于 Oracle 语法确实允许重复的列表或语句序列。`[=]` 等紧凑写法表示对应符号本身可选。
-
-### 定义指令
-
-| 指令 | 含义 |
-| --- | --- |
-| `# CASE label` | 完整语法的顶层分支；同一文件有多个顶层语法时，每个分支都要标记。 |
-| `# WHERE name` | 定义一个可复用语法节点；语法相同时可以用逗号同时声明多个名称。 |
-| `# ONEOFIS name` | 定义单行候选集合；每个物理行是一个候选，语义等同于 `{ a \| b }`。 |
-| `# PARTOFIS name` | 定义多行候选集合；每个空行分隔的 block 是一个候选。 |
-| `# STATEMENT name` | 声明可嵌套的 statement 节点，不作为当前文件的顶层语法。 |
-
-例如，`create/table.snf` 用 `# WHERE` 展开列定义：
+例如：
 
 ```snf
 CREATE TABLE name ( column_definition [, ...] )
@@ -53,75 +40,27 @@ CREATE TABLE name ( column_definition [, ...] )
 colname data_type [ DEFAULT default_expression ] [ NOT NULL ]
 ```
 
-## 书写与生成规则
+## 输入与生成
 
-- SQL 关键字及 PL/SQL 命名参数使用大写，语义占位符使用小写；文件名使用小写和连字符。
-- 每个文件对应一种 SQL 语句或 PL/SQL 过程调用族，同一句法的变体使用 CASE。相互独立且最多出现一次的子句分别写为可选项；只有真正允许重复的结构才使用 `...`。
-- `ONEOFIS` 的单个候选不能换行；候选需要跨行时使用 `PARTOFIS`。
-- PL/SQL 定义包含完整单元内容，不附加 SQL*Plus 使用的 `/`。
-- SNF 表达规范语句，不收录仅被解析器容忍、但不适合作为标准生成结果的写法。
-- LOOP 自身是 0 次或更多次；纯 `[ item [...] ]` 外壳冗余，但带关键字或字面括号的整段可选项保留。圆括号内相邻可空成员可各带尾逗号，由既有生成约定清理最后一个逗号。
-- 生成模板不承担完整 Oracle 语义校验；不为限制索引/触发器等组合而复制 CASE 矩阵，也不展开一套重复的 PL/SQL 解析器。
-- `*.snf.json` 由 Studio 根目录的 `pnpm --filter @breeze/snf-oracle run init` 生成，不手工修改或提交。
+- SQL 关键字和 PL/SQL 命名参数使用大写，占位符和带连字符的文件名使用小写。主对象名使用 `name`，其重命名目标使用 `new_name`；其他标识符使用对象类型或上下文名，如 `table`、`referenced_table`、`colname`。
+- 节点按角色使用 `_statement`、`_expression`、`_definition`、`_clause`、`_option` / `_options`、`_action`、`_value`；表达式与受限值分开命名。
+- LOOP 包含完整成员及其前缀、引号、括号和后缀，没有额外必选首项。纯 `[ item [...] ]` 外壳冗余；带关键字或字面括号的整段可选项保留，如 `[ USING argument [, ...] ]`。
+- 独立、单次属性按固定顺序写为可选项；列、参数、文件、分区等真正的列表使用 LOOP。圆括号内相邻可空列表可由成员携带尾逗号，消费方生成时清理最后一个逗号。
+- 模板已含单引号时，输入仅提供内部正确转义的内容，例如 `quoted_file_name` 中的 `file_name`；`CALL` 的 host/indicator 变量冒号由模板输出，输入不要重复包含 `:`。
+- `query_statement` 可复用 SELECT 定义；表达式、Java/C 外部内容和未展开的领域语言作为完整自由输入。
+- `declaration_definition`、`package_data_definition`、`plsql_statement` 是自带分号的完整自由片段；`exception_handler` 包含完整 `WHEN ... THEN ...` 及内部语句分号。模板提供外层 `BEGIN`、`EXCEPTION`、`END [name] ;`，不为自由片段补分号，不附加 SQL*Plus 的 `/`。
 
-## 占位符命名
+## 使用与维护
 
-当前文件所定义主对象的名称统一使用 `name`；只有该主对象的重命名目标使用 `new_name`。其他对象使用类型或上下文名称，例如 `table`、`constraint`、`referenced_table`、`colname`。通用语义与同级 MySQL、PostgreSQL SNF 保持一致，Oracle 专属概念使用准确的领域名称。
+Studio 的 `snf/oracle` 包将各目录构建为 Oracle SNF Pages。消费方负责定义路径和 CASE 映射、输入、默认值、标识符引用、目标锁定、权限和执行流程；创建与替换复用 CREATE 定义，不按应用菜单复制或裁剪语法。
 
-### 语法节点后缀
+`*.snf.json` 在 Studio 根目录执行 `pnpm --filter @breeze/snf-oracle run init` 生成，不手工修改或提交。
 
-| 后缀 | 适用语义 | 示例 |
-| --- | --- | --- |
-| `_statement` | 可独立执行或可完整嵌套的 SQL。 | `query_statement` |
-| `_expression` | 产生值、布尔结果或关系的表达式。 | `default_expression` |
-| `_definition` | 列、约束、分区或程序单元等结构的声明。 | `column_definition` |
-| `_clause` | 带自身关键字、位置固定且不能独立执行的子句。 | `partition_clause` |
-| `_option` | 一个可选设置或候选项。 | `table_option` |
-| `_options` | 一组允许组合的设置。 | `identity_options` |
-| `_action` | 依赖父语句、不能独立执行的操作片段。 | `on_delete_action` |
-| `_value` | 不是任意 SQL 表达式的值或枚举。 | `attribute_value` |
+维护检查使用 [SyntaxNF/parser](https://github.com/SyntaxNF/parser) 的 `bcf2c3ac58b45e7d5391716393586b00b11e0c1a` 提交及 `tsx` 4.23.5。先在 parser checkout 中按锁定依赖准备工具，再在本仓库显式运行以下命令；遵守 `AGENTS.md`，编辑后不自动运行测试或类型检查。
 
-标识符直接使用对象类型名，不为追求后缀形式而误标节点角色。`_expression` 用于可计算的 SQL 表达式，`_value` 用于受限的值或枚举；依赖父语句的操作不命名为 `_statement`。
+```sh
+SNF_PARSER_ROOT=/absolute/path/to/parser node scripts/check-snf.mjs
+SNF_PARSER_ROOT=/absolute/path/to/parser node --test tests/grammar-regressions.mjs
+```
 
-### 常用占位符
-
-| 占位符 | 含义 |
-| --- | --- |
-| `name` | 当前文件所定义主对象的名称。 |
-| `new_name` | 当前主对象重命名后的名称。 |
-| `table`、`schema`、`index`、`constraint`、`tablespace` | 非当前主对象的对应类型标识符。 |
-| `colname` | 列名；多个列名仍通过 `colname [, ...]` 表达。 |
-| `role`、`user` | 角色或用户标识符；是否可互换由具体语句决定。 |
-| `data_type` | Oracle SQL 数据类型。 |
-| `value` | 当前语法位置接受的原子值；若可接受一般 SQL 表达式，应使用 `_expression`。 |
-| `query_statement` | 可作为查询来源或嵌套查询的完整查询语句。 |
-| `column_definition` | 一个列的完整声明。 |
-
-### Oracle 专属占位符
-
-| 占位符 | 含义 |
-| --- | --- |
-| `plsql_body`、`declaration_definition` | 程序体骨架和完整自由声明输入；声明自带分号，不扩展成完整 PL/SQL 校验器。 |
-| `partition_clause`、`partition_definition` | 分区子句和单个分区定义。 |
-| `referenced_schema`、`referenced_table`、`referenced_object` | 被引用对象的所有者和对象标识符。 |
-| `job_type`、`job_action`、`repeat_interval` | `DBMS_SCHEDULER` 作业类型、动作和重复计划。 |
-| `directory_path`、`file_name` | Oracle Directory 路径和数据文件名。 |
-
-## Studio 集成
-
-Studio 的 Oracle Registry 决定哪些操作可执行；SNF Pages 只提供语法定义。占位符由 SNF Editor 填写，Oracle Runner 负责标识符引用、目标锁定、参数、权限和语句边界校验。`create/`、`alter/`、`drop/`、`query/`、`transaction/`、`auth/`、`other/` 由 `snf/oracle` 包构建为独立的 Oracle SNF Pages。
-
-### 语法与应用边界
-
-同一 SQL 语句的变体使用 CASE；创建和替换复用 CREATE 定义。Scheduler 调用按过程定义，不能按任务/程序菜单复制。Studio 在操作注册表中映射定义路径和 CASE，负责默认值、允许范围、目标锁定、权限及执行流程；不得修改加载后的语法树来改变语句。
-
-## 覆盖状态
-
-语句入口覆盖、本轮修正和剩余缺口见 [SQL 定义覆盖检查](docs/coverage.md)。文件存在不代表全部语法组合已经验证。
-
-
-## 19c 覆盖清单与校验
-
-当前 164 个 `.snf` 文件映射官方 SQL 目录全部 161 个命令页，并包含匿名 PL/SQL block 和少量包过程调用。入口齐全不代表完整 Oracle 文法；具体 structured/partial 范围见 [逐命令清单](docs/statement-inventory.json) 与 [覆盖说明](docs/coverage.md)。表达式、对象状态和跨子句语义不由本仓库证明；自由表达式和程序片段是有意保留的输入边界。
-
-本轮存在 CASE/占位符调整，接入前查看 [迁移清单](docs/migration.md) 和 [输入与生成边界](docs/semantic-contracts.md)。真实 parser 和结构回归的复现命令见 [验证说明](docs/validation.md)；这些检查不执行 Oracle SQL，不构建 Studio Pages，不生成 `.snf.json`。运行检查仍需遵守 AGENTS.md 或用户的明确授权。
+可用 `SNF_ROOT=/absolute/path/to/oracle-tree` 指定另一份待检查的定义树。
