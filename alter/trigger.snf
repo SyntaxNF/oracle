@@ -2,7 +2,6 @@
 
 # CASE COMPILE
 ALTER TRIGGER name COMPILE [ DEBUG ]
-
     compiler_parameter_assignment [...] [ REUSE SETTINGS ]
 
 # CASE EDITIONING

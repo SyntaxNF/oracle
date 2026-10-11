@@ -18,7 +18,6 @@ CONTEXT NAMESPACE namespace ATTRIBUTES attribute [, ...]
 NOAUDIT { sql_statement_shortcut [, ...] | ALL | ALL STATEMENTS
     | system_privilege [, ...] | ALL PRIVILEGES }
     [ BY user [, ...]  ]
-
     [ WHENEVER [ NOT ] SUCCESSFUL ]
     [ CONTAINER = { CURRENT | ALL } ]
 
@@ -26,18 +25,15 @@ NOAUDIT { sql_statement_shortcut [, ...] | ALL | ALL STATEMENTS
 NOAUDIT { object_action [, ...] | ALL }
     ON { object | DIRECTORY directory | MINING MODEL mining_model
         | SQL TRANSLATION PROFILE translation_profile | DEFAULT }
-
     [ WHENEVER [ NOT ] SUCCESSFUL ]
     [ CONTAINER = { CURRENT | ALL } ]
 
 # CASE TRADITIONAL_NETWORK
 NOAUDIT NETWORK
-
     [ WHENEVER [ NOT ] SUCCESSFUL ]
     [ CONTAINER = { CURRENT | ALL } ]
 
 # CASE TRADITIONAL_DIRECT_PATH
 NOAUDIT DIRECT_PATH LOAD [ BY user [, ...] ]
-
     [ WHENEVER [ NOT ] SUCCESSFUL ]
     [ CONTAINER = { CURRENT | ALL } ]

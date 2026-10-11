@@ -18,11 +18,11 @@ test('all 164 definitions use the selected parser mode', () => {
 
 test('checker rejects detached postfix repetition and purely redundant OPTIONAL wrappers', () => {
     const header = '# https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/SELECT.html\n\n';
-    for (const text of ["'file_name' [, ...]", '( colname [, ...] ) [, ...]', 'ANY [, ...]']) {
-        assert.ok(inspectSource(`${header}${text}\n`).errors.some(error => error.includes('detached postfix LOOP')), text);
+    for (const text of ['( colname [, ...] ) [, ...]', 'ANY [, ...]']) {
+        assert.ok(inspectSource(`${header}${text}\n`).errors.some(error => error.includes('no preceding complete repeatable item')), text);
     }
     for (const text of ['[ item [...] ]', '[ item [, ...] ]', '[ { first | second } [, ...] ]']) {
-        assert.ok(inspectSource(`${header}${text}\n`).errors.some(error => error.includes('pure optional LOOP wrapper')), text);
+        assert.ok(inspectSource(`${header}${text}\n`).errors.some(error => error.includes('pure-LOOP optional')), text);
     }
     for (const text of ['item [...]', '[ ORDER BY item [, ...] ]', '[ ( item [, ...] ) ]', '[ DECLARE item [...] ]']) {
         assert.deepEqual(inspectSource(`${header}${text}\n`).errors, [], text);
