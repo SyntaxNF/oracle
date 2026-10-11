@@ -1,12 +1,12 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DELETE.html
 
 DELETE [ hint_clause ] [ FROM ] { dml_target | ONLY ( dml_target ) } [ table_alias ]
-    [ WHERE boolean_expression | WHERE CURRENT OF cursor ]
+    [ { WHERE boolean_expression | WHERE CURRENT OF cursor } ]
     [ returning_clause ]
     [ error_logging_clause ]
 
 # PARTOFIS dml_target
-table [ partition_extension_clause | @ database_link ]
+table [ { partition_extension_clause | @ database_link } ]
 
 ( query_statement [ WITH { READ ONLY | CHECK OPTION [ CONSTRAINT constraint ] } ] )
 

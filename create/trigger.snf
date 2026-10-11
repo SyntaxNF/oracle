@@ -3,46 +3,46 @@
 # exception_handler is a complete WHEN ... THEN handler, including statement semicolons.
 
 # CASE SIMPLE_DML
-CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+CREATE [ OR REPLACE ] [ { EDITIONABLE | NONEDITIONABLE } ] TRIGGER name
     [ SHARING = { METADATA | NONE } ]
     [ DEFAULT COLLATION USING_NLS_COMP ]
     { BEFORE | AFTER } dml_event [OR ...] ON { table | editioning_view }
     [ referencing_clause ] [ FOR EACH ROW ]
     [ trigger_edition_clause ] [ trigger_ordering_clause ]
-    [ ENABLE | DISABLE ] [ WHEN ( boolean_expression ) ]
+    [ { ENABLE | DISABLE } ] [ WHEN ( boolean_expression ) ]
     trigger_body
 
 # CASE INSTEAD_OF_DML
-CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+CREATE [ OR REPLACE ] [ { EDITIONABLE | NONEDITIONABLE } ] TRIGGER name
     [ SHARING = { METADATA | NONE } ]
     [ DEFAULT COLLATION USING_NLS_COMP ]
     INSTEAD OF instead_of_event [OR ...]
     ON [ NESTED TABLE nested_table_column OF ] view
     [ referencing_clause ] [ FOR EACH ROW ]
     [ trigger_edition_clause ] [ trigger_ordering_clause ]
-    [ ENABLE | DISABLE ]
+    [ { ENABLE | DISABLE } ]
     trigger_body
 
 # CASE COMPOUND_DML
-CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+CREATE [ OR REPLACE ] [ { EDITIONABLE | NONEDITIONABLE } ] TRIGGER name
     [ SHARING = { METADATA | NONE } ]
     [ DEFAULT COLLATION USING_NLS_COMP ]
     FOR dml_event [OR ...] ON { table | editioning_view }
     [ referencing_clause ]
     [ trigger_edition_clause ] [ trigger_ordering_clause ]
-    [ ENABLE | DISABLE ] [ WHEN ( boolean_expression ) ]
+    [ { ENABLE | DISABLE } ] [ WHEN ( boolean_expression ) ]
     COMPOUND TRIGGER
         declaration_definition [...]
         timing_point_definition [...]
     END [ end_name ] ;
 
 # CASE COMPOUND_NONEDITIONING_VIEW
-CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+CREATE [ OR REPLACE ] [ { EDITIONABLE | NONEDITIONABLE } ] TRIGGER name
     [ SHARING = { METADATA | NONE } ]
     [ DEFAULT COLLATION USING_NLS_COMP ]
     FOR instead_of_event [OR ...] ON noneditioning_view
     [ referencing_clause ]
-    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    [ trigger_ordering_clause ] [ { ENABLE | DISABLE } ]
     COMPOUND TRIGGER
         declaration_definition [...]
         INSTEAD OF EACH ROW IS
@@ -51,13 +51,13 @@ CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
     END [ end_name ] ;
 
 # CASE SYSTEM
-CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TRIGGER name
+CREATE [ OR REPLACE ] [ { EDITIONABLE | NONEDITIONABLE } ] TRIGGER name
     [ SHARING = { METADATA | NONE } ]
     [ DEFAULT COLLATION USING_NLS_COMP ]
     { BEFORE | AFTER | INSTEAD OF }
     { ddl_event [OR ...] | database_event [OR ...] }
     ON { [ schema . ] SCHEMA | [ PLUGGABLE ] DATABASE }
-    [ trigger_ordering_clause ] [ ENABLE | DISABLE ]
+    [ trigger_ordering_clause ] [ { ENABLE | DISABLE } ]
     [ WHEN ( boolean_expression ) ]
     trigger_body
 

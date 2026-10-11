@@ -2,7 +2,7 @@
 
 # CASE COMPILE
 ALTER PACKAGE name COMPILE [ DEBUG ]
-    [ PACKAGE | SPECIFICATION | BODY ]
+    [ { PACKAGE | SPECIFICATION | BODY } ]
     compiler_parameter_assignment [...] [ REUSE SETTINGS ]
 
 # CASE EDITIONING

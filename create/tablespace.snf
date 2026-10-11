@@ -1,25 +1,25 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-TABLESPACE.html
 
 # CASE PERMANENT
-CREATE [ BIGFILE | SMALLFILE ] TABLESPACE name
+CREATE [ { BIGFILE | SMALLFILE } ] TABLESPACE name
     [ DATAFILE datafile_specification [, ...] ]
     permanent_attributes
     [ IN SHARDSPACE shardspace ]
 
 # CASE TEMPORARY
-CREATE [ BIGFILE | SMALLFILE ] TEMPORARY TABLESPACE name
+CREATE [ { BIGFILE | SMALLFILE } ] TEMPORARY TABLESPACE name
     [ TEMPFILE datafile_specification [, ...] ]
     [ TABLESPACE GROUP tablespace_group ]
     [ EXTENT MANAGEMENT LOCAL [ UNIFORM [ SIZE size_value ] ] ]
 
 # CASE LOCAL_TEMPORARY
-CREATE [ BIGFILE | SMALLFILE ] LOCAL TEMPORARY TABLESPACE FOR { ALL | LEAF } name
+CREATE [ { BIGFILE | SMALLFILE } ] LOCAL TEMPORARY TABLESPACE FOR { ALL | LEAF } name
     [ TEMPFILE datafile_specification [, ...] ]
     [ TABLESPACE GROUP tablespace_group ]
     [ EXTENT MANAGEMENT LOCAL [ UNIFORM [ SIZE size_value ] ] ]
 
 # CASE UNDO
-CREATE [ BIGFILE | SMALLFILE ] UNDO TABLESPACE name
+CREATE [ { BIGFILE | SMALLFILE } ] UNDO TABLESPACE name
     [ DATAFILE datafile_specification [, ...] ]
     [ EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE ] ]
     [ RETENTION { GUARANTEE | NOGUARANTEE } ]
@@ -29,7 +29,7 @@ CREATE [ BIGFILE | SMALLFILE ] UNDO TABLESPACE name
 [ BLOCKSIZE block_size [ K ] ]
 [ { LOGGING | NOLOGGING } ]
 [ FORCE LOGGING ]
-[ ENCRYPTION [ { [ USING 'encrypt_algorithm' ] ENCRYPT } | DECRYPT ] ]
+[ ENCRYPTION [ { { [ USING 'encrypt_algorithm' ] ENCRYPT } | DECRYPT } ] ]
 [ DEFAULT default_parameters ]
 [ { ONLINE | OFFLINE } ]
 [ extent_management_clause ]
@@ -47,7 +47,7 @@ autoextend_clause
 AUTOEXTEND { OFF | ON [ NEXT size_value ] [ MAXSIZE { size_value | UNLIMITED } ] }
 
 # WHERE extent_management_clause
-EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE | UNIFORM [ SIZE size_value ] ]
+EXTENT MANAGEMENT LOCAL [ { AUTOALLOCATE | UNIFORM [ SIZE size_value ] } ]
 
 # WHERE default_parameters
 [ TABLE { COMPRESS FOR OLTP | COMPRESS FOR QUERY { LOW | HIGH } | COMPRESS FOR ARCHIVE { LOW | HIGH } | NOCOMPRESS } ]
@@ -62,4 +62,4 @@ EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE | UNIFORM [ SIZE size_value ] ]
 [ PCTINCREASE pct_increase ]
 
 # WHERE size_value
-size [ K | M | G | T | P | E ]
+size [ { K | M | G | T | P | E } ]

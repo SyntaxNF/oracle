@@ -3,7 +3,7 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/lnpls/ALTER-TYPE-statement.html
 
 # CASE COMPILE
-ALTER TYPE name COMPILE [ DEBUG ] [ SPECIFICATION | BODY ]
+ALTER TYPE name COMPILE [ DEBUG ] [ { SPECIFICATION | BODY } ]
     compiler_parameter_assignment [...] [ REUSE SETTINGS ]
 
 # CASE COMPILE_BODY
@@ -64,5 +64,5 @@ parameter { [ IN ] data_type [ { := | DEFAULT } value_expression ]
 # PARTOFIS dependent_handling_clause
 INVALIDATE
 
-CASCADE [ [ NOT ] INCLUDING TABLE DATA | CONVERT TO SUBSTITUTABLE ]
+CASCADE [ { [ NOT ] INCLUDING TABLE DATA | CONVERT TO SUBSTITUTABLE } ]
     [ [ FORCE ] EXCEPTIONS INTO exceptions_table ]

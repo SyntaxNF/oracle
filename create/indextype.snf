@@ -11,7 +11,7 @@ CREATE [ OR REPLACE ] INDEXTYPE name
 operator ( parameter_type [, ...] )
 
 # WHERE array_dml_clause
-[ WITH | WITHOUT ] ARRAY DML
+[ { WITH | WITHOUT } ] ARRAY DML
     array_dml_type_definition [, ...]
 
 # WHERE array_dml_type_definition

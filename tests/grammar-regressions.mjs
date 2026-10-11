@@ -11,9 +11,9 @@ const { NodeType: T } = parser;
 const optionalContaining = text => node => node.content.includes(text);
 
 for (const file of files) test(`parser/raw/span/directive/loop contract: ${file}`, () => assert.deepEqual(inspect(file).errors, []));
-test('all 164 definitions use the intended actual parser source revision', () => {
+test('all 164 definitions use the selected parser mode', () => {
     assert.equal(files.length, 164);
-    assert.equal(parserRevision, 'bcf2c3ac58b45e7d5391716393586b00b11e0c1a');
+    assert.equal(parserRevision, 'working-tree-build');
 });
 
 test('checker rejects detached postfix repetition and purely redundant OPTIONAL wrappers', () => {

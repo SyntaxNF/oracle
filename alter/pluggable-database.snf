@@ -52,7 +52,7 @@ ALTER PLUGGABLE DATABASE PREPARE MIRROR COPY mirror_copy
 ALTER PLUGGABLE DATABASE DROP MIRROR COPY mirror_copy
 
 # CASE LOST_WRITE_PROTECTION
-ALTER PLUGGABLE DATABASE [ ENABLE | REMOVE | SUSPEND ] LOST WRITE PROTECTION
+ALTER PLUGGABLE DATABASE [ { ENABLE | REMOVE | SUSPEND } ] LOST WRITE PROTECTION
 
 # CASE MATERIALIZE
 ALTER PLUGGABLE DATABASE MATERIALIZE
@@ -61,10 +61,10 @@ ALTER PLUGGABLE DATABASE MATERIALIZE
 ALTER PLUGGABLE DATABASE SET MAX_PDB_SNAPSHOTS = snapshot_count
 
 # PARTOFIS pdb_state_action
-OPEN { [ READ WRITE | READ ONLY ] [ RESTRICTED ] [ FORCE ] | [ READ WRITE ] UPGRADE [ RESTRICTED ] | RESETLOGS }
+OPEN { [ { READ WRITE | READ ONLY } ] [ RESTRICTED ] [ FORCE ] | [ READ WRITE ] UPGRADE [ RESTRICTED ] | RESETLOGS }
     [ instances_clause ] [ services_clause ]
 
-CLOSE [ IMMEDIATE ] [ instances_clause | RELOCATE [ TO 'instance_name' ] | NORELOCATE ]
+CLOSE [ IMMEDIATE ] [ { instances_clause | RELOCATE [ TO 'instance_name' ] | NORELOCATE } ]
 
 { SAVE | DISCARD } STATE [ instances_clause ]
 
@@ -101,7 +101,7 @@ STORAGE { UNLIMITED | ( storage_limit_options ) }
 
 # PARTOFIS pdb_recovery_action
 RECOVER [ AUTOMATIC ] [ FROM 'location' ]
-    [ DATABASE | TABLESPACE tablespace [, ...] | DATAFILE file_reference [, ...] | LOGFILE 'file_name' | CONTINUE [ DEFAULT ] ]
+    [ { DATABASE | TABLESPACE tablespace [, ...] | DATAFILE file_reference [, ...] | LOGFILE 'file_name' | CONTINUE [ DEFAULT ] } ]
 
 { BEGIN | END } BACKUP
 
@@ -168,14 +168,14 @@ OFFLINE
 [ 'file_name' ] [ SIZE size_clause ] [ REUSE ] [ autoextend_clause ]
 
 # WHERE size_clause
-size_value [ K | M | G | T | P | E ]
+size_value [ { K | M | G | T | P | E } ]
 
 # WHERE autoextend_clause
 AUTOEXTEND { OFF | ON [ NEXT size_clause ] [ MAXSIZE { UNLIMITED | size_clause } ] }
 
 # WHERE supplemental_logging_clause
 { ADD | DROP } SUPPLEMENTAL LOG DATA
-    [ ( supplemental_key_value [, ...] ) COLUMNS | FOR PROCEDURAL REPLICATION | SUBSET DATABASE REPLICATION ]
+    [ { ( supplemental_key_value [, ...] ) COLUMNS | FOR PROCEDURAL REPLICATION | SUBSET DATABASE REPLICATION } ]
 
 # ONEOFIS supplemental_key_value
 ALL

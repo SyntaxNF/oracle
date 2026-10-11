@@ -11,24 +11,24 @@ ALTER CLUSTER name allocate_extent_clause
 
 # CASE DEALLOCATE
 ALTER CLUSTER name DEALLOCATE UNUSED
-    [ KEEP size_value [ K | M | G | T | P | E ] ]
+    [ KEEP size_value [ { K | M | G | T | P | E } ] ]
 
 # WHERE cluster_attributes
 [ PCTFREE pctfree ]
 [ PCTUSED pctused ]
 [ INITRANS initrans ]
-[ SIZE size_value [ K | M | G | T | P | E ] ]
+[ SIZE size_value [ { K | M | G | T | P | E } ] ]
 [ STORAGE ( storage_options ) ]
 [ { NOPARALLEL | PARALLEL [ degree ] } ]
 [ { CACHE | NOCACHE } ]
 
 # WHERE allocate_extent_clause
 ALLOCATE EXTENT
-    [ ( [ SIZE size_value [ K | M | G | T | P | E ] ]
+    [ ( [ SIZE size_value [ { K | M | G | T | P | E } ] ]
         [ DATAFILE 'file_name' ] [ INSTANCE instance_number ] ) ]
 
 # WHERE storage_options
-[ NEXT size_value [ K | M | G | T | P | E ] ]
+[ NEXT size_value [ { K | M | G | T | P | E } ] ]
 [ MAXEXTENTS { max_extents | UNLIMITED } ]
 [ PCTINCREASE pctincrease ]
 [ FREELISTS freelists ]

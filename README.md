@@ -22,6 +22,7 @@
 | `placeholder` | 调用方输入或其他语法节点 |
 | `[ syntax ]` | 整段可选，最多出现一次 |
 | `{ a \| b }` | 从候选项中选择一个 |
+| `[ { a \| b } ]` | 可选的显式枚举；`[ a \| b ]` 不合法 |
 | `item [...]` | 重复前面的完整成员，次数为 0、1、2……，无额外分隔符 |
 | `item [, ...]`、`statement [; ...]` | 重复完整成员，次数为 0、1、2……，分别用逗号、分号分隔 |
 | `( syntax )`、`'value'` | 原样生成的 SQL 圆括号、字符串引号 |
@@ -30,6 +31,8 @@
 | `# ONEOFIS name` | 每个物理行是一个候选 |
 | `# PARTOFIS name` | 每个空行分隔的 block 是一个候选 |
 | `# STATEMENT name` | 可嵌套的 statement 节点，不作为当前文件的顶层语法 |
+
+未转义的 `|` 只能直接出现在 `{}` 内。
 
 例如：
 
@@ -56,11 +59,19 @@ Studio 的 `snf/oracle` 包将各目录构建为 Oracle SNF Pages。消费方负
 
 `*.snf.json` 在 Studio 根目录执行 `pnpm --filter @breeze/snf-oracle run init` 生成，不手工修改或提交。
 
-维护检查使用 [SyntaxNF/parser](https://github.com/SyntaxNF/parser) 的 `bcf2c3ac58b45e7d5391716393586b00b11e0c1a` 提交及 `tsx` 4.23.5。先在 parser checkout 中按锁定依赖准备工具，再在本仓库显式运行以下命令；遵守 `AGENTS.md`，编辑后不自动运行测试或类型检查。
+当前定义使用显式 OPTIONAL/ENUM 语法。先构建[SyntaxNF/parser](https://github.com/SyntaxNF/parser)，再在本仓库显式运行以下命令；遵守 `AGENTS.md`，编辑后不自动运行测试或类型检查。
 
 ```sh
-SNF_PARSER_ROOT=/absolute/path/to/parser node scripts/check-snf.mjs
-SNF_PARSER_ROOT=/absolute/path/to/parser node --test tests/grammar-regressions.mjs
+(cd /absolute/path/to/parser && pnpm build)
+export SNF_PARSER_WORKTREE_MODULE=/absolute/path/to/parser/dist/esm/index.mjs
+npm run validate
+npm test
 ```
 
-可用 `SNF_ROOT=/absolute/path/to/oracle-tree` 指定另一份待检查的定义树。
+可用 `SNF_ROOT=/absolute/path/to/oracle-tree` 指定另一份待检查的定义树。脚本只通过 `SNF_PARSER_WORKTREE_MODULE` 加载指定构建，标记为 `working-tree-build`；缺少该配置会直接报错。修改 parser 后应重新构建。
+
+四库统一使用 `npm run validate` 执行全部结构检查、`npm test` 执行全部回归；`validate:snf` 为结构检查入口，`test:regression` 为回归入口。无需安装本库依赖，使用 Node.js 22 和上面明确指定的 parser 构建。
+
+基础检查统一覆盖源文件与 AST 范围、显式 OPTIONAL/ENUM/GROUP、完整成员的 LOOP 绑定、冗余纯循环可选层、四空格缩进与末尾换行，对所有文件执行。生成回归覆盖 0/1/2 次循环、显式枚举、可选项、分隔符及自由输入原文保留。SQL Server 的 `validate` 还包含其指令/固定文本约定检查和生成结构检查；各库保留自己的方言回归。
+
+`scripts/parser-runtime.mjs`、`scripts/snf-contract.mjs` 及其测试在四库保持一致；`generator-fixture.mjs` 仅本地文档加载入口不同，`generator-contract.test.mjs` 保持一致。修改公共契约时同步四库。报告的 `parserInput` 是实际加载路径；这些检查验证 SNF 和测试辅助生成行为，不执行数据库 SQL。

@@ -1,7 +1,7 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/lnpls/CREATE-TYPE-statement.html
 
 # CASE OBJECT
-CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name
+CREATE [ OR REPLACE ] [ { EDITIONABLE | NONEDITIONABLE } ] TYPE name
     [ FORCE ] [ OID 'object_identifier' ]
     [ SHARING = { METADATA | NONE } ]
     [ DEFAULT COLLATION USING_NLS_COMP ]
@@ -14,7 +14,7 @@ CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name
     [ [ NOT ] FINAL ] [ [ NOT ] INSTANTIABLE ] [ [ NOT ] PERSISTABLE ] ;
 
 # CASE SUBTYPE
-CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name
+CREATE [ OR REPLACE ] [ { EDITIONABLE | NONEDITIONABLE } ] TYPE name
     [ FORCE ] [ OID 'object_identifier' ]
     [ SHARING = { METADATA | NONE } ]
     [ DEFAULT COLLATION USING_NLS_COMP ]
@@ -26,7 +26,7 @@ CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name
     [ [ NOT ] FINAL ] [ [ NOT ] INSTANTIABLE ] ;
 
 # CASE NESTED_TABLE
-CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name
+CREATE [ OR REPLACE ] [ { EDITIONABLE | NONEDITIONABLE } ] TYPE name
     [ FORCE ] [ OID 'object_identifier' ]
     [ SHARING = { METADATA | NONE } ]
     [ DEFAULT COLLATION USING_NLS_COMP ]
@@ -35,7 +35,7 @@ CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name
     { IS | AS } TABLE OF collection_element_definition ;
 
 # CASE VARRAY
-CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name
+CREATE [ OR REPLACE ] [ { EDITIONABLE | NONEDITIONABLE } ] TYPE name
     [ FORCE ] [ OID 'object_identifier' ]
     [ SHARING = { METADATA | NONE } ]
     [ DEFAULT COLLATION USING_NLS_COMP ]
@@ -45,7 +45,7 @@ CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name
     OF collection_element_definition ;
 
 # CASE INCOMPLETE
-CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE name ;
+CREATE [ OR REPLACE ] [ { EDITIONABLE | NONEDITIONABLE } ] TYPE name ;
 
 # WHERE collection_element_definition
 { data_type [ NOT NULL ] | ( data_type [ NOT NULL ] ) [ [ NOT ] PERSISTABLE ] }
@@ -93,7 +93,7 @@ parameter [ IN ] parameter_type [ { := | DEFAULT } value_expression ]
 ACCESSIBLE BY ( accessor_definition [, ...] )
 
 # WHERE accessor_definition
-[ FUNCTION | PROCEDURE | PACKAGE | TRIGGER | TYPE ] accessor
+[ { FUNCTION | PROCEDURE | PACKAGE | TRIGGER | TYPE } ] accessor
 
 # WHERE parallel_enable_clause
 PARALLEL_ENABLE
@@ -122,11 +122,11 @@ EXTERNAL c_call_definition
 
 # WHERE external_parameter_definition
 { CONTEXT
-| SELF [ TDO | external_property ]
+| SELF [ { TDO | external_property } ]
 | { parameter | RETURN } [ external_property ] [ BY REFERENCE ] [ external_data_type ] }
 
 # WHERE external_property
-{ INDICATOR [ STRUCT | TDO ] | LENGTH | DURATION | MAXLEN | CHARSETID | CHARSETFORM }
+{ INDICATOR [ { STRUCT | TDO } ] | LENGTH | DURATION | MAXLEN | CHARSETID | CHARSETFORM }
 
 # WHERE plsql_data_type
 { data_type | anchored_name % TYPE | row_source % ROWTYPE }

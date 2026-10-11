@@ -5,18 +5,18 @@ ALTER DISKGROUP name disk_action [, ...] [ rebalance_clause ]
 
 # CASE RESIZE
 ALTER DISKGROUP name RESIZE ALL
-    [ SIZE size_value [ K | M | G | T | P | E ] ] [ rebalance_clause ]
+    [ SIZE size_value [ { K | M | G | T | P | E } ] ] [ rebalance_clause ]
 
 # CASE REPLACE
 ALTER DISKGROUP name REPLACE DISK replacement_definition [, ...]
-    [ POWER power_value ] [ WAIT | NOWAIT ]
+    [ POWER power_value ] [ { WAIT | NOWAIT } ]
 
 # CASE RENAME_DISKS
 ALTER DISKGROUP name RENAME { DISK disk_rename [, ...] | DISKS ALL }
 
 # CASE ONLINE
 ALTER DISKGROUP name ONLINE { disk_target [...] | ALL }
-    [ POWER power_value ] [ WAIT | NOWAIT ]
+    [ POWER power_value ] [ { WAIT | NOWAIT } ]
 
 # CASE OFFLINE
 ALTER DISKGROUP name OFFLINE disk_target [...]
@@ -26,12 +26,12 @@ ALTER DISKGROUP name OFFLINE disk_target [...]
 ALTER DISKGROUP name rebalance_clause
 
 # CASE CHECK
-ALTER DISKGROUP name CHECK [ REPAIR | NOREPAIR ]
+ALTER DISKGROUP name CHECK [ { REPAIR | NOREPAIR } ]
 
 # CASE AVAILABILITY
 ALTER DISKGROUP { name [, ...] | ALL }
-    { MOUNT [ RESTRICTED | NORMAL ] [ FORCE | NOFORCE ]
-    | DISMOUNT [ FORCE | NOFORCE ] | UNDROP DISKS }
+    { MOUNT [ { RESTRICTED | NORMAL } ] [ { FORCE | NOFORCE } ]
+    | DISMOUNT [ { FORCE | NOFORCE } ] | UNDROP DISKS }
 
 # CASE ATTRIBUTE
 ALTER DISKGROUP name SET ATTRIBUTE 'attribute_name' = 'attribute_value'
@@ -64,7 +64,7 @@ ALTER DISKGROUP name { ADD | MODIFY } TEMPLATE template_definition [, ...]
 ALTER DISKGROUP name DROP TEMPLATE template [, ...]
 
 # WHERE replacement_definition
-disk WITH 'disk_path' [ FORCE | NOFORCE ]
+disk WITH 'disk_path' [ { FORCE | NOFORCE } ]
 
 # WHERE disk_rename
 disk TO new_disk
@@ -72,30 +72,30 @@ disk TO new_disk
 # PARTOFIS disk_action
 ADD disk_group_definition [...]
 
-DROP [ QUORUM | REGULAR ] DISK disk_drop [, ...]
+DROP [ { QUORUM | REGULAR } ] DISK disk_drop [, ...]
 
-DROP DISKS IN [ QUORUM | REGULAR ] FAILGROUP failgroup_drop [, ...]
+DROP DISKS IN [ { QUORUM | REGULAR } ] FAILGROUP failgroup_drop [, ...]
 
 # WHERE disk_group_definition
-[ SITE site ] [ QUORUM | REGULAR ] [ FAILGROUP failgroup ] DISK disk_definition [, ...]
+[ SITE site ] [ { QUORUM | REGULAR } ] [ FAILGROUP failgroup ] DISK disk_definition [, ...]
 
 # WHERE disk_definition
 'search_string' [ NAME disk ]
-    [ SIZE size_value [ K | M | G | T | P | E ] ] [ FORCE | NOFORCE ]
+    [ SIZE size_value [ { K | M | G | T | P | E } ] ] [ { FORCE | NOFORCE } ]
 
 # WHERE disk_drop
-disk [ FORCE | NOFORCE ]
+disk [ { FORCE | NOFORCE } ]
 
 # WHERE failgroup_drop
-failgroup [ FORCE | NOFORCE ]
+failgroup [ { FORCE | NOFORCE } ]
 
 # ONEOFIS disk_target
-[ QUORUM | REGULAR ] DISK disk [, ...]
-DISKS IN [ QUORUM | REGULAR ] FAILGROUP failgroup [, ...]
+[ { QUORUM | REGULAR } ] DISK disk [, ...]
+DISKS IN [ { QUORUM | REGULAR } ] FAILGROUP failgroup [, ...]
 
 # PARTOFIS rebalance_clause
 REBALANCE [ { WITH | WITHOUT } phase [, ...] ]
-    [ POWER power_value ] [ WAIT | NOWAIT ]
+    [ POWER power_value ] [ { WAIT | NOWAIT } ]
 
 REBALANCE MODIFY POWER [ power_value ]
 
@@ -106,15 +106,15 @@ REBALANCE MODIFY POWER [ power_value ]
 'alias_name' TO 'new_alias_name'
 
 # WHERE directory_drop
-'directory_path' [ FORCE | NOFORCE ]
+'directory_path' [ { FORCE | NOFORCE } ]
 
 # WHERE directory_rename
 'directory_path' TO 'new_directory_path'
 
 # WHERE template_definition
 template ATTRIBUTE (
-    [ MIRROR | HIGH | UNPROTECTED | PARITY ]
-    [ FINE | COARSE ] [ HOT | COLD ] [ MIRRORHOT | MIRRORCOLD ]
+    [ { MIRROR | HIGH | UNPROTECTED | PARITY } ]
+    [ { FINE | COARSE } ] [ { HOT | COLD } ] [ { MIRRORHOT | MIRRORCOLD } ]
 )
 
 # WHERE quoted_alias_name

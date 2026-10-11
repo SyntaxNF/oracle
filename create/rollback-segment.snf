@@ -5,8 +5,8 @@ CREATE [ PUBLIC ] ROLLBACK SEGMENT name
     [ STORAGE ( storage_options ) ]
 
 # WHERE storage_options
-[ INITIAL size_value [ K | M | G | T | P | E ] ]
-[ NEXT size_value [ K | M | G | T | P | E ] ]
+[ INITIAL size_value [ { K | M | G | T | P | E } ] ]
+[ NEXT size_value [ { K | M | G | T | P | E } ] ]
 [ MINEXTENTS min_extents ]
 [ MAXEXTENTS { max_extents | UNLIMITED } ]
-[ OPTIMAL { size_value [ K | M | G | T | P | E ] | NULL } ]
+[ OPTIMAL { size_value [ { K | M | G | T | P | E } ] | NULL } ]

@@ -3,7 +3,7 @@
 # exception_handler is a complete WHEN ... THEN handler, including statement semicolons.
 
 # CASE BODY
-CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] TYPE BODY name
+CREATE [ OR REPLACE ] [ { EDITIONABLE | NONEDITIONABLE } ] TYPE BODY name
     { IS | AS }
     method_definition [...]
 END ;
@@ -55,11 +55,11 @@ EXTERNAL c_call_definition
 
 # WHERE external_parameter_definition
 { CONTEXT
-| SELF [ TDO | external_property ]
+| SELF [ { TDO | external_property } ]
 | { parameter | RETURN } [ external_property ] [ BY REFERENCE ] [ external_data_type ] }
 
 # WHERE external_property
-{ INDICATOR [ STRUCT | TDO ] | LENGTH | DURATION | MAXLEN | CHARSETID | CHARSETFORM }
+{ INDICATOR [ { STRUCT | TDO } ] | LENGTH | DURATION | MAXLEN | CHARSETID | CHARSETFORM }
 
 # WHERE order_numeric_type
 { NUMBER | numeric_subtype }

@@ -19,9 +19,9 @@ ALTER MATERIALIZED ZONEMAP name REBUILD
 ALTER MATERIALIZED ZONEMAP name UNUSABLE
 
 # PARTOFIS zonemap_attributes_clause
-PCTFREE pctfree_value [ PCTUSED pctused_value ] [ CACHE | NOCACHE ]
+PCTFREE pctfree_value [ PCTUSED pctused_value ] [ { CACHE | NOCACHE } ]
 
-PCTUSED pctused_value [ CACHE | NOCACHE ]
+PCTUSED pctused_value [ { CACHE | NOCACHE } ]
 
 { CACHE | NOCACHE }
 

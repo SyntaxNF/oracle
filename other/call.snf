@@ -4,7 +4,7 @@ CALL routine_expression
     [ INTO : host_variable [ [ INDICATOR ] : indicator_variable ] ]
 
 # PARTOFIS routine_expression
-[ schema . ] [ package . | type . ] routine [ @ database_link ]
+[ schema . ] [ { package . | type . } ] routine [ @ database_link ]
     ( argument_expression [, ...] )
 
 object_access_expression

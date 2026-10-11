@@ -15,7 +15,7 @@ INSERT [ hint_clause ] INTO dml_target [ table_alias ] [ ( colname [, ...] ) ]
 INSERT [ hint_clause ] ALL insert_into_clause [...] query_statement
 
 # CASE CONDITIONAL
-INSERT [ hint_clause ] [ ALL | FIRST ]
+INSERT [ hint_clause ] [ { ALL | FIRST } ]
     conditional_insert_clause [...]
     [ ELSE insert_into_clause [...] ]
     query_statement
@@ -29,7 +29,7 @@ INTO table [ partition_extension_clause ] [ ( colname [, ...] ) ]
 WHEN boolean_expression THEN insert_into_clause [...]
 
 # PARTOFIS dml_target
-table [ partition_extension_clause | @ database_link ]
+table [ { partition_extension_clause | @ database_link } ]
 
 ( query_statement [ WITH { READ ONLY | CHECK OPTION [ CONSTRAINT constraint ] } ] )
 

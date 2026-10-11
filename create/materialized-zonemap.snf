@@ -3,7 +3,7 @@
 # CASE ON_TABLE
 CREATE MATERIALIZED ZONEMAP name
     [ TABLESPACE tablespace ] [ SCALE scale_value ]
-    [ PCTFREE pctfree_value ] [ PCTUSED pctused_value ] [ CACHE | NOCACHE ]
+    [ PCTFREE pctfree_value ] [ PCTUSED pctused_value ] [ { CACHE | NOCACHE } ]
     [ zonemap_refresh_clause ]
     [ { ENABLE | DISABLE } PRUNING ]
     ON table ( colname [, ...] )
@@ -11,7 +11,7 @@ CREATE MATERIALIZED ZONEMAP name
 # CASE AS_QUERY
 CREATE MATERIALIZED ZONEMAP name
     [ TABLESPACE tablespace ] [ SCALE scale_value ]
-    [ PCTFREE pctfree_value ] [ PCTUSED pctused_value ] [ CACHE | NOCACHE ]
+    [ PCTFREE pctfree_value ] [ PCTUSED pctused_value ] [ { CACHE | NOCACHE } ]
     [ zonemap_refresh_clause ]
     [ { ENABLE | DISABLE } PRUNING ]
     AS zonemap_query_statement

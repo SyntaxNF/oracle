@@ -22,13 +22,13 @@ autoextend_clause
 [ extent_management_clause ]
 [ SEGMENT SPACE MANAGEMENT AUTO ]
 [ FLASHBACK { ON | OFF } ]
-[ [ ENABLE | REMOVE | SUSPEND ] LOST WRITE PROTECTION ]
+[ [ { ENABLE | REMOVE | SUSPEND } ] LOST WRITE PROTECTION ]
 
 # WHERE extent_management_clause
-EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE | UNIFORM [ SIZE size_clause ] ]
+EXTENT MANAGEMENT LOCAL [ { AUTOALLOCATE | UNIFORM [ SIZE size_clause ] } ]
 
 # WHERE size_clause
-size_value [ K | M | G | T | P | E ]
+size_value [ { K | M | G | T | P | E } ]
 
 # WHERE autoextend_clause
 AUTOEXTEND { OFF | ON [ NEXT size_clause ] [ MAXSIZE { UNLIMITED | size_clause } ] }

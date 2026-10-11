@@ -1,6 +1,6 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-ANALYTIC-VIEW.html
 
-CREATE [ OR REPLACE ] [ FORCE | NOFORCE ] ANALYTIC VIEW name
+CREATE [ OR REPLACE ] [ { FORCE | NOFORCE } ] ANALYTIC VIEW name
     [ SHARING = { METADATA | NONE } ]
     [ classification_clause ]
     USING table [ [ AS ] table_alias ]

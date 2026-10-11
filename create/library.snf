@@ -1,7 +1,7 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-LIBRARY.html
 
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/lnpls/CREATE-LIBRARY-statement.html
-CREATE [ OR REPLACE ] [ EDITIONABLE | NONEDITIONABLE ] LIBRARY name
+CREATE [ OR REPLACE ] [ { EDITIONABLE | NONEDITIONABLE } ] LIBRARY name
     [ SHARING = { METADATA | NONE } ]
     { IS | AS } { 'full_path_name' | 'file_name' IN directory }
     [ AGENT 'agent_database_link' ]

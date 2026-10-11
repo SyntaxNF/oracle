@@ -285,17 +285,17 @@ ALTER TABLE name MODIFY DEFAULT ATTRIBUTES [ FOR PARTITION partition ]
 
 # WHERE constraint_definition
 { UNIQUE ( colname [, ...] ) | PRIMARY KEY ( colname [, ...] ) |
-  FOREIGN KEY ( colname [, ...] ) REFERENCES referenced_table [ ( referenced_colname [, ...] ) ]
-      [ ON DELETE { CASCADE | SET NULL } ] |
-  CHECK ( boolean_expression ) }
+    FOREIGN KEY ( colname [, ...] ) REFERENCES referenced_table [ ( referenced_colname [, ...] ) ]
+        [ ON DELETE { CASCADE | SET NULL } ] |
+    CHECK ( boolean_expression ) }
     [ [ NOT ] DEFERRABLE ] [ INITIALLY { IMMEDIATE | DEFERRED } ]
-    [ RELY | NORELY ] [ USING INDEX index ]
-    [ ENABLE | DISABLE ] [ VALIDATE | NOVALIDATE ]
+    [ { RELY | NORELY } ] [ USING INDEX index ]
+    [ { ENABLE | DISABLE } ] [ { VALIDATE | NOVALIDATE } ]
 
 # WHERE identity_options
 [ START WITH { start_value | LIMIT VALUE } ] [ INCREMENT BY increment_value ]
-    [ MAXVALUE max_value | NOMAXVALUE ] [ MINVALUE min_value | NOMINVALUE ]
-    [ CYCLE | NOCYCLE ] [ CACHE cache_value | NOCACHE ] [ ORDER | NOORDER ]
+    [ { MAXVALUE max_value | NOMAXVALUE } ] [ { MINVALUE min_value | NOMINVALUE } ]
+    [ { CYCLE | NOCYCLE } ] [ { CACHE cache_value | NOCACHE } ] [ { ORDER | NOORDER } ]
 
 # WHERE column_definition
 colname data_type [ DEFAULT [ ON NULL ] default_expression ] [ NOT NULL ]
@@ -308,11 +308,11 @@ colname data_type [ DEFAULT [ ON NULL ] default_expression ]
 [ PCTVERSION pctversion ]
 [ FREEPOOLS freepools ]
 [ REBUILD FREEPOOLS ]
-[ RETENTION [ MAX | MIN retention_seconds | AUTO | NONE ] ]
+[ RETENTION [ { MAX | MIN retention_seconds | AUTO | NONE } ] ]
 [ { DEDUPLICATE | KEEP_DUPLICATES } ]
-[ { COMPRESS [ HIGH | MEDIUM | LOW ] | NOCOMPRESS } ]
+[ { COMPRESS [ { HIGH | MEDIUM | LOW } ] | NOCOMPRESS } ]
 [ { ENCRYPT encryption_options | DECRYPT } ]
-[ CACHE | { NOCACHE | CACHE READS } [ LOGGING | NOLOGGING | FILESYSTEM_LIKE_LOGGING ] ]
+[ { CACHE | { NOCACHE | CACHE READS } [ { LOGGING | NOLOGGING | FILESYSTEM_LIKE_LOGGING } ] } ]
 [ allocate_extent_clause ]
 [ SHRINK SPACE [ COMPACT ] [ CASCADE ] ]
 [ deallocate_unused_clause ]
@@ -392,16 +392,16 @@ INDEXING { ON | OFF }
 # WHERE segment_attributes
 physical_attributes
 [ TABLESPACE tablespace ]
-[ LOGGING | NOLOGGING ]
+[ { LOGGING | NOLOGGING } ]
 
 # PARTOFIS table_compression
 NOCOMPRESS
 
 COMPRESS
 
-ROW STORE COMPRESS [ BASIC | ADVANCED ]
+ROW STORE COMPRESS [ { BASIC | ADVANCED } ]
 
-COLUMN STORE COMPRESS [ FOR { QUERY | ARCHIVE } [ LOW | HIGH ] ]
+COLUMN STORE COMPRESS [ FOR { QUERY | ARCHIVE } [ { LOW | HIGH } ] ]
     [ [ NO ] ROW LEVEL LOCKING ]
 
 # WHERE parallel_clause
@@ -422,7 +422,7 @@ STORAGE ( storage_options )
 [ CELL_FLASH_CACHE { KEEP | NONE | DEFAULT } ]
 
 # WHERE size_value
-size [ K | M | G | T | P | E ]
+size [ { K | M | G | T | P | E } ]
 
 # PARTOFIS lob_storage_clause
 LOB ( lob_item ) STORE AS lob_store_definition
@@ -447,11 +447,11 @@ lob_segment [ ( lob_storage_options ) ]
 [ CHUNK chunk_size ]
 [ PCTVERSION pctversion ]
 [ FREEPOOLS freepools ]
-[ RETENTION [ MAX | MIN retention_seconds | AUTO | NONE ] ]
+[ RETENTION [ { MAX | MIN retention_seconds | AUTO | NONE } ] ]
 [ { DEDUPLICATE | KEEP_DUPLICATES } ]
-[ { COMPRESS [ HIGH | MEDIUM | LOW ] | NOCOMPRESS } ]
+[ { COMPRESS [ { HIGH | MEDIUM | LOW } ] | NOCOMPRESS } ]
 [ { ENCRYPT encryption_options | DECRYPT } ]
-[ { CACHE | NOCACHE | CACHE READS } [ LOGGING | NOLOGGING | FILESYSTEM_LIKE_LOGGING ] ]
+[ { CACHE | NOCACHE | CACHE READS } [ { LOGGING | NOLOGGING | FILESYSTEM_LIKE_LOGGING } ] ]
 [ storage_clause ]
 
 # WHERE encryption_options
@@ -480,8 +480,8 @@ PARTITION BY REFERENCE ( constraint )
     [ ( reference_partition_definition [, ...] ) ]
 
 PARTITION BY SYSTEM
-    [ PARTITIONS partition_count
-    | ( reference_partition_definition [, ...] ) ]
+    [ { PARTITIONS partition_count
+    | ( reference_partition_definition [, ...] ) } ]
 
 # WHERE range_partition_definition
 PARTITION [ partition ] range_values_clause
@@ -495,7 +495,7 @@ PARTITION [ partition ] list_values_clause
 
 # WHERE hash_partition_definition
 PARTITION [ partition ]
-    [ READ ONLY | READ WRITE ]
+    [ { READ ONLY | READ WRITE } ]
     [ INDEXING { ON | OFF } ]
     partition_storage
     [ subpartition_definitions ]
@@ -505,7 +505,7 @@ PARTITION [ partition ] partition_properties
 
 # WHERE partition_properties
 [ SEGMENT CREATION { IMMEDIATE | DEFERRED } ]
-[ READ ONLY | READ WRITE ]
+[ { READ ONLY | READ WRITE } ]
 [ INDEXING { ON | OFF } ]
 segment_attributes
 [ table_compression ]
@@ -535,8 +535,8 @@ SUBPARTITION BY LIST ( colname [, ...] )
     [ SUBPARTITION TEMPLATE ( list_subpartition_definition [, ...] ) ]
 
 SUBPARTITION BY HASH ( colname [, ...] )
-    [ SUBPARTITIONS subpartition_count [ STORE IN ( tablespace [, ...] ) ]
-    | SUBPARTITION TEMPLATE ( hash_subpartition_definition [, ...] ) ]
+    [ { SUBPARTITIONS subpartition_count [ STORE IN ( tablespace [, ...] ) ]
+    | SUBPARTITION TEMPLATE ( hash_subpartition_definition [, ...] ) } ]
 
 # PARTOFIS subpartition_definitions
 ( range_subpartition_definition [, ...] )
@@ -559,7 +559,7 @@ SUBPARTITION [ subpartition ] list_values_clause
 SUBPARTITION [ subpartition ] subpartition_properties
 
 # WHERE subpartition_properties
-[ READ ONLY | READ WRITE ]
+[ { READ ONLY | READ WRITE } ]
 [ INDEXING { ON | OFF } ]
 partition_storage
 

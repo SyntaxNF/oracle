@@ -8,15 +8,15 @@ CREATE DISKGROUP name
 
 # CASE EXTERNAL_REDUNDANCY
 CREATE DISKGROUP name EXTERNAL REDUNDANCY
-    [ QUORUM | REGULAR ] DISK disk_definition [, ...]
+    [ { QUORUM | REGULAR } ] DISK disk_definition [, ...]
     [ ATTRIBUTE attribute_assignment [, ...] ]
 
 # WHERE disk_group_definition
-[ QUORUM | REGULAR ] [ FAILGROUP failgroup ] DISK disk_definition [, ...]
+[ { QUORUM | REGULAR } ] [ FAILGROUP failgroup ] DISK disk_definition [, ...]
 
 # WHERE disk_definition
 'search_string' [ NAME disk ]
-    [ SIZE size_value [ K | M | G | T | P | E ] ] [ FORCE | NOFORCE ]
+    [ SIZE size_value [ { K | M | G | T | P | E } ] ] [ { FORCE | NOFORCE } ]
 
 # WHERE attribute_assignment
 'attribute_name' = 'attribute_value'

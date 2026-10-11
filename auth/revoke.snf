@@ -2,7 +2,7 @@
 
 # CASE OBJECT
 REVOKE { privilege | ALL [ PRIVILEGES ] } [, ...] ON object_target FROM grantee [, ...]
-    [ CASCADE CONSTRAINTS | FORCE ] [ CONTAINER = { CURRENT | ALL } ]
+    [ { CASCADE CONSTRAINTS | FORCE } ] [ CONTAINER = { CURRENT | ALL } ]
 
 # CASE SYSTEM
 REVOKE { privilege | role | ALL PRIVILEGES } [, ...] FROM grantee [, ...]

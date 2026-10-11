@@ -4,7 +4,7 @@
 ALTER MATERIALIZED VIEW name REFRESH refresh_specification
     [ evaluation_edition_clause ]
     [ { ENABLE | DISABLE } ON QUERY COMPUTATION ]
-    [ query_rewrite_clause | COMPILE | CONSIDER FRESH ]
+    [ { query_rewrite_clause | COMPILE | CONSIDER FRESH } ]
 
 # CASE COMPILE
 ALTER MATERIALIZED VIEW name COMPILE
@@ -17,12 +17,12 @@ ALTER MATERIALIZED VIEW name query_rewrite_clause
 
 # CASE QUERY_COMPUTATION
 ALTER MATERIALIZED VIEW name { ENABLE | DISABLE } ON QUERY COMPUTATION
-    [ query_rewrite_clause | COMPILE | CONSIDER FRESH ]
+    [ { query_rewrite_clause | COMPILE | CONSIDER FRESH } ]
 
 # CASE EVALUATION_EDITION
 ALTER MATERIALIZED VIEW name evaluation_edition_clause
     [ { ENABLE | DISABLE } ON QUERY COMPUTATION ]
-    [ query_rewrite_clause | COMPILE | CONSIDER FRESH ]
+    [ { query_rewrite_clause | COMPILE | CONSIDER FRESH } ]
 
 # CASE PHYSICAL_ATTRIBUTES
 ALTER MATERIALIZED VIEW name physical_attributes
@@ -53,7 +53,7 @@ ALTER MATERIALIZED VIEW name DEALLOCATE UNUSED [ KEEP size_value ]
 ALTER MATERIALIZED VIEW name SHRINK SPACE [ COMPACT ] [ CASCADE ]
 
 # WHERE refresh_specification
-[ FAST | COMPLETE | FORCE ]
+[ { FAST | COMPLETE | FORCE } ]
 refresh_timing
 [ WITH PRIMARY KEY ]
 [ rollback_segment_clause ]
@@ -80,9 +80,9 @@ NOCOMPRESS
 
 COMPRESS
 
-ROW STORE COMPRESS [ BASIC | ADVANCED ]
+ROW STORE COMPRESS [ { BASIC | ADVANCED } ]
 
-COLUMN STORE COMPRESS [ FOR { QUERY | ARCHIVE } [ LOW | HIGH ] ]
+COLUMN STORE COMPRESS [ FOR { QUERY | ARCHIVE } [ { LOW | HIGH } ] ]
     [ [ NO ] ROW LEVEL LOCKING ]
 
 # WHERE physical_attributes
@@ -103,7 +103,7 @@ COLUMN STORE COMPRESS [ FOR { QUERY | ARCHIVE } [ LOW | HIGH ] ]
 [ CELL_FLASH_CACHE { KEEP | NONE | DEFAULT } ]
 
 # WHERE size_value
-size [ K | M | G | T | P | E ]
+size [ { K | M | G | T | P | E } ]
 
 # WHERE parallel_clause
 { NOPARALLEL | PARALLEL [ degree ] }

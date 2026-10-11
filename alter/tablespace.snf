@@ -25,7 +25,7 @@ ALTER TABLESPACE name READ WRITE
 ALTER TABLESPACE name ONLINE
 
 # CASE OFFLINE
-ALTER TABLESPACE name OFFLINE [ NORMAL | TEMPORARY | IMMEDIATE ]
+ALTER TABLESPACE name OFFLINE [ { NORMAL | TEMPORARY | IMMEDIATE } ]
 
 # CASE CONTENTS
 ALTER TABLESPACE name { PERMANENT | TEMPORARY }
@@ -98,7 +98,7 @@ autoextend_clause
 AUTOEXTEND { OFF | ON [ NEXT size_value ] [ MAXSIZE { size_value | UNLIMITED } ] }
 
 # WHERE extent_management_clause
-EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE | UNIFORM [ SIZE size_value ] ]
+EXTENT MANAGEMENT LOCAL [ { AUTOALLOCATE | UNIFORM [ SIZE size_value ] } ]
 
 # WHERE default_parameters
 [ TABLE { COMPRESS FOR OLTP | COMPRESS FOR QUERY { LOW | HIGH } | COMPRESS FOR ARCHIVE { LOW | HIGH } | NOCOMPRESS } ]
@@ -113,7 +113,7 @@ EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE | UNIFORM [ SIZE size_value ] ]
 [ PCTINCREASE pct_increase ]
 
 # WHERE size_value
-size [ K | M | G | T | P | E ]
+size [ { K | M | G | T | P | E } ]
 
 # WHERE quoted_file_name
 'file_name'

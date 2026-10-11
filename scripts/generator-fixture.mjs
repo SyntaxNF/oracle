@@ -79,7 +79,10 @@ export function fixture(file) {
             case T.VARIABLE: {
                 if (Object.hasOwn(options.values ?? {}, node.content)) {
                     const value = options.values[node.content];
-                    return typeof value === 'function' ? value(context) : String(value);
+                    const input = String(typeof value === 'function' ? value(context) : value);
+                    // Keep opaque user inputs byte-for-byte outside fixture whitespace/comma cleanup.
+                    const index = context.inputs.push(input) - 1;
+                    return `\u0001INPUT_${index}\u0002`;
                 }
                 if (definitions.has(node.content)) return render(choice(definitions.get(node.content)), options, { ...context, depth: depth + 1 });
                 return node.content;
@@ -99,5 +102,9 @@ export function fixture(file) {
             default: return node.children ? children(node.children) : node.content;
         }
     }
-    return { block, loop, definitions, render: (node, options) => normalize(stripTrailingCommas(render(node, options))) };
+    return { block, loop, definitions, render: (node, options) => {
+        const inputs = [];
+        const rendered = normalize(stripTrailingCommas(render(node, options, { inputs })));
+        return rendered.replace(/\u0001INPUT_(\d+)\u0002/g, (_, index) => inputs[Number(index)]);
+    } };
 }

@@ -2,7 +2,7 @@
 
 UPDATE [ hint_clause ] { dml_target | ONLY ( dml_target ) } [ table_alias ]
     SET { column_assignment [, ...] | VALUE ( table_alias ) = value_expression }
-    [ WHERE boolean_expression | WHERE CURRENT OF cursor ]
+    [ { WHERE boolean_expression | WHERE CURRENT OF cursor } ]
     [ returning_clause ]
     [ error_logging_clause ]
 
@@ -11,7 +11,7 @@ colname = { value_expression | DEFAULT | ( query_statement ) }
 ( colname [, ...] ) = ( query_statement )
 
 # PARTOFIS dml_target
-table [ partition_extension_clause | @ database_link ]
+table [ { partition_extension_clause | @ database_link } ]
 
 ( query_statement [ WITH { READ ONLY | CHECK OPTION [ CONSTRAINT constraint ] } ] )
 

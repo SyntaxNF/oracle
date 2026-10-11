@@ -1,0 +1,17 @@
+{
+  "name": "snf-oracle",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Oracle Database 19c SNF definitions",
+  "type": "module",
+  "keywords": [
+    "snf",
+    "oracle"
+  ],
+  "scripts": {
+    "validate": "npm run validate:snf",
+    "validate:snf": "node scripts/check-snf.mjs",
+    "test": "npm run test:regression",
+    "test:regression": "node --test scripts/*.test.mjs tests/grammar-regressions.mjs"
+  }
+}

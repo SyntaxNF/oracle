@@ -4,17 +4,17 @@
 query_block
     set_query_clause [...]
     [ ORDER [ SIBLINGS ] BY order_by_expression [, ...] ]
-    [ row_limiting_clause | for_update_clause ]
+    [ { row_limiting_clause | for_update_clause } ]
 
 # CASE PARENTHESIZED
 ( query_statement )
     set_query_clause [...]
     [ ORDER BY order_by_expression [, ...] ]
-    [ row_limiting_clause | for_update_clause ]
+    [ { row_limiting_clause | for_update_clause } ]
 
 # WHERE query_block
 [ WITH with_query_definition [, ...] ]
-SELECT [ hint_clause ] [ DISTINCT | UNIQUE | ALL ]
+SELECT [ hint_clause ] [ { DISTINCT | UNIQUE | ALL } ]
     { * | select_expression [, ...] }
     FROM from_expression [, ...]
     [ WHERE boolean_expression ]
@@ -45,7 +45,7 @@ with_name ( colname [, ...] ) AS (
 SEARCH { DEPTH | BREADTH } FIRST BY search_column_expression [, ...] SET search_colname
 
 # WHERE search_column_expression
-colname [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
+colname [ { ASC | DESC } ] [ NULLS { FIRST | LAST } ]
 
 # WHERE cycle_clause
 CYCLE colname [, ...] SET cycle_colname TO cycle_value DEFAULT noncycle_value
@@ -55,12 +55,12 @@ LATERAL ( query_statement [ subquery_restriction_clause ] ) [ table_alias ]
 
 table_expression
     [ flashback_query_clause ]
-    [ pivot_clause | unpivot_clause | row_pattern_clause ]
+    [ { pivot_clause | unpivot_clause | row_pattern_clause } ]
     [ table_alias ]
 
 ONLY ( table_expression )
     [ flashback_query_clause ]
-    [ pivot_clause | unpivot_clause | row_pattern_clause ]
+    [ { pivot_clause | unpivot_clause | row_pattern_clause } ]
     [ table_alias ]
 
 CONTAINERS ( table ) [ table_alias ]
@@ -75,14 +75,14 @@ from_expression [ INNER ] JOIN from_expression
 from_expression { LEFT | RIGHT | FULL } [ OUTER ] JOIN from_expression
     { ON boolean_expression | USING ( colname [, ...] ) }
 
-from_expression NATURAL [ INNER | { LEFT | RIGHT | FULL } [ OUTER ] ] JOIN from_expression
+from_expression NATURAL [ { INNER | { LEFT | RIGHT | FULL } [ OUTER ] } ] JOIN from_expression
 
 from_expression CROSS JOIN from_expression
 
 from_expression { CROSS | OUTER } APPLY { ( query_statement ) | TABLE ( collection_expression ) } [ table_alias ]
 
 # PARTOFIS table_expression
-table [ partition_extension_clause | @ database_link ] [ sample_clause ]
+table [ { partition_extension_clause | @ database_link } ] [ sample_clause ]
 
 ( query_statement [ subquery_restriction_clause ] )
 
@@ -183,7 +183,7 @@ MEASURES ( model_column_definition [, ...] )
 
 # WHERE model_rules_clause
 [ RULES
-    [ UPDATE | UPSERT [ ALL ] ]
+    [ { UPDATE | UPSERT [ ALL ] } ]
     model_rule_order_options
 ]
 ( model_rule_definition [, ...] )
@@ -193,7 +193,7 @@ MEASURES ( model_column_definition [, ...] )
 | [ SEQUENTIAL ORDER ] [ ITERATE ( iteration_count ) [ UNTIL ( boolean_expression ) ] ] }
 
 # WHERE model_rule_definition
-[ UPDATE | UPSERT [ ALL ] ]
+[ { UPDATE | UPSERT [ ALL ] } ]
 cell_assignment [ ORDER BY order_by_expression [, ...] ] = value_expression
 
 # WHERE cell_assignment
@@ -219,7 +219,7 @@ MATCH_RECOGNIZE (
     [ PARTITION BY col_expression [, ...] ]
     [ ORDER BY order_by_expression [, ...] ]
     [ MEASURES row_pattern_measure_definition [, ...] ]
-    [ ONE ROW PER MATCH | ALL ROWS PER MATCH ]
+    [ { ONE ROW PER MATCH | ALL ROWS PER MATCH } ]
     [ row_pattern_skip_clause ]
     PATTERN ( row_pattern_expression )
     [ SUBSET row_pattern_subset_definition [, ...] ]
@@ -230,7 +230,7 @@ MATCH_RECOGNIZE (
 pattern_measure_expression AS col_alias
 
 # WHERE row_pattern_skip_clause
-AFTER MATCH SKIP { TO NEXT ROW | PAST LAST ROW | TO [ FIRST | LAST ] pattern_variable }
+AFTER MATCH SKIP { TO NEXT ROW | PAST LAST ROW | TO [ { FIRST | LAST } ] pattern_variable }
 
 # WHERE row_pattern_expression
 row_pattern_term [ \| ... ]
@@ -264,7 +264,7 @@ union_pattern_variable = ( pattern_variable [, ...] )
 pattern_variable AS pattern_boolean_expression
 
 # WHERE order_by_expression
-col_expression [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
+col_expression [ { ASC | DESC } ] [ NULLS { FIRST | LAST } ]
 
 # PARTOFIS row_limiting_clause
 OFFSET offset { ROW | ROWS } [ fetch_clause ]
@@ -272,10 +272,10 @@ OFFSET offset { ROW | ROWS } [ fetch_clause ]
 fetch_clause
 
 # WHERE fetch_clause
-FETCH { FIRST | NEXT } [ row_count | percent PERCENT ] { ROW | ROWS } { ONLY | WITH TIES }
+FETCH { FIRST | NEXT } [ { row_count | percent PERCENT } ] { ROW | ROWS } { ONLY | WITH TIES }
 
 # WHERE for_update_clause
-FOR UPDATE [ OF colname [, ...] ] [ NOWAIT | WAIT seconds | SKIP LOCKED ]
+FOR UPDATE [ OF colname [, ...] ] [ { NOWAIT | WAIT seconds | SKIP LOCKED } ]
 
 # STATEMENT query_statement
 SELECT

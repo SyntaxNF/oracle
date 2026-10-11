@@ -55,7 +55,7 @@ quota_clause [...]
 [ [ HTTP ] DIGEST { ENABLE | DISABLE } ]
 
 # WHERE quota_clause
-QUOTA { size_value [ K | M | G | T | P | E ] | UNLIMITED } ON tablespace
+QUOTA { size_value [ { K | M | G | T | P | E } ] | UNLIMITED } ON tablespace
 
 # WHERE container_data_value
 { ALL | DEFAULT | ( container [, ...] ) }

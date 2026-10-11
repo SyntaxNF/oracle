@@ -1,6 +1,6 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-ATTRIBUTE-DIMENSION.html
 
-CREATE [ OR REPLACE ] [ FORCE | NOFORCE ] ATTRIBUTE DIMENSION name
+CREATE [ OR REPLACE ] [ { FORCE | NOFORCE } ] ATTRIBUTE DIMENSION name
     [ SHARING = { METADATA | NONE } ]
     [ classification_clause ]
     [ DIMENSION TYPE { STANDARD | TIME } ]
@@ -14,7 +14,7 @@ CREATE [ OR REPLACE ] [ FORCE | NOFORCE ] ATTRIBUTE DIMENSION name
     [ classification_clause ]
 
 # WHERE level_definition
-LEVEL level [ NOT NULL | SKIP WHEN NULL ]
+LEVEL level [ { NOT NULL | SKIP WHEN NULL } ]
     [ classification_clause ]
     [ LEVEL TYPE level_type_value ]
     KEY { attribute | ( attribute [, ...] ) }
@@ -38,7 +38,7 @@ MINUTES
 SECONDS
 
 # WHERE attribute_order_expression
-[ MIN | MAX ] attribute [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
+[ { MIN | MAX } ] attribute [ { ASC | DESC } ] [ NULLS { FIRST | LAST } ]
 
 # PARTOFIS all_member_clause
 ALL MEMBER NAME member_name_expression

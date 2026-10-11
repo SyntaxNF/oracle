@@ -2,7 +2,7 @@
 
 CREATE SEQUENCE name [ SHARING = { METADATA | DATA | NONE } ]
     [ START WITH start_value ] [ INCREMENT BY increment_value ]
-    [ MAXVALUE max_value | NOMAXVALUE ] [ MINVALUE min_value | NOMINVALUE ]
-    [ CACHE cache_value | NOCACHE ] [ CYCLE | NOCYCLE ] [ ORDER | NOORDER ]
-    [ KEEP | NOKEEP ] [ SCALE [ EXTEND | NOEXTEND ] | NOSCALE ]
-    [ SHARD [ EXTEND | NOEXTEND ] | NOSHARD ] [ SESSION | GLOBAL ]
+    [ { MAXVALUE max_value | NOMAXVALUE } ] [ { MINVALUE min_value | NOMINVALUE } ]
+    [ { CACHE cache_value | NOCACHE } ] [ { CYCLE | NOCYCLE } ] [ { ORDER | NOORDER } ]
+    [ { KEEP | NOKEEP } ] [ { SCALE [ { EXTEND | NOEXTEND } ] | NOSCALE } ]
+    [ { SHARD [ { EXTEND | NOEXTEND } ] | NOSHARD } ] [ { SESSION | GLOBAL } ]

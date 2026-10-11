@@ -1,6 +1,6 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-HIERARCHY.html
 
-CREATE [ OR REPLACE ] [ FORCE | NOFORCE ] HIERARCHY name
+CREATE [ OR REPLACE ] [ { FORCE | NOFORCE } ] HIERARCHY name
     [ SHARING = { METADATA | NONE } ]
     [ classification_clause ]
     USING attribute_dimension

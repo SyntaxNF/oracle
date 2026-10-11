@@ -15,7 +15,7 @@ CREATE CONTROLFILE [ REUSE ] DATABASE database
     [ CHARACTER SET character_set ]
 
 # WHERE reset_logfile_definition
-[ GROUP group_number ] [ 'file_name' | ( quoted_file_name [, ...] ) ]
+[ GROUP group_number ] [ { 'file_name' | ( quoted_file_name [, ...] ) } ]
     SIZE size_clause [ BLOCKSIZE block_size_value ] [ REUSE ]
 
 # WHERE control_datafile_definition
@@ -34,11 +34,11 @@ CREATE CONTROLFILE [ REUSE ] DATABASE database
 [ GROUP group_number ] redo_file_definition
 
 # WHERE redo_file_definition
-[ 'file_name' | ( quoted_file_name [, ...] ) ]
+[ { 'file_name' | ( quoted_file_name [, ...] ) } ]
     [ SIZE size_clause ] [ BLOCKSIZE block_size_value ] [ REUSE ]
 
 # WHERE size_clause
-size_value [ K | M | G | T | P | E ]
+size_value [ { K | M | G | T | P | E } ]
 
 # WHERE quoted_file_name
 'file_name'

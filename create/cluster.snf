@@ -4,12 +4,12 @@ CREATE CLUSTER name
     ( column_definition [, ...] )
     [ SHARING = { METADATA | NONE } ]
     physical_attributes
-    [ SIZE size_value [ K | M | G | T | P | E ] ]
+    [ SIZE size_value [ { K | M | G | T | P | E } ] ]
     [ TABLESPACE tablespace ]
-    [ INDEX | [ SINGLE TABLE ] HASHKEYS hashkeys [ HASH IS hash_expression ] ]
-    [ NOPARALLEL | PARALLEL [ degree ] ]
-    [ NOROWDEPENDENCIES | ROWDEPENDENCIES ]
-    [ CACHE | NOCACHE ]
+    [ { INDEX | [ SINGLE TABLE ] HASHKEYS hashkeys [ HASH IS hash_expression ] } ]
+    [ { NOPARALLEL | PARALLEL [ degree ] } ]
+    [ { NOROWDEPENDENCIES | ROWDEPENDENCIES } ]
+    [ { CACHE | NOCACHE } ]
     [ PARTITION BY RANGE ( colname [, ...] ) ( partition_definition [, ...] ) ]
 
 # WHERE column_definition
@@ -22,8 +22,8 @@ colname data_type [ COLLATE collation ] [ SORT ]
 [ STORAGE ( storage_options ) ]
 
 # WHERE storage_options
-[ INITIAL size_value [ K | M | G | T | P | E ] ]
-[ NEXT size_value [ K | M | G | T | P | E ] ]
+[ INITIAL size_value [ { K | M | G | T | P | E } ] ]
+[ NEXT size_value [ { K | M | G | T | P | E } ] ]
 [ MINEXTENTS min_extents ]
 [ MAXEXTENTS { max_extents | UNLIMITED } ]
 [ PCTINCREASE pctincrease ]

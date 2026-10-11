@@ -35,25 +35,25 @@ ALTER DATABASE [ name ] PREPARE MIRROR COPY mirror_copy
 ALTER DATABASE [ name ] DROP MIRROR COPY mirror_copy
 
 # CASE LOST_WRITE_PROTECTION
-ALTER DATABASE [ name ] [ ENABLE | REMOVE | SUSPEND ] LOST WRITE PROTECTION
+ALTER DATABASE [ name ] [ { ENABLE | REMOVE | SUSPEND } ] LOST WRITE PROTECTION
 
 # PARTOFIS startup_clause
 MOUNT [ { STANDBY | CLONE } DATABASE ]
 
-OPEN [ READ WRITE ] [ RESETLOGS | NORESETLOGS ] [ UPGRADE | DOWNGRADE ]
+OPEN [ READ WRITE ] [ { RESETLOGS | NORESETLOGS } ] [ { UPGRADE | DOWNGRADE } ]
 
 OPEN READ ONLY
 
 # PARTOFIS recovery_clause
 RECOVER [ AUTOMATIC ] [ FROM 'location' ] recovery_target
-    [ TEST ] [ ALLOW corruption_count CORRUPTION ] [ NOPARALLEL | PARALLEL [ degree ] ]
+    [ TEST ] [ ALLOW corruption_count CORRUPTION ] [ { NOPARALLEL | PARALLEL [ degree ] } ]
 
 RECOVER [ AUTOMATIC ] [ FROM 'location' ] CONTINUE [ DEFAULT ]
 
 RECOVER [ AUTOMATIC ] [ FROM 'location' ] CANCEL
 
 RECOVER MANAGED STANDBY DATABASE
-    [ managed_recovery_options | FINISH | CANCEL ]
+    [ { managed_recovery_options | FINISH | CANCEL } ]
 
 RECOVER TO LOGICAL STANDBY { database | KEEP IDENTITY }
 
@@ -76,7 +76,7 @@ LOGFILE 'file_name'
 [ NODELAY ]
 [ UNTIL { CHANGE scn_value | CONSISTENT } ]
 [ USING INSTANCES { ALL | instance_count } ]
-[ NOPARALLEL | PARALLEL [ degree ] ]
+[ { NOPARALLEL | PARALLEL [ degree ] } ]
 
 # PARTOFIS logfile_action
 ARCHIVELOG [ MANUAL ]
@@ -89,7 +89,7 @@ SET STANDBY NOLOGGING FOR { DATA AVAILABILITY | LOAD PERFORMANCE }
 
 CLEAR [ UNARCHIVED ] LOGFILE logfile_reference [, ...] [ UNRECOVERABLE DATAFILE ]
 
-ADD [ STANDBY ] LOGFILE [ INSTANCE 'instance_name' | THREAD thread_number ]
+ADD [ STANDBY ] LOGFILE [ { INSTANCE 'instance_name' | THREAD thread_number } ]
     logfile_definition [, ...]
 
 ADD [ STANDBY ] LOGFILE MEMBER logfile_member_definition [, ...] TO logfile_reference [, ...]
@@ -105,7 +105,7 @@ supplemental_logging_clause
 
 # WHERE logfile_definition
 [ GROUP group_number ]
-    [ 'file_name' | ( quoted_file_name [, ...] ) ]
+    [ { 'file_name' | ( quoted_file_name [, ...] ) } ]
     [ SIZE size_clause ] [ BLOCKSIZE block_size_value ] [ REUSE ]
 
 # ONEOFIS logfile_reference
@@ -114,28 +114,28 @@ GROUP group_number
 'file_name'
 
 # PARTOFIS controlfile_action
-CREATE { [ LOGICAL | PHYSICAL ] STANDBY | FAR SYNC INSTANCE }
+CREATE { [ { LOGICAL | PHYSICAL } ] STANDBY | FAR SYNC INSTANCE }
     CONTROLFILE AS 'file_name' [ REUSE ]
 
 BACKUP CONTROLFILE TO 'file_name' [ REUSE ]
 
-BACKUP CONTROLFILE TO TRACE [ AS 'file_name' [ REUSE ] ] [ RESETLOGS | NORESETLOGS ]
+BACKUP CONTROLFILE TO TRACE [ AS 'file_name' [ REUSE ] ] [ { RESETLOGS | NORESETLOGS } ]
 
 # PARTOFIS standby_action
-ACTIVATE [ PHYSICAL | LOGICAL ] STANDBY DATABASE [ FINISH APPLY ] [ NOPARALLEL | PARALLEL [ degree ] ]
+ACTIVATE [ { PHYSICAL | LOGICAL } ] STANDBY DATABASE [ FINISH APPLY ] [ { NOPARALLEL | PARALLEL [ degree ] } ]
 
 SET STANDBY DATABASE TO MAXIMIZE { PROTECTION | AVAILABILITY | PERFORMANCE }
-    [ NOPARALLEL | PARALLEL [ degree ] ]
+    [ { NOPARALLEL | PARALLEL [ degree ] } ]
 
-CONVERT TO { PHYSICAL | SNAPSHOT } STANDBY [ NOPARALLEL | PARALLEL [ degree ] ]
+CONVERT TO { PHYSICAL | SNAPSHOT } STANDBY [ { NOPARALLEL | PARALLEL [ degree ] } ]
 
-SWITCHOVER TO target_database [ VERIFY | FORCE ]
+SWITCHOVER TO target_database [ { VERIFY | FORCE } ]
 
 START LOGICAL STANDBY APPLY [ IMMEDIATE ] [ NODELAY ]
-    [ NEW PRIMARY database_link | INITIAL [ scn_value ] | SKIP FAILED TRANSACTION | FINISH ]
-    [ NOPARALLEL | PARALLEL [ degree ] ]
+    [ { NEW PRIMARY database_link | INITIAL [ scn_value ] | SKIP FAILED TRANSACTION | FINISH } ]
+    [ { NOPARALLEL | PARALLEL [ degree ] } ]
 
-{ STOP | ABORT } LOGICAL STANDBY APPLY [ NOPARALLEL | PARALLEL [ degree ] ]
+{ STOP | ABORT } LOGICAL STANDBY APPLY [ { NOPARALLEL | PARALLEL [ degree ] } ]
 
 # ONEOFIS default_setting_action
 DEFAULT EDITION = edition
@@ -185,14 +185,14 @@ OFFLINE
 [ 'file_name' ] [ SIZE size_clause ] [ REUSE ] [ autoextend_clause ]
 
 # WHERE size_clause
-size_value [ K | M | G | T | P | E ]
+size_value [ { K | M | G | T | P | E } ]
 
 # WHERE autoextend_clause
 AUTOEXTEND { OFF | ON [ NEXT size_clause ] [ MAXSIZE { UNLIMITED | size_clause } ] }
 
 # WHERE supplemental_logging_clause
 { ADD | DROP } SUPPLEMENTAL LOG DATA
-    [ ( supplemental_key_value [, ...] ) COLUMNS | FOR PROCEDURAL REPLICATION | SUBSET DATABASE REPLICATION ]
+    [ { ( supplemental_key_value [, ...] ) COLUMNS | FOR PROCEDURAL REPLICATION | SUBSET DATABASE REPLICATION } ]
 
 # ONEOFIS supplemental_key_value
 ALL

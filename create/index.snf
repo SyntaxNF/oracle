@@ -1,17 +1,17 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-INDEX.html
 
 # CASE TABLE
-CREATE [ UNIQUE | BITMAP ] INDEX name
+CREATE [ { UNIQUE | BITMAP } ] INDEX name
     ON table [ table_alias ] ( index_column_expression [, ...] )
     [ index_partition_clause ]
     index_attributes
-    [ USABLE | UNUSABLE ]
+    [ { USABLE | UNUSABLE } ]
     [ { DEFERRED | IMMEDIATE } INVALIDATION ]
 
 # CASE CLUSTER
 CREATE INDEX name ON CLUSTER cluster
     index_attributes
-    [ USABLE | UNUSABLE ]
+    [ { USABLE | UNUSABLE } ]
     [ { DEFERRED | IMMEDIATE } INVALIDATION ]
 
 # CASE BITMAP_JOIN
@@ -21,7 +21,7 @@ CREATE BITMAP INDEX name
     WHERE boolean_expression
     [ local_index_clause ]
     index_attributes
-    [ USABLE | UNUSABLE ]
+    [ { USABLE | UNUSABLE } ]
     [ { DEFERRED | IMMEDIATE } INVALIDATION ]
 
 # CASE DOMAIN
@@ -31,14 +31,14 @@ CREATE INDEX name
     [ LOCAL [ ( domain_index_partition [, ...] ) ] ]
     [ parallel_clause ]
     [ PARAMETERS ( 'odci_parameters' ) ]
-    [ USABLE | UNUSABLE ]
+    [ { USABLE | UNUSABLE } ]
     [ { DEFERRED | IMMEDIATE } INVALIDATION ]
 
 # WHERE index_column_expression
-index_expression [ ASC | DESC ]
+index_expression [ { ASC | DESC } ]
 
 # WHERE join_index_column
-[ table . | table_alias . ] colname [ ASC | DESC ]
+[ { table . | table_alias . } ] colname [ { ASC | DESC } ]
 
 # WHERE join_table
 table [ table_alias ]
@@ -65,17 +65,17 @@ LOCAL STORE IN ( tablespace [, ...] )
 PARTITION [ partition ]
     segment_attributes
     [ index_compression ]
-    [ USABLE | UNUSABLE ]
-    [ STORE IN ( tablespace [, ...] )
-    | ( local_index_subpartition [, ...] ) ]
+    [ { USABLE | UNUSABLE } ]
+    [ { STORE IN ( tablespace [, ...] )
+    | ( local_index_subpartition [, ...] ) } ]
 
 # WHERE hash_local_index_partition
 PARTITION [ partition ] [ TABLESPACE tablespace ]
-    [ index_compression ] [ USABLE | UNUSABLE ]
+    [ index_compression ] [ { USABLE | UNUSABLE } ]
 
 # WHERE local_index_subpartition
 SUBPARTITION [ subpartition ] [ TABLESPACE tablespace ]
-    [ index_compression ] [ USABLE | UNUSABLE ]
+    [ index_compression ] [ { USABLE | UNUSABLE } ]
 
 # WHERE domain_index_partition
 PARTITION partition [ PARAMETERS ( 'odci_parameters' ) ]
@@ -83,17 +83,17 @@ PARTITION partition [ PARAMETERS ( 'odci_parameters' ) ]
 # WHERE index_attributes
 physical_attributes
 [ TABLESPACE { tablespace | DEFAULT } ]
-[ LOGGING | NOLOGGING ]
+[ { LOGGING | NOLOGGING } ]
 [ ONLINE ]
 [ index_compression ]
-[ SORT | NOSORT ]
+[ { SORT | NOSORT } ]
 [ REVERSE ]
-[ VISIBLE | INVISIBLE ]
+[ { VISIBLE | INVISIBLE } ]
 [ INDEXING { FULL | PARTIAL } ]
 [ parallel_clause ]
 
 # WHERE index_compression
-{ COMPRESS [ prefix_length ] | COMPRESS ADVANCED [ LOW | HIGH ] | NOCOMPRESS }
+{ COMPRESS [ prefix_length ] | COMPRESS ADVANCED [ { LOW | HIGH } ] | NOCOMPRESS }
 
 # WHERE parallel_clause
 { NOPARALLEL | PARALLEL [ degree ] }
@@ -106,7 +106,7 @@ physical_attributes
 # WHERE segment_attributes
 physical_attributes
 [ TABLESPACE { tablespace | DEFAULT } ]
-[ LOGGING | NOLOGGING ]
+[ { LOGGING | NOLOGGING } ]
 
 # WHERE storage_clause
 STORAGE ( storage_options )
@@ -125,7 +125,7 @@ STORAGE ( storage_options )
 [ CELL_FLASH_CACHE { KEEP | NONE | DEFAULT } ]
 
 # WHERE size_value
-size [ K | M | G | T | P | E ]
+size [ { K | M | G | T | P | E } ]
 
 # PARTOFIS index_partition_clause
 local_index_clause

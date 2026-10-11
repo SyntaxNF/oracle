@@ -2,7 +2,7 @@
 
 CREATE USER name
     { IDENTIFIED { BY password | EXTERNALLY [ AS 'external_name' ] | GLOBALLY [ AS 'directory_name' ] } |
-      NO AUTHENTICATION }
+        NO AUTHENTICATION }
     [ DEFAULT COLLATION collate ]
     [ DEFAULT TABLESPACE tablespace ]
     [ TEMPORARY TABLESPACE temporary_tablespace ]

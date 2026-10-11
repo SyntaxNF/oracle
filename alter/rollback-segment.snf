@@ -4,13 +4,13 @@
 ALTER ROLLBACK SEGMENT name { ONLINE | OFFLINE }
 
 # CASE SHRINK
-ALTER ROLLBACK SEGMENT name SHRINK [ TO size_value [ K | M | G | T | P | E ] ]
+ALTER ROLLBACK SEGMENT name SHRINK [ TO size_value [ { K | M | G | T | P | E } ] ]
 
 # CASE STORAGE
 ALTER ROLLBACK SEGMENT name STORAGE ( storage_options )
 
 # WHERE storage_options
-[ NEXT size_value [ K | M | G | T | P | E ] ]
+[ NEXT size_value [ { K | M | G | T | P | E } ] ]
 [ MINEXTENTS min_extents ]
 [ MAXEXTENTS { max_extents | UNLIMITED } ]
-[ OPTIMAL { size_value [ K | M | G | T | P | E ] | NULL } ]
+[ OPTIMAL { size_value [ { K | M | G | T | P | E } ] | NULL } ]

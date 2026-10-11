@@ -5,7 +5,7 @@
 # CASE UNIFIED_POLICY
 AUDIT POLICY name
     [ { BY user [, ...] | EXCEPT user [, ...]
-      | BY USERS WITH GRANTED ROLES role [, ...] } ]
+        | BY USERS WITH GRANTED ROLES role [, ...] } ]
     [ WHENEVER [ NOT ] SUCCESSFUL ]
 
 # CASE UNIFIED_CONTEXT
@@ -17,7 +17,7 @@ CONTEXT NAMESPACE namespace ATTRIBUTES attribute [, ...]
 # CASE TRADITIONAL_STATEMENT
 AUDIT { sql_statement_shortcut [, ...] | ALL | ALL STATEMENTS
     | system_privilege [, ...] | ALL PRIVILEGES }
-    [ BY user [, ...] | IN SESSION CURRENT ]
+    [ { BY user [, ...] | IN SESSION CURRENT } ]
     [ BY { SESSION | ACCESS } ]
     [ WHENEVER [ NOT ] SUCCESSFUL ]
     [ CONTAINER = { CURRENT | ALL } ]

@@ -1,7 +1,7 @@
 # https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/ALTER-INDEX.html
 
 # CASE REBUILD
-ALTER INDEX name REBUILD [ REVERSE | NOREVERSE ]
+ALTER INDEX name REBUILD [ { REVERSE | NOREVERSE } ]
     rebuild_options
 
 # CASE REBUILD_PARTITION
@@ -102,7 +102,7 @@ ALTER INDEX name MODIFY SUBPARTITION subpartition
 # WHERE rebuild_options
 [ TABLESPACE tablespace ]
 physical_attributes
-[ LOGGING | NOLOGGING ]
+[ { LOGGING | NOLOGGING } ]
 [ index_compression ]
 [ ONLINE ]
 [ INDEXING { FULL | PARTIAL } ]
@@ -148,7 +148,7 @@ ALLOCATE EXTENT [ (
 DEALLOCATE UNUSED [ KEEP size_value ]
 
 # WHERE index_compression
-{ COMPRESS [ prefix_length ] | COMPRESS ADVANCED [ LOW | HIGH ] | NOCOMPRESS }
+{ COMPRESS [ prefix_length ] | COMPRESS ADVANCED [ { LOW | HIGH } ] | NOCOMPRESS }
 
 # WHERE parallel_clause
 { NOPARALLEL | PARALLEL [ degree ] }
@@ -161,7 +161,7 @@ DEALLOCATE UNUSED [ KEEP size_value ]
 # WHERE segment_attributes
 physical_attributes
 [ TABLESPACE { tablespace | DEFAULT } ]
-[ LOGGING | NOLOGGING ]
+[ { LOGGING | NOLOGGING } ]
 
 # WHERE storage_clause
 STORAGE ( storage_options )
@@ -178,7 +178,7 @@ STORAGE ( storage_options )
 [ CELL_FLASH_CACHE { KEEP | NONE | DEFAULT } ]
 
 # WHERE size_value
-size [ K | M | G | T | P | E ]
+size [ { K | M | G | T | P | E } ]
 
 # WHERE alter_physical_attributes
 [ INITRANS initrans ]

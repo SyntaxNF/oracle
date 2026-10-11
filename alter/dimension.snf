@@ -13,7 +13,7 @@ ALTER DIMENSION name COMPILE
 ADD { level_definition | hierarchy_definition | attribute_definition | extended_attribute_definition }
 
 # PARTOFIS drop_dimension_clause
-DROP LEVEL level [ RESTRICT | CASCADE ]
+DROP LEVEL level [ { RESTRICT | CASCADE } ]
 
 DROP HIERARCHY hierarchy
 

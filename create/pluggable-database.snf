@@ -8,7 +8,7 @@ CREATE PLUGGABLE DATABASE { name [ AS APPLICATION CONTAINER ] | AS SEED }
     [ file_name_convert_clause ] [ service_name_convert_clause ]
     [ path_prefix_clause ] [ TEMPFILE REUSE ]
     [ user_tablespaces_clause ] [ standbys_clause ]
-    [ LOGGING | NOLOGGING ] [ create_file_dest_clause ]
+    [ { LOGGING | NOLOGGING } ] [ create_file_dest_clause ]
     [ HOST = 'hostname' ] [ PORT = port_number ]
     [ snapshot_mode_clause ]
 
@@ -20,7 +20,7 @@ CREATE PLUGGABLE DATABASE { name [ AS APPLICATION CONTAINER ] | AS SEED }
     [ file_name_convert_clause ] [ service_name_convert_clause ]
     [ path_prefix_clause ] [ TEMPFILE REUSE ] [ SNAPSHOT COPY ]
     [ user_tablespaces_clause ] [ standbys_clause ]
-    [ LOGGING | NOLOGGING ] [ create_file_dest_clause ]
+    [ { LOGGING | NOLOGGING } ] [ create_file_dest_clause ]
     [ KEYSTORE IDENTIFIED BY { EXTERNAL STORE | keystore_password } ]
     [ refresh_mode_clause ] [ RELOCATE [ AVAILABILITY { MAX | NORMAL } ] ] [ NO DATA ]
     [ HOST = 'hostname' ] [ PORT = port_number ]
@@ -37,11 +37,11 @@ CREATE PLUGGABLE DATABASE name FROM source_pdb USING MIRROR COPY mirror_copy
 CREATE PLUGGABLE DATABASE { name [ AS APPLICATION CONTAINER ] | AS SEED }
     [ AS CLONE ] USING 'file_name'
     [ source_file_clause ]
-    [ [ COPY | MOVE ] file_name_convert_clause | NOCOPY ]
+    [ { [ { COPY | MOVE } ] file_name_convert_clause | NOCOPY } ]
     [ service_name_convert_clause ] [ default_tablespace_clause ]
     [ pdb_storage_clause ] [ path_prefix_clause ] [ TEMPFILE REUSE ]
     [ user_tablespaces_clause ] [ standbys_clause ]
-    [ LOGGING | NOLOGGING ] [ create_file_dest_clause ]
+    [ { LOGGING | NOLOGGING } ] [ create_file_dest_clause ]
     [ HOST = 'hostname' ] [ PORT = port_number ]
     [ snapshot_mode_clause ]
 
@@ -64,7 +64,7 @@ PATH_PREFIX = { 'directory_path' | directory | NONE }
 
 # WHERE user_tablespaces_clause
 USER_TABLESPACES = { ( quoted_tablespace [, ...] ) | ALL [ EXCEPT ( quoted_tablespace [, ...] ) ] | NONE }
-    [ SNAPSHOT COPY | NO DATA | COPY | MOVE | NOCOPY ]
+    [ { SNAPSHOT COPY | NO DATA | COPY | MOVE | NOCOPY } ]
 
 # WHERE standbys_clause
 STANDBYS = { ( quoted_container_database [, ...] ) | ALL [ EXCEPT ( quoted_container_database [, ...] ) ] | NONE }
@@ -93,10 +93,10 @@ FILE_NAME_CONVERT = { ( file_name_pair [, ...] ) | NONE }
 'filename_pattern', 'replacement_filename_pattern'
 
 # WHERE extent_management_clause
-EXTENT MANAGEMENT LOCAL [ AUTOALLOCATE | UNIFORM [ SIZE size_clause ] ]
+EXTENT MANAGEMENT LOCAL [ { AUTOALLOCATE | UNIFORM [ SIZE size_clause ] } ]
 
 # WHERE size_clause
-size_value [ K | M | G | T | P | E ]
+size_value [ { K | M | G | T | P | E } ]
 
 # WHERE autoextend_clause
 AUTOEXTEND { OFF | ON [ NEXT size_clause ] [ MAXSIZE { UNLIMITED | size_clause } ] }

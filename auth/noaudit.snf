@@ -5,7 +5,7 @@
 # CASE UNIFIED_POLICY
 NOAUDIT POLICY name
     [ { BY user [, ...]
-      | BY USERS WITH GRANTED ROLES role [, ...] } ]
+        | BY USERS WITH GRANTED ROLES role [, ...] } ]
     [ WHENEVER [ NOT ] SUCCESSFUL ]
 
 # CASE UNIFIED_CONTEXT

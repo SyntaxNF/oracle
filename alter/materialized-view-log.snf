@@ -37,7 +37,7 @@ ALTER MATERIALIZED VIEW LOG [ FORCE ] ON name SHRINK SPACE [ COMPACT ] [ CASCADE
 
 # CASE MOVE
 ALTER MATERIALIZED VIEW LOG [ FORCE ] ON name MOVE
-    [ physical_attributes ] [ TABLESPACE tablespace ] [ LOGGING | NOLOGGING ]
+    [ physical_attributes ] [ TABLESPACE tablespace ] [ { LOGGING | NOLOGGING } ]
     [ parallel_clause ]
 
 # PARTOFIS log_augmentation_item
@@ -46,10 +46,10 @@ ALTER MATERIALIZED VIEW LOG [ FORCE ] ON name MOVE
 ( colname [, ...] )
 
 # PARTOFIS purge_clause
-PURGE IMMEDIATE [ SYNCHRONOUS | ASYNCHRONOUS ]
+PURGE IMMEDIATE [ { SYNCHRONOUS | ASYNCHRONOUS } ]
 
 PURGE START WITH datetime_expression
-    [ NEXT next_datetime_expression | REPEAT INTERVAL interval_expression ]
+    [ { NEXT next_datetime_expression | REPEAT INTERVAL interval_expression } ]
 
 PURGE { NEXT next_datetime_expression | REPEAT INTERVAL interval_expression }
 
@@ -74,7 +74,7 @@ PURGE { NEXT next_datetime_expression | REPEAT INTERVAL interval_expression }
 [ CELL_FLASH_CACHE { KEEP | NONE | DEFAULT } ]
 
 # WHERE size_value
-size [ K | M | G | T | P | E ]
+size [ { K | M | G | T | P | E } ]
 
 # WHERE parallel_clause
 { NOPARALLEL | PARALLEL [ degree ] }

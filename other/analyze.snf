@@ -9,15 +9,15 @@ ANALYZE INDEX name [ partition_extension_clause ]
 
 # CASE CLUSTER
 ANALYZE CLUSTER name
-    { VALIDATE STRUCTURE [ CASCADE [ FAST | COMPLETE ] ]
+    { VALIDATE STRUCTURE [ CASCADE [ { FAST | COMPLETE } ] ]
     | LIST CHAINED ROWS [ INTO chained_rows_table ]
     | DELETE [ SYSTEM ] STATISTICS }
 
 # PARTOFIS table_action
 VALIDATE REF UPDATE [ SET DANGLING TO NULL ]
 
-VALIDATE STRUCTURE [ CASCADE [ FAST | COMPLETE ] ]
-    [ ONLINE | OFFLINE ] [ INTO invalid_rows_table ]
+VALIDATE STRUCTURE [ CASCADE [ { FAST | COMPLETE } ] ]
+    [ { ONLINE | OFFLINE } ] [ INTO invalid_rows_table ]
 
 LIST CHAINED ROWS [ INTO chained_rows_table ]
 

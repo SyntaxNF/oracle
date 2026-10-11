@@ -21,7 +21,7 @@ NOLOGGING
 
 ONLINE
 
-OFFLINE [ NORMAL | TEMPORARY | IMMEDIATE ]
+OFFLINE [ { NORMAL | TEMPORARY | IMMEDIATE } ]
 
 READ { ONLY | WRITE }
 
@@ -43,7 +43,7 @@ ENCRYPTION FINISH { ENCRYPT | REKEY | DECRYPT }
 'filename_pattern', 'replacement_filename_pattern'
 
 # WHERE size_clause
-size_value [ K | M | G | T | P | E ]
+size_value [ { K | M | G | T | P | E } ]
 
 # WHERE autoextend_clause
 AUTOEXTEND { OFF | ON [ NEXT size_clause ] [ MAXSIZE { UNLIMITED | size_clause } ] }

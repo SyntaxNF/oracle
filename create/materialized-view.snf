@@ -6,9 +6,9 @@ CREATE MATERIALIZED VIEW name
     [ DEFAULT COLLATION collate ]
     [ SEGMENT CREATION { IMMEDIATE | DEFERRED } ]
     [ ORGANIZATION HEAP ]
-    [ physical_attributes ] [ TABLESPACE tablespace ] [ LOGGING | NOLOGGING ]
+    [ physical_attributes ] [ TABLESPACE tablespace ] [ { LOGGING | NOLOGGING } ]
     [ table_compression ]
-    [ CACHE | NOCACHE ] [ parallel_clause ]
+    [ { CACHE | NOCACHE } ] [ parallel_clause ]
     [ BUILD { IMMEDIATE | DEFERRED } ]
     [ using_index_clause ] [ refresh_clause ]
     [ evaluation_edition_clause ]
@@ -32,10 +32,10 @@ CREATE MATERIALIZED VIEW name
     [ ( col_alias [, ...] ) ]
     [ DEFAULT COLLATION collate ]
     ORGANIZATION INDEX
-    [ physical_attributes ] [ TABLESPACE tablespace ] [ LOGGING | NOLOGGING ]
-    [ PCTTHRESHOLD threshold ] [ COMPRESS [ prefix_length ] | NOCOMPRESS ]
+    [ physical_attributes ] [ TABLESPACE tablespace ] [ { LOGGING | NOLOGGING } ]
+    [ PCTTHRESHOLD threshold ] [ { COMPRESS [ prefix_length ] | NOCOMPRESS } ]
     [ [ INCLUDING colname ] OVERFLOW
-        [ physical_attributes ] [ TABLESPACE overflow_tablespace ] [ LOGGING | NOLOGGING ] ]
+        [ physical_attributes ] [ TABLESPACE overflow_tablespace ] [ { LOGGING | NOLOGGING } ] ]
     [ parallel_clause ] [ BUILD { IMMEDIATE | DEFERRED } ]
     [ using_index_clause ] [ refresh_clause ]
     [ evaluation_edition_clause ]
@@ -64,7 +64,7 @@ REFRESH FAST ON STATEMENT [ USING { ENFORCED | TRUSTED } CONSTRAINTS ]
 NEVER REFRESH
 
 # WHERE refresh_specification
-[ FAST | COMPLETE | FORCE ]
+[ { FAST | COMPLETE | FORCE } ]
 refresh_timing
 [ WITH { PRIMARY KEY | ROWID } ]
 [ rollback_segment_clause ]
@@ -76,7 +76,7 @@ refresh_timing
 [ NEXT next_datetime_expression ]
 
 # WHERE rollback_segment_clause
-USING { DEFAULT [ MASTER | LOCAL ] ROLLBACK SEGMENT | [ MASTER | LOCAL ] ROLLBACK SEGMENT rollback_segment }
+USING { DEFAULT [ { MASTER | LOCAL } ] ROLLBACK SEGMENT | [ { MASTER | LOCAL } ] ROLLBACK SEGMENT rollback_segment }
 
 # WHERE evaluation_edition_clause
 EVALUATE USING { CURRENT EDITION | EDITION edition | NULL EDITION }
@@ -91,9 +91,9 @@ NOCOMPRESS
 
 COMPRESS
 
-ROW STORE COMPRESS [ BASIC | ADVANCED ]
+ROW STORE COMPRESS [ { BASIC | ADVANCED } ]
 
-COLUMN STORE COMPRESS [ FOR { QUERY | ARCHIVE } [ LOW | HIGH ] ]
+COLUMN STORE COMPRESS [ FOR { QUERY | ARCHIVE } [ { LOW | HIGH } ] ]
     [ [ NO ] ROW LEVEL LOCKING ]
 
 # WHERE physical_attributes
@@ -116,7 +116,7 @@ COLUMN STORE COMPRESS [ FOR { QUERY | ARCHIVE } [ LOW | HIGH ] ]
 [ CELL_FLASH_CACHE { KEEP | NONE | DEFAULT } ]
 
 # WHERE size_value
-size [ K | M | G | T | P | E ]
+size [ { K | M | G | T | P | E } ]
 
 # WHERE parallel_clause
 { NOPARALLEL | PARALLEL [ degree ] }
