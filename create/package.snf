@@ -46,10 +46,10 @@ ACCESSIBLE BY ( accessor_definition [, ...] )
 [ { FUNCTION | PROCEDURE | PACKAGE | TRIGGER | TYPE } ] accessor
 
 # WHERE parallel_enable_clause
-PARALLEL_ENABLE
-    [ ( PARTITION parameter BY
+PARALLEL_ENABLE [ (
+    PARTITION parameter BY
         { ANY | { HASH | RANGE } ( colname [, ...] ) [ streaming_clause ] | VALUE ( colname ) }
-    ) ]
+) ]
 
 # WHERE streaming_clause
 { ORDER | CLUSTER } value_expression BY ( colname [, ...] )

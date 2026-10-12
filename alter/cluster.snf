@@ -23,9 +23,10 @@ ALTER CLUSTER name DEALLOCATE UNUSED
 [ { CACHE | NOCACHE } ]
 
 # WHERE allocate_extent_clause
-ALLOCATE EXTENT
-    [ ( [ SIZE size_value [ { K | M | G | T | P | E } ] ]
-        [ DATAFILE 'file_name' ] [ INSTANCE instance_number ] ) ]
+ALLOCATE EXTENT [ (
+    [ SIZE size_value [ { K | M | G | T | P | E } ] ]
+    [ DATAFILE 'file_name' ] [ INSTANCE instance_number ]
+) ]
 
 # WHERE storage_options
 [ NEXT size_value [ { K | M | G | T | P | E } ] ]
