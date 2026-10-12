@@ -13,5 +13,6 @@
     "validate:snf": "node scripts/check-snf.mjs",
     "test": "npm run test:regression",
     "test:regression": "node --test scripts/*.test.mjs tests/grammar-regressions.mjs"
-  }
+  },
+  "license": "MIT"
 }
